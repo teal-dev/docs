@@ -1,15 +1,17 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Teal",
   "logo": {
     "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "light": "/logo/light.svg",
+    "href": "https://teal.dev"
   },
   "favicon": "/favicon.png",
   "colors": {
-    "primary": "#12A7D3",
-    "light": "#81D7F7",
-    "dark": "#004E7A"
+    "primary": "#5EEAD4",
+    "light": "#5EEAD4",
+    "dark": "#18181B",
+    "background": { "light": "#FFFFFF", "dark": "#18181B" }
   },
   "topbarLinks": [
     {
@@ -34,7 +36,13 @@
     },
     {
       "group": "Essentials",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
+      "pages": [
+        "essentials/markdown",
+        "essentials/code",
+        "essentials/images",
+        "essentials/settings",
+        "essentials/navigation"
+      ]
     },
     {
       "group": "API Documentation",
@@ -55,5 +63,9 @@
     "github": "https://github.com/mintlify",
     "linkedin": "https://www.linkedin.com/company/mintsearch"
   },
-  "backgroundImage": "/background.png"
+  "backgroundImage": "/background.png",
+  "modeToggle": {
+    "default": "dark",
+    "isHidden": true
+  }
 }

@@ -1,87 +1,95 @@
 ---
 title: "Quickstart"
-description: "Start building awesome documentation in under 5 minutes"
+description: "See Teal in action by building a real cashflow report for one of your users."
 icon: "bolt"
 ---
 
-## Setup your development
+This guide will walk you through the steps to build a cashflow report, all while helping you familiarize yourself with the Teal API and configuring your platform along the way.
 
-Learn how to update your docs locally and and deploy them to the public.
+## By the end of this guide you will have:
 
-### Edit and preview
+- **Set up your Platform with a default configuration (which you can modify later)**
+- **Created a User and selected a chart of accounts template**
+- **Linked the User to an external data source**
+- **Generated a cashflow report from the User's transactions**
+
+Sounds good? Let's get started.
+
+## 1. Set up your platform
+
+**Objective: set up your Platform with a default configuration (which you can modify later)**
+
+Teal APIs are accessible using REST and can be reached via our Sandbox or Production endpoints. For this exercise, you'll be using the Sandbox endpoints:`https://api.sandbox.teal.dev`. See [Overview](overview) for more info.
 
 <AccordionGroup>
-  <Accordion icon="github" title="Clone your docs locally">
-    During the onboarding process, we created a repository on your Github with
-    your docs content. You can find this repository on our
-    [dashboard](https://dashboard.mintlify.com). To clone the repository
-    locally, follow these
-    [instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-    in your terminal.
+  <Accordion
+    icon="circle-1"
+    title="Generate a Sandbox Teal API token"
+  >
+  First up, you will want to log into your [Developer Portal](https://developer.teal.dev). Next, you will want to create a Sandbox API token. Make sure you are viewing the Sandbox (top right of the page). Enter the name of your token (e.g. Quickstart Cashflow) and click Generate Token. You should then see your token credential. Copy and save this token somewhere safe as you will need it to use the Teal API going forward.
+
   </Accordion>
-  <Accordion icon="rectangle-terminal" title="Preview changes">
-    Previewing helps you make sure your changes look as intended. We built a
-    command line interface to render these changes locally. 1. Install the
-    [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the
-    documentation changes locally with this command: ``` npm i -g mintlify ```
-    2. Run the following command at the root of your documentation (where
-    `mint.json` is): ``` mintlify dev ```
+  <Accordion icon="circle-2" title="Obtain default Chart of Accounts template_id">
+
+Now that you have a token, visit the [Chart of Accounts](https://developer.teal.dev/chart_of_accounts) page. You should see your default chart of accounts templates already loaded. For the purposes of this Quickstart we will use an existing default. Copy and save the `template_id` of an existing default, you will need it to create a **User** and generate your cashflow report.
+
+<Tip>
+  You can view and edit these templates through the Developer Portal or via the
+  API. You'll likely want to do this later when you get to tailoring your chart
+  of accounts based on your unique user's needs.
+</Tip>
+
   </Accordion>
 </AccordionGroup>
 
-### Deploy your changes
+## 2. Build your first report
+
+**Objective: generate a cashflow statement to see the results of the Teal API in action**
 
 <AccordionGroup>
+  <Accordion
+    icon="circle-1"
+    title="Create a User and assign them to a Chart of Accounts"
+  >
+    Create a new user by calling the [Create User endpoint](/api-reference/users/create_user). Replace the query
+    parameters with your desired user name, the `coa_template_id` that you
+    copied from the [Developer Portal](https://developer.teal.dev), and the relevant start date for your
+    new user.
 
-<Accordion icon="message-bot" title="Install our Github app">
-  Our Github app automatically deploys your changes to your docs site, so you
-  don't need to manage deployments yourself. You can find the link to install on
-  your [dashboard](https://dashboard.mintlify.com). Once the bot has been
-  successfully installed, there should be a check mark next to the commit hash
-  of the repo.
-</Accordion>
-<Accordion icon="rocket" title="Push your changes">
-  [Commit and push your changes to
-  Git](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository#about-git-push)
-  for your changes to update in your docs site. If you push and don't see that
-  the Github app successfully deployed your changes, you can also manually
-  update your docs through our [dashboard](https://dashboard.mintlify.com).
-</Accordion>
+    ``` Shell
+    curl --request POST \
+     --url 'https://api.sandbox.teal.dev/v0/users?name=John%20Smith&entries_start=STARTDATE&coa_template_id=TEMPLATEID' \
+     --header 'accept: application/json'
+     --header 'authorization: Bearer APIKEY'
+     ```
 
+  </Accordion>
+  <Accordion icon="circle-2" title="Link User bank account to a Teal ledger">
+
+    You probably want to use Teal to transform real-world business transactions into accounting information. To enable this, you need to connect to external data sources. Before proceeding make sure that you have the appropriate permissions from your users.
+
+    To see this in action, we will link one of your User's Unit bank accounts to their Teal ledger.
+
+    ```Shell
+    curl --request GET \
+      --url https://api.sandbox.teal.dev/v0/reports/users/user_id/cashflow-statement \
+      --header 'accept: application/json' \
+      --header 'authorization: Bearer APIKEY'
+    ```
+
+  </Accordion>
+  <Accordion icon="circle-3" title="Generate a Cashflow Statement">
+
+    Real-world transactions are flowing into your User's Teal ledger and being categorized to their chart of accounts. This enriched view of a User's business is very helpful in understanding financial performance and overall health.
+
+    You will see that generating a cashflow statement is a simple as calling the [Get Cashflow endpoint](/api-reference/reports/get_cashflow_statement).
+
+    ``` Shell
+    curl --request GET \
+     --url 'https://api.sandbox.teal.dev/v0/reports/users/user_id/cashflow-statement?start_date=STARTDATE&end_date=ENDDATE' \
+     --header 'accept: application/json' \
+     --header 'authorization: Bearer APIKEY'
+     ```
+
+  </Accordion>
 </AccordionGroup>
-
-## Update your docs
-
-Add content directly in your files with MDX syntax and React components. You can use any of our components, or even build your own.
-
-<CardGroup>
-
-<Card title="Style Your Docs" icon="paintbrush" href="/settings/global">
-  Add flair to your docs with personalized branding.
-</Card>
-
-<Card
-  title="Add API Endpoints"
-  icon="square-code"
-  href="/api-playground/configuration"
->
-  Implement your OpenAPI spec and enable API user interaction.
-</Card>
-
-<Card
-  title="Integrate Analytics"
-  icon="chart-mixed"
-  href="/analytics/supported-integrations"
->
-  Draw insights from user interactions with your documentation.
-</Card>
-
-<Card
-  title="Host on a Custom Domain"
-  icon="browser"
-  href="/settings/custom-domain/subdomain"
->
-  Keep your docs on your own website's subdomain.
-</Card>
-
-</CardGroup>

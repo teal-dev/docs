@@ -37,7 +37,13 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["overview", "setup", "platform_config", "quickstart"]
+      "pages": [
+        "overview",
+        "setup",
+        "platform_config",
+        "user_config",
+        "quickstart"
+      ]
     },
     {
       "group": "Accounting Fundamentals",

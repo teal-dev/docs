@@ -1,0 +1,85 @@
+---
+title: "User Configuration"
+description: "This page walks you through configuring your users."
+icon: "user-gear"
+---
+
+## Steps
+
+1. **Create users**
+2. **Manage user ledgers**
+3. **Connect user's external data sources**
+4. **Manage journal entries**
+
+## 1. Create Users
+
+Users represent the businesses (end customers) you serve. For your users to use Teal, you will need to create a corresponding user on the Teal platform.
+
+You can create users on your Teal platform using the Create User API. When you create a user you will assign them a chart of account template.
+
+<Note>
+  Remember to store the association users on your platform and their Teal
+  counterparts.
+</Note>
+
+### Subscription Level
+
+By default, users are created with a **Tier 0** subscription. To unlock **Tier 1 or 2** features, upgrade the user subscription using the [Update Subscription endpoint](/api-reference/users/update_subscription). Remember that there are the difference charges depending on subscription level in product. Sandbox subscriptions incur no charges.
+
+## 2. Manage user ledgers
+
+<Info>
+  Ledgers group related journal entries, providing a summary of real-world
+  transactions.
+</Info>
+
+There will be cases where a user will need to create a unique ledger that was not defined in their chat of account template. A common use case is a ledger that tracks an external data source such as a bank account.
+
+You can manage ledgers for your users using the [Users endpoint](/api-reference/users/).
+
+## 3. Connect user's external data sources
+
+In most cases, you will want to pull in a user's transaction data from their third-party financial accounts (e.g. Unit). You can do this by following these steps:
+
+1. Make sure you have configured your platform to pull data from the external data source (see [Platform Configuration](/platform_config))
+2. Create a ledger for the financial account by using the [Create Ledger endpoint](/api-reference/ledgers/create_ledger). For bank accounts, you should use the following query parameters:
+
+```
+ "sort_code"="unique_number"
+ "name"="unique_name"
+ "ledger_type"=asset
+ "debit_credit"=debit
+ "is_cash"=true
+```
+
+3. Link the user's financial account to this ledger by using the /source/links endpoint _(under construction)_
+
+## 4. Manage journal entries
+
+<Info>
+  A journal entry represents a transaction in our accounting model. Each journal
+  entry includes debit and credit line entries to and from different ledgers,
+  ensuring the sum of credits equals the sum of debits.
+</Info>
+
+You can use the [Create Journal Entry endpoint](/api-reference/journal_entries/create_journal_entry) to create a journal entry (with respective line entries) for a user.
+
+<Note>
+  You are responsible for storing the association between a transaction in your
+  service and a line entry in Teal.
+</Note>
+
+Journal entries can be updated using the [Update Journal Entry endpoint](/api-reference/journal_entries/update_journal_entry). A common reason for updating a journal entires is to modify it's associated line entries. Updates maintain the sum of credits equals sum of debits rule.
+
+## Other: Create sample data
+
+You can leverage Teal's sample data for the purposes of testing your configuration. From the [Developer Portal](https://developer.teal.dev/), generate data for your platform in the sandbox environment.
+
+1. Log into the [Developer Portal](https://developer.teal.dev/) and navigate to the **Sandbox** tab.
+2. In your platform's menu, select **Generate Sample User** (see example)
+
+<Frame>
+  <img src="/images/generate_sample_user.png" />
+</Frame>
+
+The sample user will have **Tier 2** subscription and be populated with a chart of accounts for a **C-Corp** with journal entries dating back a year.

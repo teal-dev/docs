@@ -18,12 +18,7 @@
     "dark": "#18181B",
     "background": { "light": "#FFFFFF", "dark": "#18181B" }
   },
-  "topbarLinks": [
-    {
-      "name": "Documentation",
-      "url": "https://mintlify.com/docs"
-    }
-  ],
+  "topbarLinks": [],
   "topbarCtaButton": {
     "name": "Dashboard",
     "url": "https://dashboard.mintlify.com"

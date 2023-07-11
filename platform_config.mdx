@@ -1,0 +1,64 @@
+---
+title: "Platform Configuration"
+description: "This page walks you through configuring your Teal platform."
+icon: "gear"
+---
+
+## Steps
+
+1. **Set up your charts of accounts**
+2. **Connect to your external data sources**
+
+## 1. Set up your charts of accounts
+
+Every needs to have a chart of accounts (CoA) that represents their business.
+
+<Info>
+  A chart of accounts is a comprehensive, mutually exclusive listing of all
+  ledgers used by a company. A company's chart of accounts typically reflects
+  the unique structure of the business, and so there is no single standard.
+  However, there are certain protocols that companies are expected to follow
+  when filing their taxes with the IRS.
+</Info>
+
+To assist you in getting set up, your platform will contain four chart of accounts (CoA) templates by default (coming soon), one for each of the four common entity types:
+
+- **Sole Proprietorship**
+- **Partnership**
+- **C-Corp**
+- **S-Corp**
+
+These default templates are quite comprehensive and not tailored to any specific industry. You will likely want to modify these defaults so that they are more tailored to the end users that you serve. We recommend that you keep the number of CoAs that you manage at a minimum. We can help you think through this, reach out!
+
+You can manage CoA templates and the ledgers associated with each via the [Chart of Accounts endpoint](/api-reference/chart_of_accounts/get_coa_templates).
+
+## 2. Connect to your external data sources
+
+In many cases to you'll want to use Teal to enrich transaction data from third-party financial institutions used by your users, such as a BaaS provider. Teal maintains integrations with major providers.
+
+You can connect to these providers by following these steps:
+
+1. **Retrieve your API token from your desired provider (e.g. Unit, Plaid, Stripe Treasury)**
+2. **Log into the Teal Dev Portal [integrations page](https://developer.teal.dev/integrations) and find the card for your provider (see Unit example)**
+3. **Paste the API token from your provider into the input, and press the Save Token button.**
+
+After completing these steps, you will be able to use the connected provider's transactions as a data source for Teal.
+
+### Provider Specific Instructions
+
+<AccordionGroup>
+  <Accordion title="Unit">
+        In order to generate a token for Unit, log in to the
+    <a href="https://app.s.unit.sh/api-tokens">API tokens page</a> in the Unit dashboard.
+    Teal requires a token with read permission for transactions.
+
+  </Accordion>
+
+<Accordion title="Stripe Treasury" icon="stripe-s">
+  Coming Soon!
+</Accordion>
+
+  <Accordion title="Plaid">
+    Coming Soon!
+  </Accordion>
+</AccordionGroup>

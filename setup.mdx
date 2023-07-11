@@ -1,0 +1,56 @@
+---
+title: Setup
+description: "Follow these steps to begin embedding Teal."
+icon: "box"
+---
+
+## Steps
+
+1. **Provision your platform**
+2. **Create a developer account**
+3. **Generate your API token**
+4. **Make your first API call**
+
+## 1. Provision your platform
+
+A platform is Teal's representation of your business, with it's own configuration, data, and users. All of Teal's APIs operate within the scope of a platform.
+
+We provision your platform for you. If you do not already have a provisioned platform, reach out to your Teal contact or visit the [Teal home page](https://teal.dev) to get in touch.
+
+## 2. Create a developer account
+
+Once we have provisioned your platform, you will be able to access our [Developer Portal](https://developer.teal.dev/). The first time you visit the portal you will need to create an account using your email.
+
+<Note>
+  Your email must match the email we have on file. If you want to use a
+  different email for access or add additional developer emails, please reach
+  out to us.
+</Note>
+
+## 3. Generate your API token
+
+Once you are in the developer platform, you can create API tokens to access the API. Calls to our API are authenticated using a bearer token and are sent to our API using an `Authentication: Bearer <token>` HTTP header.
+
+<Warning>
+  Tokens should always be kept secret. Don't share outside of your organization
+  and be careful when sharing within.
+</Warning>
+
+Tokens can be managed at our [Developer Portal](https://developer.teal.dev/). You will only be able to generate tokens after a platform has been provisioned for your company.
+
+## 4. Make your first API call
+
+Test that you have successfully created an API token for your platform. Run the following cURL command in your client or do so from our [API Reference](/api-reference/authentication), replacing `{API token}` with the appropriate values for your sandbox platform.
+
+```bash Shell
+curl --location --request GET 'https://api.sandbox.teal.dev/v0/platform' --header 'Authorization: Bearer {API token}'
+```
+
+If successful, you should see a response that looks like the following:
+
+```json JSON
+{
+  "id": 18327,
+  "name": "Pauly's Pet Palace"
+}
+```

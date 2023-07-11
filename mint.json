@@ -7,6 +7,11 @@
     "href": "https://teal.dev"
   },
   "favicon": "/favicon.png",
+  "api": {
+    "auth": {
+      "method": "bearer"
+    }
+  },
   "colors": {
     "primary": "#5EEAD4",
     "light": "#5EEAD4",
@@ -32,16 +37,23 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
+      "pages": ["overview", "setup", "platform_config", "quickstart"]
     },
     {
-      "group": "Essentials",
+      "group": "Accounting Fundamentals",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation"
+        "accounting/introduction",
+        "accounting/core_concepts",
+        "accounting/statements"
+      ]
+    },
+    {
+      "group": "Embedding Teal",
+      "pages": [
+        "essentials/data_sources",
+        "essentials/tier_1",
+        "essentials/tier_2",
+        "essentials/coming_soon"
       ]
     },
     {
@@ -49,77 +61,82 @@
       "pages": ["api-reference/authentication"]
     },
     {
-      "group": "Users",
+      "group": "Endpoints",
       "pages": [
-        "api-reference/users/get_details",
-        "api-reference/users/get_users",
-        "api-reference/users/create_user",
-        "api-reference/users/update_subscription"
-      ]
-    },
-    {
-      "group": "Journal Entries",
-      "pages": [
-        "api-reference/journal_entries/get_journal_entry",
-        "api-reference/journal_entries/update_journal_entry",
-        "api-reference/journal_entries/get_journal_entries",
-        "api-reference/journal_entries/create_journal_entry"
-      ]
-    },
-    {
-      "group": "Platform",
-      "pages": ["api-reference/platform/get_platform"]
-    },
-    {
-      "group": "Line Entries",
-      "pages": [
-        "api-reference/line_entries/get_journal_entry_line_entries",
-        "api-reference/line_entries/update_line_entry",
-        "api-reference/line_entries/get_line_entry_categories",
-        "api-reference/line_entries/get_user_ledger_line_entries"
-      ]
-    },
-    {
-      "group": "Transaction Sources",
-      "pages": ["api-reference/transaction_sources/link_unit_account"]
-    },
-    {
-      "group": "Chart of Accounts",
-      "pages": [
-        "api-reference/chart_of_accounts/get_coa_templates",
-        "api-reference/chart_of_accounts/create_coa_template",
-        "api-reference/chart_of_accounts/get_coa_template",
-        "api-reference/chart_of_accounts/delete_coa_template",
-        "api-reference/chart_of_accounts/create_ledger_template",
-        "api-reference/chart_of_accounts/delete_ledger_template",
-        "api-reference/chart_of_accounts/create_total_ledger_template",
-        "api-reference/chart_of_accounts/delete_total_ledger_template"
-      ]
-    },
-    {
-      "group": "Categorization",
-      "pages": [
-        "api-reference/categorization/get_rules",
-        "api-reference/categorization/create_rule",
-        "api-reference/categorization/delete_rule"
-      ]
-    },
-    {
-      "group": "Ledgers",
-      "pages": [
-        "api-reference/ledgers/get_ledgers",
-        "api-reference/ledgers/create_ledger",
-        "api-reference/ledgers/get_total_ledgers",
-        "api-reference/ledgers/create_total_ledger"
-      ]
-    },
-    {
-      "group": "Reports",
-      "pages": [
-        "api-reference/reports/get_income_statement",
-        "api-reference/reports/get_balance_sheet",
-        "api-reference/reports/get_ledger_statement",
-        "api-reference/reports/get_cashflow_statement"
+        {
+          "group": "Users",
+          "pages": [
+            "api-reference/users/get_details",
+            "api-reference/users/get_users",
+            "api-reference/users/create_user",
+            "api-reference/users/update_subscription"
+          ]
+        },
+        {
+          "group": "Journal Entries",
+          "pages": [
+            "api-reference/journal_entries/get_journal_entry",
+            "api-reference/journal_entries/update_journal_entry",
+            "api-reference/journal_entries/get_journal_entries",
+            "api-reference/journal_entries/create_journal_entry"
+          ]
+        },
+        {
+          "group": "Platform",
+          "pages": ["api-reference/platform/get_platform"]
+        },
+        {
+          "group": "Line Entries",
+          "pages": [
+            "api-reference/line_entries/get_journal_entry_line_entries",
+            "api-reference/line_entries/update_line_entry",
+            "api-reference/line_entries/get_line_entry_categories",
+            "api-reference/line_entries/get_user_ledger_line_entries"
+          ]
+        },
+        {
+          "group": "Transaction Sources",
+          "pages": ["api-reference/transaction_sources/link_unit_account"]
+        },
+        {
+          "group": "Chart of Accounts",
+          "pages": [
+            "api-reference/chart_of_accounts/get_coa_templates",
+            "api-reference/chart_of_accounts/create_coa_template",
+            "api-reference/chart_of_accounts/get_coa_template",
+            "api-reference/chart_of_accounts/delete_coa_template",
+            "api-reference/chart_of_accounts/create_ledger_template",
+            "api-reference/chart_of_accounts/delete_ledger_template",
+            "api-reference/chart_of_accounts/create_total_ledger_template",
+            "api-reference/chart_of_accounts/delete_total_ledger_template"
+          ]
+        },
+        {
+          "group": "Categorization",
+          "pages": [
+            "api-reference/categorization/get_rules",
+            "api-reference/categorization/create_rule",
+            "api-reference/categorization/delete_rule"
+          ]
+        },
+        {
+          "group": "Ledgers",
+          "pages": [
+            "api-reference/ledgers/get_ledgers",
+            "api-reference/ledgers/create_ledger",
+            "api-reference/ledgers/get_total_ledgers",
+            "api-reference/ledgers/create_total_ledger"
+          ]
+        },
+        {
+          "group": "Reports",
+          "pages": [
+            "api-reference/reports/get_income_statement",
+            "api-reference/reports/get_balance_sheet",
+            "api-reference/reports/get_ledger_statement",
+            "api-reference/reports/get_cashflow_statement"
+          ]
+        }
       ]
     }
   ],

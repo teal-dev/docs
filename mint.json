@@ -51,10 +51,10 @@
     {
       "group": "Embedding Teal",
       "pages": [
-        "essentials/data_sources",
-        "essentials/tier_1",
-        "essentials/tier_2",
-        "essentials/coming_soon"
+        "embed/data_sources",
+        "embed/tier_1",
+        "embed/tier_2",
+        "embed/coming_soon"
       ]
     },
     {

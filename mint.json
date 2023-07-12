@@ -20,8 +20,8 @@
   },
   "topbarLinks": [],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Developer Portal",
+    "url": "https://developer.teal.dev"
   },
   "tabs": [
     {

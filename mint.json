@@ -62,7 +62,7 @@
       "pages": ["api-reference/authentication"]
     },
     {
-      "group": "Endpoints",
+      "group": "Teal API Endpoints",
       "pages": [
         {
           "group": "Users",

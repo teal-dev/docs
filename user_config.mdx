@@ -18,8 +18,8 @@ Users represent the businesses (end customers) you serve. For your users to use 
 You can create users on your Teal platform using the Create User API. When you create a user you will assign them a chart of account template.
 
 <Note>
-  Remember to store the association users on your platform and their Teal
-  counterparts.
+  Remember to store the association between users on your platform and their
+  Teal counterparts.
 </Note>
 
 ### Subscription Level
@@ -52,7 +52,7 @@ In most cases, you will want to pull in a user's transaction data from their thi
  "is_cash"=true
 ```
 
-3. Link the user's financial account to this ledger by using the /source/links endpoint _(under construction)_
+3. Link the user's financial account to this ledger by using the [Link Unit Account endpoint](/api-reference/transaction_sources/link_unit_account).
 
 ## 4. Manage journal entries
 
@@ -66,7 +66,7 @@ You can use the [Create Journal Entry endpoint](/api-reference/journal_entries/c
 
 <Note>
   You are responsible for storing the association between a transaction in your
-  service and a line entry in Teal.
+  service and a journal entry in Teal.
 </Note>
 
 Journal entries can be updated using the [Update Journal Entry endpoint](/api-reference/journal_entries/update_journal_entry). A common reason for updating a journal entires is to modify it's associated line entries. Updates maintain the sum of credits equals sum of debits rule.

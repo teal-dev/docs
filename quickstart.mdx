@@ -52,15 +52,17 @@ Now that you have a token, visit the [Chart of Accounts](https://developer.teal.
     title="Create a User and assign them to a Chart of Accounts"
   >
     Create a new user by calling the [Create User endpoint](/api-reference/users/create_user). Replace the query
-    parameters with your desired user name, the `coa_template_id` that you
-    copied from the [Developer Portal](https://developer.teal.dev), and the relevant start date for your
+    parameters with your desired user name, the `template_id` that you
+    copied from the [Developer Portal](https://developer.teal.dev), and the appropriate start date in `YYYY-MM-DD` format for your
     new user.
+    
+    <Note>The correct start date for a user is whichever is the later date between the **formation date of the business** or the **first day of the business's financial year**.</Note>
 
     ``` Shell
     curl --request POST \
-     --url 'https://api.sandbox.teal.dev/v0/users?name=John%20Smith&entries_start=STARTDATE&coa_template_id=TEMPLATEID' \
+     --url 'https://api.sandbox.teal.dev/v0/users?name=USER_NAME&entries_start=STARTDATE&template_id=TEMPLATE_ID' \
      --header 'accept: application/json'
-     --header 'authorization: Bearer APIKEY'
+     --header 'authorization: Bearer <token>'
      ```
 
   </Accordion>
@@ -68,13 +70,13 @@ Now that you have a token, visit the [Chart of Accounts](https://developer.teal.
 
     You probably want to use Teal to transform real-world business transactions into accounting information. To enable this, you need to connect to external data sources. Before proceeding make sure that you have the appropriate permissions from your users.
 
-    To see this in action, we will link one of your User's Unit bank accounts to their Teal ledger.
+    To see this in action, we will link one of your User's Unit bank accounts to their Teal ledger using the [Link Unit Account endpoint](/api-reference/transaction_sources/link_unit_account) **REPLACE WITH TRANSACTIONS ENDPOINT**.
 
     ```Shell
-    curl --request GET \
-      --url https://api.sandbox.teal.dev/v0/reports/users/user_id/cashflow-statement \
-      --header 'accept: application/json' \
-      --header 'authorization: Bearer APIKEY'
+    curl --request POST \
+      --url 'https://api.sandbox.teal.dev/v0/sources/unit/links?ledger_id=LEDGER_ID&unit_account_id=UNIT_ACCOUNT_ID' \
+      --header 'Authorization: Bearer <token>' \
+      --header 'Content-Type: '
     ```
 
   </Accordion>
@@ -86,10 +88,14 @@ Now that you have a token, visit the [Chart of Accounts](https://developer.teal.
 
     ``` Shell
     curl --request GET \
-     --url 'https://api.sandbox.teal.dev/v0/reports/users/user_id/cashflow-statement?start_date=STARTDATE&end_date=ENDDATE' \
+     --url 'https://api.sandbox.teal.dev/v0/reports/users/user_id/cashflow-statement?start_date=START_DATE&end_date=END_DATE' \
      --header 'accept: application/json' \
-     --header 'authorization: Bearer APIKEY'
+     --header 'authorization: Bearer <token>'
      ```
 
   </Accordion>
 </AccordionGroup>
+
+## 3. Next Steps
+
+Now that you've successfully generated a cashflow statement you'll have a preview of the final structure of this report, but you'll notice that the transactions in the report are all currently uncategorized. The next step is to use our API to categorize all of the transactions in the cashflow statement into specific ledgers.

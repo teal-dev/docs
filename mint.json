@@ -31,31 +31,55 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Getting started",
       "pages": [
-        "overview",
+        "what_is_teal",
         "setup",
-        "platform_config",
-        "user_config",
         "quickstart",
         "quickstart_2"
       ]
     },
     {
-      "group": "Accounting Fundamentals",
+      "group": "Configuring your platform",
       "pages": [
-        "accounting/introduction",
-        "accounting/core_concepts",
-        "accounting/statements"
+        "configuration/configuration_overview",
+        "configuration/chart_of_accounts_config",
+        "configuration/categorization_config",
+        "configuration/data_sources_config",
+        "configuration/user_config"
       ]
     },
     {
-      "group": "Embedding Teal",
+      "group": "Working with transactions",
       "pages": [
-        "embed/data_sources",
-        "embed/tier_1",
-        "embed/tier_2",
-        "embed/coming_soon"
+        "transactions/submitting",
+        "transactions/reconciling",
+        "transactions/categorizing",
+        "transactions/tagging"
+      ]
+    },
+    {
+      "group": "Generating reports",
+      "pages": [
+        "reports/cash_flow",
+        "reports/income_statement",
+        "reports/ledger_statement",
+        "reports/balance_sheet",
+        "reports/general_ledger"
+      ]
+    },
+    {
+      "group": "Building complex interfaces",
+      "pages": [
+        "interfaces/reports",
+        "interfaces/journal_entry"
+      ]
+    },
+    {
+      "group": "Accounting Fundamentals",
+      "pages": [
+        "accounting/core_concepts",
+        "accounting/statements"
       ]
     },
     {

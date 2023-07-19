@@ -157,6 +157,12 @@
           ]
         },
         {
+          "group": "Transactions",
+          "pages": [
+            "api-reference/transactions/create_transactions"
+          ]
+        },
+        {
           "group": "Reports",
           "pages": [
             "api-reference/reports/get_income_statement",

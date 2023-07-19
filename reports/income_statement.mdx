@@ -4,4 +4,30 @@ description: "Teal lets you build accounting software for your small business cu
 icon: "list-tree"
 ---
 
-To be written
+## What is an income statement?
+
+An income statement, also known as a profit & loss (P&L) statement, is one of the foundational financial statements used in accounting. It shows a company's revenues, expenses, and profits over a given period of time.
+
+This differs from the cash flow statement, as the P&L statement does not show many of the cash inflows and outflows of the business such as loan payments, investments, and dividends.
+
+The timing of when a revenue or expense is recognized can differ significantly from the time an invoice is paid. On the revenue side for example, it's common for a company to recognize revenue when an invoice is sent, even though payment has not been received, by debitting Accounts Receivable and crediting Revenue. Later, when the customer pays the invoice, a separate journal entry is created to credit Accounts Receivable, and debit Cash. The former journal entry will show only on the income statement, and the latter journal entry will show only on the cash flow statement.
+
+## Embedding the income statement
+
+You can use the [Get Income Statement endpoint](/api-reference/reports/get_income_statement) in order to get the data required for producing an income statement.
+
+<iframe
+  src="https://codesandbox.io/embed/confident-sunset-xg5ygb?fontsize=14&hidenavigation=1&theme=dark?autoresize=1&fontsize=14&hidenavigation=1&codemirror=1&hidedevtools=1&theme=dark&view=preview"
+  width="725"
+  height="1250"
+  title="Income Statement"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+## Creating the income statement UI
+
+In order to create a useful income statement interface for your users, we recommend adding two UI elements to your report: a date picker, and the ability to navigate to any of the listed ledgers.
+
+When you render each ledger in the income statement, we recommend hyperlinking the corresponding ledger statement report for that ledger. This will allow your users to easily navigate to the underlying data for each ledger.
+

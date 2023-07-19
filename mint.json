@@ -33,10 +33,10 @@
     {
       "group": "Getting started",
       "pages": [
-        "what_is_teal",
-        "setup",
-        "quickstart",
-        "quickstart_2"
+        "getting_started/what_is_teal",
+        "getting_started/setup",
+        "getting_started/quickstart",
+        "getting_started/quickstart_2"
       ]
     },
     {

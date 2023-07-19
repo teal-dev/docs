@@ -1,7 +1,22 @@
 ---
 title: Submitting
-description: "Teal lets you build accounting software for your small business customers to use."
+description: "How to get transaction data into Teal."
 icon: "list-tree"
 ---
 
-To be written
+## Submitting transaction data
+
+In order for Teal to generate a report for a user, it first needs accounting journal entries in its database. The primary way for you to generate these journal entries is to submit transactions to Teal. Once Teal receives a transaction, it will automatically generate a two-sided journal entry to be used in generating reports.
+
+There are a two ways to submit transactions to Teal, either using the _insert endpoint here_ endpoint, or by configuring an external data source.
+
+### Endpoint
+
+Fill in this section when the endpoint is published.
+
+### External data source
+
+Once you have [configured an external data source](/configuration/data_sources_config) in the developer portal, you can link a ledger to this data source using the [transactions sources endpoint](/api-reference/transaction_sources/).
+
+When a ledger is successfully linked with this endpoint, Teal will poll the data source for new transactions and input them into the ledger when they are available. It will also automatically check for missing or incorrect transactions and give an alert if it finds them.
+

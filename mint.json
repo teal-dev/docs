@@ -65,14 +65,16 @@
         "reports/income_statement",
         "reports/ledger_statement",
         "reports/balance_sheet",
-        "reports/general_ledger"
+        "reports/general_ledger",
+        "reports/enriching"
       ]
     },
     {
       "group": "Building complex interfaces",
       "pages": [
         "interfaces/reports",
-        "interfaces/journal_entry"
+        "interfaces/journal_entry",
+        "interfaces/excel_export"
       ]
     },
     {

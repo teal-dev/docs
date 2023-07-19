@@ -1,0 +1,16 @@
+---
+title: Enriching non-Teal reports
+description: "Fetching Teal data to add to your non-Teal reports"
+icon: "list-tree"
+---
+
+You can use the [Get Line Entry Category endpoint](/api-reference/line_entries/get_line_entry_categories) to retrieve the category for a transaction in your system. This API may be used when retrieving categories for individual transactions. However, in cases where categories are required for bulk data (e.g. A user transaction page) we recommend storing categories in your own datastore and subscribing to our Category Updated webhook.
+
+<iframe
+  src="https://codesandbox.io/embed/bank-transactions-pjhemi?codemirror=1&fontsize=14&hidenavigation=1&hidedevtools=1&theme=dark&view=preview"
+  width="725"
+  height="600"
+  title="Bank Transactions"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>

@@ -1,38 +1,10 @@
 ---
 title: "Data integrations"
-description: "This page walks you through configuring your Teal platform."
+description: "How to link your external data sources to Teal to automate transaction input."
 icon: "gear"
 ---
 
-## Steps
-
-1. **Set up your charts of accounts**
-2. **Connect to your external data sources**
-
-## 1. Set up your charts of accounts
-
-Every needs to have a chart of accounts (CoA) that represents their business.
-
-<Info>
-  A chart of accounts is a comprehensive, mutually exclusive listing of all
-  ledgers used by a company. A company's chart of accounts typically reflects
-  the unique structure of the business, and so there is no single standard.
-  However, there are certain protocols that companies are expected to follow
-  when filing their taxes with the IRS.
-</Info>
-
-To assist you in getting set up, your platform will contain four chart of accounts (CoA) templates by default, one for each of the four common entity types:
-
-- **Sole Proprietorship**
-- **Partnership**
-- **C-Corp**
-- **S-Corp**
-
-These default templates are quite comprehensive and not tailored to any specific industry. You will likely want to modify these defaults so that they are more tailored to the end users that you serve. We recommend that you keep the number of CoAs that you manage at a minimum. We can help you think through this, reach out!
-
-You can manage CoA templates and the ledgers associated with each via the [Chart of Accounts endpoint](/api-reference/chart_of_accounts/get_coa_templates).
-
-## 2. Connect to your external data sources
+## Connect to your external data sources
 
 In many cases to you'll want to use Teal to enrich transaction data from third-party financial institutions used by your users, such as a BaaS provider. Teal maintains integrations with major providers.
 

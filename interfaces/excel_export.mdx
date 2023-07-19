@@ -1,0 +1,25 @@
+---
+title: Excel exports
+description: "How and why to generate Excel exports from your Teal data"
+icon: "list-tree"
+---
+
+## Common use cases
+
+When building a fully features accounting suite, it's usually a good idea to allow your users to export data to Excel. There are a few reasons why users will need to manipulate their data in excel.
+
+### Tax filing
+
+Whenever a user needs to file their income taxes, which is usually annually, they will need an excel export. Often the small business user will work with a third party accountant to file their taxes. The accountant will need to manipulate the data in excel to make sure that the data is in the correct format for the tax filing software. The user will export their accounting statements to Excel and send it to the accountant, who will load this data into tax filing software such as Caseware. 
+
+### Financial analysis
+
+Sophisticated users will often want to perform custom financial analysis on their finances in Excel. This can include, budgetting, forecasting, or reporting to executives or investors in a custom format.
+
+## How to export to Excel
+
+Teal does not export directly to Excel, as each of our customers want their exports to look different and have their own branding.
+
+The recommended way to generate excel exports from Teal is to call the relevant endpoints to generate the data for the export, such as the income statement or balance sheet, then use a library such as [Pandas](https://pandas.pydata.org/) to render the data in Excel.
+
+The Teal team has extensive experience on what reports are needed to solve different Excel export use cases. Don't hesitate to reach out to our team for advice on how to build your Excel exports.

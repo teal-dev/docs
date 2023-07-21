@@ -8,13 +8,17 @@ icon: "user-gear"
 
 When you [submit a new transaction](/transactions/submitting) to Teal, the transactions will run through the categorization pipeline that you have configured on the categorization tab in the [developer portal](https://developer.teal.dev).
 
+The categorization pipeline is intended to be a first cut at categorizing transactions into the appropriate accounting ledgers. This provides a better UX for the user, as they will not need to manually categorize the majority of transactions.
+
 This pipeline consists of three categorization steps, each of which can be indepedently enabled and configured.
 
-*** Step 1 *** Transfers between accounts
-*** Step 2 *** Categorizing via rules
-*** Step 3 *** AI Categorization
+- **Step 1:** Transfers between accounts
+- **Step 2:** Categorizing via rules
+- **Step 3:** AI Categorization
 
 If a transaction is categorized by one of the steps, it will skip the rest of the pipeline and not be categorized by any subsequent step. 
+
+If a no categorization step matches a transaction, the transaction will be categorized into the "Uncategorized cash inflow" or "Uncategorized cash outflow" ledger.
 
 ## Transfers between accounts
 
@@ -24,7 +28,7 @@ Write a section on how the automated recognition of transfers between accounts w
 
 Platforms have the ability to set their own categorization rules. This feature enables you to define specific rules, which, when matched, will automatically categorize a transaction into a particular ledger.
 
-Categorization rules are set at the **Platform level**. We don't currently offer User level categorization rules (please contact this if this is an important feature to you).
+Categorization rules are set at the **Platform level**. We don't currently offer User level categorization rules (please contact this if this is an important feature to you). We plan to implement user-level categorization rules in a future release.
 
 A rule consists of three components:
 

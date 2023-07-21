@@ -1,5 +1,5 @@
 ---
-title: Submitting
+title: Submitting transactions
 description: "How to get transaction data into Teal."
 icon: "list-tree"
 ---
@@ -12,15 +12,26 @@ Before you can submit transactions, you must have first set up an appropriate le
 
 In order for Teal to generate a report for a user, it first needs accounting journal entries in its database. The primary way for you to generate these journal entries is to submit transactions to Teal. Once Teal receives a transaction, it will automatically generate a two-sided journal entry to be used in generating reports.
 
-There are a two ways to submit transactions to Teal, either using the _insert endpoint here_ endpoint, or by configuring an external data source.
+There are a two ways to submit transactions to Teal, either using the [Create Transactions endpoint](/api-reference/transactions/create_transactions), or by configuring an external data source.
 
-### Endpoint
+### Create Transactions endpoint
 
-Fill in this section when the endpoint is published.
+You can submit transactions to Teal using the [Create Transactions endpoint](/api-reference/transactions/create_transactions). This endpoint allows you to submit transactions one at a time.
+
+When submitting transactions using this API, you will need to do the work of making sure that you have sent all of the transactions successfully. i.e. that you have not missed any transactions, sent any duplicate transactions, or submitted transactions with incorrect dates, amounts, etc.
+
+At any time you can use the [Get User Ledger Line Entries endpoint](api-reference/line_entries/get_user_ledger_line_entries) to get a list of the line entries that have been created for a ledger. Each entry in the list will contain the ID you submitted on creation, allowing you to compare the lists and making sure nothing is mismatched. You can also compare the dates and amounts to ensure they are accurate.
 
 ### External data source
 
+The advantage of linking an external data source, rather than using the Create Transactions endpoint, is that Teal does the work of making sure the list of transactions is complete and correct. 
+
 Once you have [configured an external data source](/configuration/data_sources_config) in the developer portal, you can link a ledger to this data source using the [transactions sources endpoint](/api-reference/transaction_sources/).
 
-When a ledger is successfully linked with this endpoint, Teal will poll the data source for new transactions and input them into the ledger when they are available. It will also automatically check for missing or incorrect transactions and give an alert if it finds them.
+When a ledger is successfully linked with this endpoint, Teal will poll the data source for new transactions and input them into the ledger when they are available. It will also automatically check for missing or incorrect transactions and give an alert if it finds them. This is more important when using aggregators like Plaid, as unfortunately these aggregators can often send wrong or conflicting data that needs to be cleaned.
 
+## Delays in transaction processing
+
+Please note that it if you have AI categorization enabled in your categorization flow, it can take up to 5 minutes between Teal receiving a transaction and when the entry is created in the database. This is because of the time required for AI to process the ledger categorization, which occurs before the transaction is posted to the ledger.
+
+If you require faster processing, you can either disable AI categorization, or reach out to us and we can discuss options for faster AI processing.

@@ -4,4 +4,103 @@ description: "How to configure auto-categorization on submitted and fetched tran
 icon: "user-gear"
 ---
 
-To be written
+## Overview of categorization in Teal
+
+When you [submit a new transaction](/transactions/submitting) to Teal, the transactions will run through the categorization pipeline that you have configured on the categorization tab in the [developer portal](https://developer.teal.dev).
+
+This pipeline consists of three categorization steps, each of which can be indepedently enabled and configured.
+
+*** Step 1 *** Transfers between accounts
+*** Step 2 *** Categorizing via rules
+*** Step 3 *** AI Categorization
+
+If a transaction is categorized by one of the steps, it will skip the rest of the pipeline and not be categorized by any subsequent step. 
+
+## Transfers between accounts
+
+Write a section on how the automated recognition of transfers between accounts works.
+
+## Categorizing via rules
+
+Platforms have the ability to set their own categorization rules. This feature enables you to define specific rules, which, when matched, will automatically categorize a transaction into a particular ledger.
+
+Categorization rules are set at the **Platform level**. We don't currently offer User level categorization rules (please contact this if this is an important feature to you).
+
+A rule consists of three components:
+
+- **Priority**: If multiple rules match a transaction, the rule with the highest priority will be implemented first.
+- **Expression**: A conditional statement that is evaluated against each transaction to determine whether it satisfies the criteria of the rule.
+- **Target Ledger Name**: This is the name of the ledger into which the transaction will be categorized if the rule conditions are met. If the specified ledger name doesn't exist in a user's chart of accounts, the system will disregard the rule.
+
+### Crafting an Expression
+
+The expression is a crucial part of the rule, as it determines the conditions under which a rule matches a transaction. For a rule to be applicable, the expression should evaluate to `True` for a transaction. Any other value will result in a non-match.
+
+### Referencing the Transaction Object
+
+Within the expression, you can reference the transaction object using the symbol `t`. You can access the properties of a transaction using the `.` character. For example, `t.description` will return the description of the transaction.
+
+#### Metadata
+
+Some transactions come with additional information in the form of metadata, an arbitrary key-value map. The specific contents of this map depend on the source of the transaction.
+
+You can access the values in the metadata map within an expression, using the `.` character. For example, `t.metadata.transaction_type` would yield the value mapped to the `transaction_type` key in the metadata.
+
+Here is a generic representation of a Transaction object:
+
+```
+Transaction {
+  description: String
+  datetime: DateTime
+  amount: Decimal
+  metadata: Map[String, String]
+}
+```
+
+### Operators and Literals
+
+Expressions may include the following operators and literals:
+
+- **Operators**
+  - `and`, `or` for logical AND and OR operations
+  - `()` for defining the order of operations
+  - `==`, `>`, `>=`, `<`, `<=` for equality and comparison
+  - `+`, `-`, `*`, `/`, `%` for mathematical operations
+- **If/else Expression**
+  - `true_expr **if** boolean_expr **else** false_expr`
+- **Literals**
+
+  - Strings: `"string"`
+  - Numbers: `1.23`
+  - Booleans: `True`, `False`
+  - Datetime: `datetime("2023-01-10T00:00:00.000Z")`
+
+### Regular Expressions
+
+You can also use regular expressions in your rule's expression using the `match(pattern, text)` function. You can learn more about regular expressions and their syntax [here](https://developers.google.com/edu/python/regular-expressions).
+
+## Examples
+
+### Payments to a Specific Vendor
+
+A rule that checks if the transaction description contains "Slack":
+
+```python
+match("Slack", t.description)
+```
+
+### Payments to a specific merchant over a given threshold amount
+
+A rule that applies to any transaction where the vendor is "Chevron" and the amount is more than $50:
+
+```python
+match("Chevron", t.description) and t.amount > 50
+```
+
+### Transactions with Certain Metadata
+
+A rule that looks for transactions with a `counterparty` attribute in the metadata set to "Sophie's Contracting LLC":
+
+```python
+t.metadata.counterparty == "Sophie's Contracting LLC"
+```

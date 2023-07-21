@@ -79,9 +79,9 @@ Expressions may include the following operators and literals:
 
 You can also use regular expressions in your rule's expression using the `match(pattern, text)` function. You can learn more about regular expressions and their syntax [here](https://developers.google.com/edu/python/regular-expressions).
 
-## Examples
+### Examples
 
-### Payments to a Specific Vendor
+#### Payments to a Specific Vendor
 
 A rule that checks if the transaction description contains "Slack":
 
@@ -89,7 +89,7 @@ A rule that checks if the transaction description contains "Slack":
 match("Slack", t.description)
 ```
 
-### Payments to a specific merchant over a given threshold amount
+#### Payments to a specific merchant over a given threshold amount
 
 A rule that applies to any transaction where the vendor is "Chevron" and the amount is more than $50:
 
@@ -97,7 +97,7 @@ A rule that applies to any transaction where the vendor is "Chevron" and the amo
 match("Chevron", t.description) and t.amount > 50
 ```
 
-### Transactions with Certain Metadata
+#### Transactions with Certain Metadata
 
 A rule that looks for transactions with a `counterparty` attribute in the metadata set to "Sophie's Contracting LLC":
 

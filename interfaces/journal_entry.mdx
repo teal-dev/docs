@@ -4,4 +4,28 @@ description: "Customers need to be able to manually create and edit journal entr
 icon: "list-tree"
 ---
 
-To be written
+To be written by Adam
+
+## Manage journal entries
+
+<Info>
+  A journal entry represents a transaction in our accounting model. Each journal
+  entry includes debit and credit line entries to and from different ledgers,
+  ensuring the sum of credits equals the sum of debits.
+</Info>
+
+You can use the [Create Journal Entry endpoint](/api-reference/journal_entries/create_journal_entry) to create a journal entry (with respective line entries) for a user directly. However, we recommend using this endpoint only for advanced accounting interfaces. It is safer to use the [Create Transaction endpoint](/api-reference/transactions/create_transaction) to create a transaction, which will automatically create a journal entry for you.
+
+When you initially create a transaction with the [Create Transaction endpoint](/api-reference/transactions/create_transaction), we automatically create a journal entry for you. You can update this journal entry using the [Update Transaction endpoint](/api-reference/transactions/update_transaction), you will have an opportunity to submit a unique ID for the transaction. This ID will be added to the corresponding accounting line entry generated for the the transaction. recommend using this field to map the relationship between transactions in your system, and line entries and journal entries in Teal. 
+
+Journal entries can be updated using the [Update Journal Entry endpoint](/api-reference/journal_entries/update_journal_entry). A common reason for updating a journal entires is to modify it's associated line entries. Updates maintain the sum of credits equals sum of debits rule.
+
+## Modifying journal entries from reports
+
+You likely will want to build the ability the edit journal entries into your reports, for example, to allow your user to change the categories assigned to transactions.
+
+## The Journal Entry Interface
+
+If you are building a fully features accounting suite, you will want to give your user fine grained control over creating and editing individual journal entries.
+
+Here is an example of an journal entry interface:

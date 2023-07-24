@@ -15,7 +15,7 @@ icon: "user-gear"
 
 Users represent the businesses (end customers) you serve. For your users to use Teal, you will need to create a corresponding user on the Teal platform.
 
-You can create users on your Teal platform using the Create User API. When you create a user you will assign them a chart of account template.
+You can create users on your Teal platform using the [Create User API](/api-reference/users/create_user). When you create a user you will assign them a [chart of accounts](/configuration/chart_of_accounts_config) template.
 
 <Note>
   Remember to store the association between users on your platform and their
@@ -25,6 +25,10 @@ You can create users on your Teal platform using the Create User API. When you c
 ### Subscription Level
 
 By default, users are created with a **Tier 0** subscription. To unlock **Tier 1 or 2** features, upgrade the user subscription using the [Update Subscription endpoint](/api-reference/users/update_subscription). Remember that there are the difference charges depending on subscription level in product. Sandbox subscriptions incur no charges.
+
+### Start date
+
+It's important to be mindful in setting the start date for a user. The start date is the date from which the user's bookkeeping will be tracked. You will not be able to enter any transactions or journal entries, or generate reports before the start date. 
 
 ## 2. Manage user ledgers
 

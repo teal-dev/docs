@@ -58,22 +58,6 @@ In most cases, you will want to pull in a user's transaction data from their thi
 
 3. Link the user's financial account to this ledger by using the [Link Unit Account endpoint](/api-reference/transaction_sources/link_unit_account).
 
-## 4. Manage journal entries
-
-<Info>
-  A journal entry represents a transaction in our accounting model. Each journal
-  entry includes debit and credit line entries to and from different ledgers,
-  ensuring the sum of credits equals the sum of debits.
-</Info>
-
-You can use the [Create Journal Entry endpoint](/api-reference/journal_entries/create_journal_entry) to create a journal entry (with respective line entries) for a user.
-
-<Note>
-  You are responsible for storing the association between a transaction in your
-  service and a journal entry in Teal.
-</Note>
-
-Journal entries can be updated using the [Update Journal Entry endpoint](/api-reference/journal_entries/update_journal_entry). A common reason for updating a journal entires is to modify it's associated line entries. Updates maintain the sum of credits equals sum of debits rule.
 
 ## Other: Create sample data
 

@@ -19,7 +19,7 @@ You can connect to these providers by following these steps:
 
 3. **Paste the API token from your provider into the input, and press the Save Token button.**
 
-After completing these steps, you will be able to use the connected provider's transactions as a data source for Teal.
+After completing these steps, you will be able to use the connected provider's transactions as a data source for Teal by using the [Transactions Sources endpoints.](/api-reference/transaction_sources)
 
 ### Provider Specific Instructions
 
@@ -29,11 +29,23 @@ In order to generate a token for Unit, log in to the
 <a href="https://app.s.unit.sh/api-tokens">API tokens page</a> in the Unit dashboard.
 Teal requires a token with read permission for transactions.
 
+Once this token is pasted into the [Developer Portal integrations page](https://developer.teal.dev/integrations), you will immediately be able to work with Sandbox data from Unit in Teal. See the [transactions guide](/transactions/overview) for details on how to proceed.
+
+Please note that in order to work with production data from Unit in Teal, you will need to contact Unit to enable production data access. Generally speaking, Unit will need to contact your sponsoring bank to get their explicit permission before granting access to production data to any 3rd parties such as Teal.
+
   </Accordion>
 
-<Accordion title="Stripe Treasury">Coming Soon!</Accordion>
+<Accordion title="Stripe Treasury">
+Stripe Treasury currently does not support data access for 3rd parties such as Teal, however, they currently have partner tokens in active development. For an update on timelines, please reach out to your Stripe Treasury support contact.
+
+In the mean time, you can still submit transactions to Teal directly by using the [Create Transactions endpoint](/api-reference/transactions/create_transactions). See the [transactions guide](/transactions/overview) for details on how to proceed.
+</Accordion>
 
   <Accordion title="Plaid">
-    Coming Soon!
+  Teal's integration with Plaid is in active development and will be available in September 2023. 
+
+  In the mean time, you can still submit transactions to Teal directly by using the [Create Transactions endpoint](/api-reference/transactions/create_transactions). See the [transactions guide](/transactions/overview) for details on how to proceed.
   </Accordion>
 </AccordionGroup>
+
+

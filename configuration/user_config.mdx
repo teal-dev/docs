@@ -4,18 +4,11 @@ description: "This page walks you through configuring your users."
 icon: "user-gear"
 ---
 
-## Steps
-
-1. **Create users**
-2. **Manage user ledgers**
-3. **Connect user's external data sources**
-4. **Manage journal entries**
-
-## 1. Create Users
+## Creating a user
 
 Users represent the businesses (end customers) you serve. For your users to use Teal, you will need to create a corresponding user on the Teal platform.
 
-You can create users on your Teal platform using the [Create User API](/api-reference/users/create_user). When you create a user you will assign them a [chart of accounts](/configuration/chart_of_accounts_config) template.
+You can create users on your Teal platform using the [Create User API](/api-reference/users/create_user). 
 
 <Note>
   Remember to store the association between users on your platform and their
@@ -24,40 +17,15 @@ You can create users on your Teal platform using the [Create User API](/api-refe
 
 ### Subscription Level
 
-By default, users are created with a **Tier 0** subscription. To unlock **Tier 1 or 2** features, upgrade the user subscription using the [Update Subscription endpoint](/api-reference/users/update_subscription). Remember that there are the difference charges depending on subscription level in product. Sandbox subscriptions incur no charges.
+By default, users are created with a **Tier 0** subscription. To enable **Tier 1 or 2** features, upgrade the user subscription using the [Update Subscription endpoint](/api-reference/users/update_subscription). Remember that there are the difference charges depending on subscription level in product. Sandbox subscriptions incur no charges.
 
 ### Start date
 
 It's important to be mindful in setting the start date for a user. The start date is the date from which the user's bookkeeping will be tracked. You will not be able to enter any transactions or journal entries, or generate reports before the start date. 
 
-## 2. Manage user ledgers
+### Chart of accounts
 
-<Info>
-  Ledgers group related journal entries, providing a summary of real-world
-  transactions.
-</Info>
-
-There will be cases where a user will need to create a unique ledger that was not defined in their chat of account template. A common use case is a ledger that tracks an external data source such as a bank account.
-
-You can manage ledgers for your users using the [Users endpoint](/api-reference/users/).
-
-## 3. Connect user's external data sources
-
-In most cases, you will want to pull in a user's transaction data from their third-party financial accounts (e.g. Unit). You can do this by following these steps:
-
-1. Make sure you have configured your platform to pull data from the external data source (see [Platform Configuration](/platform_config))
-2. Create a ledger for the financial account by using the [Create Ledger endpoint](/api-reference/ledgers/create_ledger). For bank accounts, you should use the following query parameters:
-
-```
- "sort_code"="unique_number"
- "name"="unique_name"
- "ledger_type"=asset
- "debit_credit"=debit
- "is_cash"=true
-```
-
-3. Link the user's financial account to this ledger by using the [Link Unit Account endpoint](/api-reference/transaction_sources/link_unit_account).
-
+When you create a new user using the [Create User endpoint](/api-reference/users/create_user), you will need to select a [chart of accounts](/configuration/chart_of_accounts_config) template for their ledgers to be generated from, by using the coa_template_id parameter.
 
 ## Other: Create sample data
 
@@ -70,4 +38,4 @@ You can leverage Teal's sample data for the purposes of testing your configurati
   <img src="/images/generate_sample_user.png" />
 </Frame>
 
-The sample user will have **Tier 2** subscription and be populated with a chart of accounts for a **C-Corp** with journal entries dating back a year.
+The sample user will have **Tier 2** subscription and be populated with a chart of accounts for a **C-Corp** with journal entries dating back a year. You can use this sample user to quickly get started testing out reporting functionality.

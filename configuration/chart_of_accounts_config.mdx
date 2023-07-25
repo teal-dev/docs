@@ -4,17 +4,31 @@ description: "This page walks you through configuring the chart of accounts for 
 icon: "gear"
 ---
 
-## What is a Chart of Accounts
+## What is a chart of accounts
 
-Every user needs to have a chart of accounts (CoA). A chart of accounts is the full list of ledgers that user has access to when categorizing transactions or creating journal entries. 
+Every user needs to have a chart of accounts (CoA). A chart of accounts is the full list of ledgers that a user has access to when categorizing transactions or creating journal entries. 
 
 <Info>
-  A chart of accounts is a comprehensive, mutually exclusive listing of all
+  A chart of accounts is a comprehensive list of all
   ledgers used by a company. A company's chart of accounts typically reflects
-  the unique structure of the business, and so there is no single standard.
+  the industry of the business, and so there is no single standard.
   However, there are certain protocols that companies are expected to follow
   when filing their taxes with the IRS.
 </Info>
+
+### Contents of a chart of accounts
+
+A chart of accounts in Teal is a set of two types of ledger objects: ledgers and ledger totals. Ledgers contain line entries with accounting information. Ledger totals contain no data on their own, but rather are used to sum up groups of ledgers when generating reports.
+
+Each ledger and ledger total has a sort code. In other accounting systems, this is sometimes referred to as a "ledger code" or "GL code." The sort code is an integer that determines the order in which the ledgers appear in the chart of accounts and reports.
+
+Each ledger total has a start_code and end_code that determines the range of sort codes that it will sum when generating reports. Ledger totals sum only ledgers, they do not sum other ledger totals.
+
+### Sort code conventions
+
+Teal does not enforce any conventions or patterns on sort codes. However, it is recommended to adopt a common convention such as starting all ledgers of the same type with the same number (assets start with 1, liabilities start with 2, etc.). The default charts of accounts provided by Teal follow best practices for sort code numbering; you can feel free to follow the same convention or adopt your own.
+
+Having an understandable sort code convention is especially important if the accounting data will ever be used by professional accountants or bookkeepers, as they will expect this.
 
 ## Default Charts of Accounts
 
@@ -25,7 +39,26 @@ To assist you in getting set up, your platform will contain four chart of accoun
 - **C-Corp**
 - **S-Corp**
 
-These default templates are quite comprehensive and not tailored to any specific industry. You may want to modify these defaults so that they are more tailored to the end users that you serve. We recommend that you keep the number of CoAs that you manage at a minimum. We can help you think through this, reach out!
+You can manage CoA templates and the ledgers associated with each via the [Chart of Accounts endpoint](/api-reference/chart_of_accounts/get_coa_templates), or via the [Developer Portal](https://developer.teal.dev/chart_of_accounts).
 
-You can manage CoA templates and the ledgers associated with each via the [Chart of Accounts endpoint](/api-reference/chart_of_accounts/get_coa_templates).
+### Customizing the default chart of accounts
 
+The default chart of account templates are quite comprehensive and not tailored to any specific industry. You may want to modify these defaults so that they are more tailored to the end users that you serve.
+
+While you can create new CoA templates from scratch, it is often easier to clone one of the default charts of accounts and modify it to suit your needs. 
+
+When creating or modifying a chart of accounts, take care that the start_codes and end_codes for the ledger totals make sense. For example, a user will be mislead if any asset ledger sort codes fall outside the start_code and end_code of a ledger total named "Total Assets", as this will cause "Total Assets" to not sum all of the asset ledgers in the user's reports.
+
+## Managing user-specific ledgers
+
+Once a user is created, they will have every ledger from their specified chart of accounts template available to them. 
+
+<Info>
+When a user is created with a default chart of accounts, the ledger names will be identical to the ledger names in the default chart of accounts, however, every user's ledger_ids are unique. Ledger_ids are not shared between users.
+</Info>
+
+Users will need some additional user-specific ledgers beyond the default CoA in order to do their bookkeeping. At a minimum, they will need to add at least one bank account ledger to track their funds via the [Create Ledger endpoint](/api-reference/ledgers/create_ledger). See the guide on [creating ledgers](/transactions/create_ledger) for more information.
+
+In addition, you may opt to allow users to create their own custom ledgers beyond the defaults you have provided. You can use the [Create Ledger endpoint](/api-reference/ledgers/create_ledger) to allow users to create their own ledgers.
+
+When creating a ledger, take care to enforce the sort code conventions of the chart of accounts template that the user is using. For example, if the user creates a new asset ledger, it should have a sort code that falls between the start_code and end_code of the "Total Assets" ledger total, otherwise it will cause the user's reports to be misleading.

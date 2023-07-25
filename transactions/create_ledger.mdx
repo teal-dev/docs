@@ -50,4 +50,11 @@ In many cases, you will want to pull in a user's transaction data from their thi
 
 3. Link the user's financial account to this ledger by using the [Link Unit Account endpoint](/api-reference/transaction_sources/link_unit_account).
 
+## Making ledgers non-user-editable
+
+If you control the financial account (e.g. via a neobanking/Baas offering), then you may want to make the ledger non-user-editable by setting the user_editable parameter to False when using the [Create Ledger endpoint](/api-reference/ledgers/create_ledger). This will prevent the user from editing any line entry that is assigned to the ledger. They will still be able to categorize the transactions and edit the rest of the journal entry. This feature ensures that the user does not accidently break the sync between the Teal ledger and the transactions submitted from the financial account.
+
+For example, if you submit a transaction for a $10 expense for "Starbucks" using the [create transaction endpoint](/transactions/submitting), Teal will automatically generate a journal entry with two line entries. One line entry will credit $10 to the bank account ledger, the other line entry will debit $10 to an expense ledger (depending on your [auto-categorization config](/configuration/categorization_config)). If the bank account ledger is set to user_editable = False, then the user will be able to change the $10 debit to the expense ledger, but not the $10 credit to the bank account ledger.
+
+If the transactions data source is a data aggregator such as Plaid, it is not recommended to make the ledger non-user-editable. Aggregators sometimes miss transactions that the user must manually enter, and if the ledger is non-user-editable, the user will not be able to enter the transaction to correct the error.
 

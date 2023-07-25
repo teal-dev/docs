@@ -55,7 +55,6 @@
         "transactions/overview",
         "transactions/create_ledger",
         "transactions/submitting",
-        "transactions/categorizing",
         "transactions/tagging"
       ]
     },

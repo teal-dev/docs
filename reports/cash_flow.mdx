@@ -39,8 +39,13 @@ You can use the [Get Cashflow Statement endpoint](/api-reference/reports/get_cas
 
 ## Tips for ensuring a successful cash flow statement
 
-It is crucial to properly label the appropriate ledgers with the "is_cash" toggle so that the cash flow statement can tabulate properly. If you are not sure what accounts to toggle, a safe default is to toggle only bank accounts and credit cards. We recommend not toggling any other accounts such as loans or investments if you do not have a specific use case you are trying to achieve.
+When [creating your financial account ledgers](/transactions/create_ledger) it is crucial to properly set the parameter "report_cashflow"=True so that the cash flow statement can generate properly. If you are not sure what financial accounts to set up with "report_cashflow"=True, a safe default is to do this only bank accounts and credit cards. We recommend not including any other financial accounts such as loans or investments if you do not have a specific use case you are trying to achieve.
 
 ## Creating the cash flow UI
 
-In order to create a useful cash flow report interface for your users, we recommend adding two UI elements to your report: a date picker, and the ability to explore the transactions that are within each listed ledger. The [reports interfaces](/interfaces/reports) page provides details and code snippets on how to implement these features.
+In order to create a useful cash flow report interface for your users, we recommend adding two UI elements to your report: 
+
+- a date picker
+- the ability to explore the transactions that are within each listed ledger using the [ledger statement report](/reports/ledger_statement) for each ledger
+
+The [reports interfaces](/interfaces/reports) page provides details and code snippets on how to implement these features.

@@ -18,11 +18,21 @@ This pipeline consists of three categorization steps, each of which can be indep
 
 If a transaction is categorized by one of the steps, it will skip the rest of the pipeline and not be categorized by any subsequent step. 
 
-If a no categorization step matches a transaction, the transaction will be categorized into the "Uncategorized cash inflow" or "Uncategorized cash outflow" ledger.
+If no categorization step matches a transaction, the transaction will be categorized into the "Uncategorized cash inflow" or "Uncategorized cash outflow" ledger.
+
+All auto-categorization steps are disabled by default, and will not run until manually enabled in the developer portal.
 
 ## Transfers between accounts
 
-Write a section on how the automated recognition of transfers between accounts works.
+The first step in auto-categorization is to recognize when a transaction is a transfer of funds between two financial accounts.
+
+This is the only auto-categorization step that will generate multiple journal entries, because the date that the funds leave one account may not be the same as the date that they arrive in the other account.
+
+The journal entry that records the funds leaving an account will credit the financial account, and debit the special ledger titled "Transfers Between Accounts." This special ledger will hold the balance of funds until they arrive in the receiving account, on which date, a corresponding journal entry will be created that credits "Transfers Between Accounts" and debits the receiving account.
+
+The transfers between accounts step identifies transfers by finding cash inflows and outflows of exactly the same amount within 7 calendar days of one another. It only identifies these transactions after both the inflow and outflow exist in the system.
+
+If you (or your user) knows that a cash outflow is a transfer between accounts before the corresponding inflow has been received, you can manually categorize the line entry to transfer between accounts. The system will then automatically categorize the corresponding inflow when it arrives.
 
 ## Categorizing via rules
 
@@ -108,3 +118,18 @@ A rule that looks for transactions with a `counterparty` attribute in the metada
 ```python
 t.metadata.counterparty == "Sophie's Contracting LLC"
 ```
+
+## AI Categorization
+
+The final step in the categorization pipeline is AI categorization. This step uses a large language model to categorize transactions into the appropriate ledger.
+
+The advantage of AI categorization is that it can handle new and unanticipated kinds of transactions, whereas rules need to be pre-configured, generally from past experience.
+
+The other advantage of AI categorization is that it does not require an existing corpus of structured data to work. You can freely customize your chart of accounts, and the AI will use it intelligently, without requiring any training data specific to the chart of accounts.
+
+The disadvantage of AI categorization is that it is slow and sometimes unpredictable. When AI categorization is enabled, it can take up to five minutes from submitting a transaction to choose a ledger and generate the journal. Also, since large language models are probabilistic, if you run the same transaction through AI categorization twice it may return two different answers if there are multiple plausible ledgers for a transaction.
+
+Our categorization LLM is under active development and you can expect the accuracy and speed to improve in the coming months.
+
+
+

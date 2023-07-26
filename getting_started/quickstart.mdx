@@ -12,19 +12,10 @@ yourself with the Teal API along the way.
   guide before following this guide.
 </Note>
 
-## By the end of this guide you will have:
-
-1. **Configured a new user**
-2. **Submitted outside transactions**
-4. **Generated a cash flow report from the User's transactions**
-
-Sounds good? Let's get started.
-
 ## 1. Configure a new user
-<AccordionGroup>
-  <Accordion icon="circle-1" title="Pick a Chart of Accounts">
+### Select a chart of accounts
 Every user needs to have a [Chart of Accounts](configuration/chart_of_accounts_config) (CoA). Your Platform 
-comes with default templates that you can use. Visit the [Developer Portal](https://developer.teal.dev) to pick
+comes with default templates that you can use. Visit the [Developer Portal](https://developer.teal.dev) to select
 a template for your new **User**. Take note of the `coa_template_id`.
 
 <Tip>
@@ -32,89 +23,72 @@ You can view and edit these templates in the [Developer Portal](https://develope
 or via the API. You'll likely want to do this later when you get to tailoring your chart
 of accounts based on your unique user's needs. 
 </Tip>
-  </Accordion>
-  <Accordion
-    icon="circle-2"
-    title="Create a User"
-  >
-    Create a new user by calling the [Create User endpoint](/api-reference/users/create_user). Replace the query
-    parameters with your desired user `name`, the `coa_template_id` that you
-    copied from the [Developer Portal](https://developer.teal.dev), and the appropriate start date in `ISO 8061` format for your
-    new user.
+
+### Create user
+Create a new user by calling the [Create User endpoint](/api-reference/users/create_user). Replace the query
+parameters with your desired user `name`, the `coa_template_id` that you
+copied from the [Developer Portal](https://developer.teal.dev), and the appropriate start date in `ISO 8061` format for your
+new user.
     
-    <Note>The correct start date for a user is whichever is the later date between the **formation date of the business** or the **first day of the business's financial year**.</Note>
+<Note>The correct start date for a user is whichever is the later date between the **formation date of the business** or the **first day of the business's financial year**.</Note>
 
-    ``` Shell
-    curl --request POST \
-     --url 'https://api.sandbox.teal.dev/v0/users?name=USER_NAME&entries_start=STARTDATE&template_id=TEMPLATE_ID' \
-     --header 'accept: application/json'
-     --header 'authorization: Bearer <token>'
-     ```
-
-  </Accordion>
-</AccordionGroup>
+``` Shell
+curl --request POST \
+--url 'https://api.sandbox.teal.dev/v0/users?name=USER_NAME&entries_start=STARTDATE&template_id=TEMPLATE_ID' \
+--header 'accept: application/json'
+--header 'authorization: Bearer <token>'
+```
 
 ## 2. Submit outside transactions
 
 You probably want to use Teal to transform real-world business transactions into accounting information. To enable this,
 you need to submit these transactions into Teal.
 
+### Create a financial account ledger
+Real-world transactions need to be mapped to a ledger in the User's chart of accounts. 
+[Create a new financial account ledger](transactions/create_ledger) by calling the [Create ledger](api-reference/ledgers/create_ledger)
+endpoint.
 
-<AccordionGroup>
-   <Accordion
-    icon="circle-1"
-    title="Create a financial account ledger"
-  >
-   
-   Real-world transactions need to be mapped to a ledger in the User's chart of accounts. 
-   [Create a new financial account ledger](transactions/create_ledger) by calling the [Create ledger](api-reference/ledgers/create_ledger)
-   endpoint.
+<Tip>
+These ledgers are unique to each user and represent their corresponding financial accounts in the real world. For information
+on how to set these ledgers up properly, visit [creating ledgers](transactions/create_ledger)
+</Tip> 
 
-   <Tip>
-   These ledgers are unique to each user and represent their corresponding financial accounts in the real world. For information
-   on how to set these ledgers up properly, visit [creating ledgers](transactions/create_ledger)
-   </Tip> 
+For this exercise, let's create a bank account ledger with the following parameters:
+  ```Shell
+  --sort_code 1050
+  --name Chase Check 1234
+  --ledger_type asset
+  --debit_credit debit
+  --financial_account_type bank_account
+  --report_cashflow true
+  ```
 
-   For this exercise, let's create a bank account ledger with the following parameters:
-    ```Shell
-      --sort_code 1050
-      --name Chase Check 1234
-      --ledger_type asset
-      --debit_credit debit
-      --financial_account_type bank_account
-      --report_cashflow true
-    ```
+  ```Shell
+  curl --request post \
+  --url 'https://api.sandbox.teal.dev/v0/users/{user_id}/ledgers?sort_code=1050&name=Chase Checking 1234&ledger_type=asset&debit_credit=debit&financial_account_type=bank_account&report_cashflow=true' \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: '
+  ```
 
-    ```Shell
-    curl --request post \
-    --url 'https://api.sandbox.teal.dev/v0/users/{user_id}/ledgers?sort_code=1050&name=Chase Checking 1234&ledger_type=asset&debit_credit=debit&financial_account_type=bank_account&report_cashflow=true' \
-    --header 'Authorization: Bearer <token>' \
-    --header 'Content-Type: '
-    ```
-
-  </Accordion>
-  <Accordion icon="circle-2" title="Submit transactions">
-
-    In this example, you will use the [Create transactions endpoint](api-reference/transactions/create_transactions) 
-    to [submit transactions](/transactions/submitting). We encourage you prepare and submit a diverse set of banking 
-    transactions so that you can see Teal in action. 
+### Submit transactions
+In this example, you will use the [Create transactions endpoint](api-reference/transactions/create_transactions) 
+to [submit transactions](/transactions/submitting). We encourage you prepare and submit a diverse set of banking 
+transactions so that you can see Teal in action. 
     
-    If you want to move to the next step quickly, you can also use **this transaction list** file that we have prepared.
+If you want to move to the next step quickly, you can also use **this transaction list** file that we have prepared.
 
-    <Tip>
-    You can also use our [data integrations](/configuration/data_sources_config) 
-    so that Teal can do the work for you of fetching transactions for you.
-    </Tip>
+<Tip>
+You can also use our [data integrations](/configuration/data_sources_config) 
+so that Teal can do the work for you of fetching transactions for you.
+</Tip>
 
-    ``` Shell
-    curl --request GET \
-     --url 'https://api.sandbox.teal.dev/v0/reports/users/user_id/cashflow-statement?start_date=START_DATE&end_date=END_DATE' \
-     --header 'accept: application/json' \
-     --header 'authorization: Bearer <token>'
-     ```
-
-  </Accordion>
-</AccordionGroup>
+``` Shell
+curl --request GET \
+--url 'https://api.sandbox.teal.dev/v0/reports/users/user_id/cashflow-statement?start_date=START_DATE&end_date=END_DATE' \
+--header 'accept: application/json' \
+--header 'authorization: Bearer <token>'
+```
 
 ## 3. Generate a cash flow report
 

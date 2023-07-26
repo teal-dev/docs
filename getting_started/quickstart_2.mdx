@@ -1,5 +1,93 @@
 ---
-title: "Quick start: Categorization @Cameron"
-description: "See Teal in action by categorizing the transactions in your cashflow statement into ledgers."
+title: "Quick start 2: Categorization @Cameron"
+description: "Use Teal's auto-categorization features to create accurate reports."
 icon: "bolt"
 ---
+
+<Note>
+  We recommend first completing [Quick start: Reports](setup) before following this guide.
+</Note>
+
+This Quick start guide will walk you through the steps to configure Teal's auto-categorization pipeline by using 
+the cash flow report from the previous guide.  
+
+## 1. Configure the auto-categorization pipeline
+Start by opening the **Categorization** section of the [Developer portal](https://developer.teal.dev/categorization). 
+Here you will see the categorization pipeline, which is intended to be a first cut at categorizing transactions 
+into the appropriate accounting ledgers. This provides a better UX for the user, as they will not need to manually categorize the majority of transactions.
+
+This pipeline consists of three categorization steps, each of which can be indepedently enabled and configured. We won't go into a lot of detail 
+in this quick start, but you can visit [categorization configuration](/configuration/categorization_config) for more information. 
+
+<AccordionGroup>
+  <Accordion 
+  icon="circle-1" 
+  title="Transfers Between Accounts"
+  >
+    This feature recognizes when a transaction is a transfer of funds between two financial accounts. 
+    Tracking the movements of funds between financial accounts is important as they are are movements of cash 
+    within the business, rather than into or out of the business. This ensures that these transactions are 
+    not "double counted" as cash inflows or cash outflows.
+
+    <Tip>
+    We recommend enabling this feature in most circumstances.
+    </Tip>
+    
+  </Accordion>
+  <Accordion
+    icon="circle-2"
+    title="Categorization Rules"
+  >
+    Platforms have the ability to set their own categorization rules. This feature enables you to define 
+    specific rules, which, when matched, will automatically categorize a transaction into a particular ledger.
+
+    We provide a lot of flexibility around crafting these rules (details can be [found here](/configuration/categorization_config)). 
+    For this guide, we suggest experimenting with some basic rules such as: 
+    1. Categorize a transaction based on vendor description:
+    ```python
+    match("Slack", t.description)
+    ```
+    2. Categorize a transaction based on vendor description and above a threshold amount
+    ```python
+    match("Chevron", t.description) and t.amount > 50
+    ```
+  </Accordion>
+   <Accordion
+    icon="circle-3"
+    title="AI Categorization"
+  >
+    You can also turn on AI categorization if you would like AI to attempt to categorize transactions 
+    that don't categorize in steps 1 and 2. This features uses a large language model to categorize transactions 
+    into the appropriate ledger. Find out more [here](/configuration/categorization_config)
+
+    <Tip>
+    Our categorization LLM is under active development and you can expect the accuracy and speed to improve in the coming months.
+    </Tip>
+
+  </Accordion>
+</AccordionGroup>
+
+## 2. Test the auto-categorizer
+
+You can run categorization tests to check the accuracy and recategorize transactions for specific ledgers 
+from within the [Developer portal](https://developer.teal.dev/categorization).
+
+Once you are ready to test your auto-categorization configuration, select a User from the dropdown menu to view 
+their financial account ledgers. Click **Run Test** to view the output of categorization for the transactions contained
+in that ledger. 
+
+When you are satisfied with the results of the auto-categorizer, you can now view a significantly more useful cashflow report for your users.
+
+## 3. Viewed an updated cash flow report
+
+As outlined in [Quick start: Reports](/getting_started/Quickstart), generating a cash flow report is an as simple as 
+calling the [Get Cashflow endpoint](/api-reference/reports/get_cashflow_statement).
+
+    ``` Shell
+    curl --request GET \
+     --url 'https://api.sandbox.teal.dev/v0/reports/users/user_id/cashflow-statement?start_date=START_DATE&end_date=END_DATE' \
+     --header 'accept: application/json' \
+     --header 'authorization: Bearer <token>'
+     ```
+
+The API should now return an object with the transactions categorized to the appropriate ledgers. 

@@ -1,45 +1,45 @@
 ---
-title: Cash flow statement
-description: "How to build a cash flow statement using Teal."
+title: Cash flow report
+description: "How to build a cash flow report using Teal."
 icon: "list-tree"
 ---
 
-## What is a cash flow statement?
+## What is a cash flow report?
 
-A cash flow statement is one of the foundational financial statements used in accounting. It shows how cash has flowed in and out of the business over a period of time.
+A cash flow report is one of the foundational financial statements used in accounting. It shows how cash has flowed in and out of the business over a period of time.
 
-This differs from the income statement, as the cash flow statement shows many inflows and outflows of cash that are not revenues or expenses, for example loan payments, investments, and dividends.
+This differs from the income statement, as the cash flow report shows many inflows and outflows of cash that are not revenues or expenses, for example loan payments, investments, and dividends.
 
-The timing of when a revenue or expense is recognized can differ significantly from the time an invoice is paid. On the revenue side for example, it's common for a company to recognize revenue when an invoice is sent, even though payment has not been received, by debitting Accounts Receivable and crediting Revenue. Later, when the customer pays the invoice, a separate journal entry is created to credit Accounts Receivable, and debit Cash. The former journal entry will show only on the income statement, and the latter journal entry will show only on the cash flow statement.
+The timing of when a revenue or expense is recognized can differ significantly from the time an invoice is paid. On the revenue side for example, it's common for a company to recognize revenue when an invoice is sent, even though payment has not been received, by debitting Accounts Receivable and crediting Revenue. Later, when the customer pays the invoice, a separate journal entry is created to credit Accounts Receivable, and debit Cash. The former journal entry will show only on the income statement, and the latter journal entry will show only on the cash flow report.
 
-## Traditional vs. simplified cash flow statements
+## Traditional vs. simplified cash flow reports
 
-Teal produces a simplified cash flow statement rather than a traditional cash flow statement. A traditional cash flow statement starts from an income statement and makes adjustments for depreciation and other non-cash items, then reports cash flows according to operational, investing, and financing activities. In our experience, a traditional cash flow statement is not understandable by an average small business user. 
+Teal produces a simplified cash flow report rather than a traditional cash flow report. A traditional cash flow report starts from an income statement and makes adjustments for depreciation and other non-cash items, then reports cash flows according to operational, investing, and financing activities. In our experience, a traditional cash flow report is not understandable by an average small business user. 
 
-In Teal's simplified cash flow statement, we simply report where cash began, what ledgers caused the cash balance to change, and then report where cash ended. This is a much simpler approach that is easier to follow. That being said, Teal is fully capable of producing traditional cash flow statements, and if you need to offer one, please reach out to our team.
+In Teal's simplified cash flow report, we simply report where cash began, what ledgers caused the cash balance to change, and then report where cash ended. This is a much simpler approach that is easier to follow. That being said, Teal is fully capable of producing traditional cash flow reports, and if you need to offer one, please reach out to our team.
 
-## How does Teal's cash flow statement work?
+## How does Teal's cash flow report work?
 
-When you [create a new ledger](/transactions/create_ledger) which corresponds to an account that holds funds, such as a bank or credit card, you can enable the "is_cash" parameter. This will cause this ledger to be included in the calculation of the cash flow statement.
+When you [create a new ledger](/transactions/create_ledger) which corresponds to an account that holds funds, such as a bank or credit card, you can enable the "is_cash" parameter. This will cause this ledger to be included in the calculation of the cash flow report.
 
-Teal will automatically tabulate movements of cash in and out of "is_cash" enabled accounts to produce a cash flow statement. Movements of cash between "is_cash" enabled accounts are not reported, as they are are movements of cash within the business, rather than into or out of the business.
+Teal will automatically tabulate movements of cash in and out of "is_cash" enabled accounts to produce a cash flow report. Movements of cash between "is_cash" enabled accounts are not reported, as they are are movements of cash within the business, rather than into or out of the business.
 
-## Cashflow Report
+## Cash flow Report
 
-You can use the [Get Cashflow Statement endpoint](/api-reference/reports/get_cashflow_statement) in order to get the data required for producing a cashflow report for a specific user in a specific time range.
+You can use the [Get Cash flow report endpoint](/api-reference/reports/get_cashflow_statement) in order to get the data required for producing a cashflow report for a specific user in a specific time range.
 
 <iframe
   src="https://codesandbox.io/embed/cashflow-statement-ge9iwv?codemirror=1&fontsize=14&hidenavigation=1&hidedevtools=1&theme=dark&view=preview"
   width="725"
   height="800"
-  title="Cashflow Statement"
+  title="Cash flow report"
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 ></iframe>
 
-## Tips for ensuring a successful cash flow statement
+## Tips for ensuring a successful cash flow report
 
-When [creating your financial account ledgers](/transactions/create_ledger) it is crucial to properly set the parameter "report_cashflow"=True so that the cash flow statement can generate properly. If you are not sure what financial accounts to set up with "report_cashflow"=True, a safe default is to do this only bank accounts and credit cards. We recommend not including any other financial accounts such as loans or investments if you do not have a specific use case you are trying to achieve.
+When [creating your financial account ledgers](/transactions/create_ledger) it is crucial to properly set the parameter "report_cashflow"=True so that the cash flow report can generate properly. If you are not sure what financial accounts to set up with "report_cashflow"=True, a safe default is to do this only bank accounts and credit cards. We recommend not including any other financial accounts such as loans or investments if you do not have a specific use case you are trying to achieve.
 
 ## Creating the cash flow UI
 

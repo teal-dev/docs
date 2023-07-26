@@ -1,10 +1,10 @@
 ---
 title: "Quick start 1: Reports @Ian review"
-description: "See Teal in action by building a real cashflow report."
+description: "See Teal in action by building a real cash flow report."
 icon: "bolt"
 ---
 
-This Quick start guide will walk you through the steps to build a cashflow report, all while helping you familiarize
+This Quick start guide will walk you through the steps to build a cash flow report, all while helping you familiarize
 yourself with the Teal API along the way. 
 
 <Note>
@@ -16,7 +16,7 @@ yourself with the Teal API along the way.
 
 1. **Configured a new user**
 2. **Submitted outside transactions**
-4. **Generated a cashflow report from the User's transactions**
+4. **Generated a cash flow report from the User's transactions**
 
 Sounds good? Let's get started.
 
@@ -119,7 +119,7 @@ you need to submit these transactions into Teal.
 ## 3. Generate a cash flow report
 
 You've set up a User and submitted transactions into their financial account ledger. Now it's time to do something useful, like generating a [cash flow report](/reports/cashflow). 
-This is as simple as calling the [Get Cashflow endpoint](/api-reference/reports/get_cashflow_statement).
+This is as simple as calling the [Get Cash flow endpoint](/api-reference/reports/get_cashflow_statement).
 
     ``` Shell
     curl --request GET \
@@ -128,7 +128,7 @@ This is as simple as calling the [Get Cashflow endpoint](/api-reference/reports/
      --header 'authorization: Bearer <token>'
      ```
 
-At this stage, calling the [Get Cashflow endpoint](/api-reference/reports/get_cashflow_statement) returns 
+At this stage, calling the [Get Cash flow endpoint](/api-reference/reports/get_cashflow_statement) returns 
 an object with associated journal entries, but you'll notice that the transactions are all currently uncategorized. 
 
 Accurate categorization is an essential component of a great accounting product. We have developed a **categorization pipeline** 

@@ -1,6 +1,6 @@
 ---
 title: "Quick start 1: Reports"
-description: "See Teal in action by building a real cash flow report."
+description: "See Teal in action by building a real cash flow report for a test user."
 icon: "bolt"
 ---
 
@@ -14,9 +14,9 @@ you with the Teal API along the way.
 
 ## 1. Configure a new user
 ### Select a chart of accounts
-Every user needs to have a [Chart of Accounts](configuration/chart_of_accounts_config) (CoA). Your Platform 
+Every user needs to have a [Chart of Accounts](/configuration/chart_of_accounts_config) (CoA). Your Platform 
 comes with default templates that you can use. Visit the [Developer Portal](https://developer.teal.dev) to select
-a template for your new **User**. Take note of the `coa_template_id`.
+a template for your new **User**. Take note of the `coa_template_id` associated with the chart of accounts you'd like to use.
 
 <Tip>
 You can view and edit these templates in the [Developer Portal](https://developer.teal.dev) 
@@ -92,9 +92,11 @@ curl --request GET \
 
 ## 3. Generate a cash flow report
 
-You've set up a User and submitted transactions into their financial account ledger. Now you're ready to generate a [cash flow report](/reports/cashflow).
+You've set up a User and submitted transactions into their financial account ledger. Now you're ready to generate a [cash flow report](/reports/cash_flow).
 
-This is as simple as calling the [Get Cash flow endpoint](/api-reference/reports/get_cashflow_statement) with the appropriate `start_date` and `end_date` parameters.
+### Generate the cash flow report
+
+To generate the cash flow report, call the [Get Cash Flow Statement endpoint](/api-reference/reports/get_cashflow_statement) with the appropriate `start_date` and `end_date` parameters.
 
     ``` Shell
     curl --request GET \
@@ -103,12 +105,16 @@ This is as simple as calling the [Get Cash flow endpoint](/api-reference/reports
      --header 'authorization: Bearer <token>'
      ```
 
+### Interpreting the cash flow report object
+
 This cash flow report will analyze all cash bearing accounts that were created with the `report_cashflow` parameter. Here's how to interpret the report object:
 
-- The `cashflow-statement` endpoint will return `starting_debit_balance` and `ending_debit_balance`. These are the total amounts of cash that the business had across all accounts, on the `start_date` and `end_date` of the report, respectively.
+- The `cashflow-statement` endpoint will return `starting_debit_balance` and `ending_debit_balance`. These are the total amounts of cash that the business had across all financial account ledgers marked with the `report_cashflow` parameter, on the `start_date` and `end_date` of the report, respectively.
 - The `starting_balances` and `ending_balances` JSON objects will break down `starting_debit_balance` and `ending_debit_balance` by financial account ledger.
 - The `cashflow_ledgers` JSON object will report out which ledgers contributed to changing the total cash balance over the reporting period between `start_date` and `end_date`, and by how much. It also reports on the individual line items and journal entries that contributed to the change, if you want to provide the ability to provide further detail to the user.
 - The changes reported by the `cashflow_ledgers` object will equal exactly the difference between the `starting_debit_balance` and `ending_debit_balance` amounts.
 - For more information on how to present this report to the user, check out our [cash flow report guide](/reports/cash_flow).
 
-You'll notice that in this cashflow object, the only two ledgers that changed the cash balance were uncategorized cash inflows and outflows. That's not very informative! This is because [transaction auto-categorization](/configuration/categorization_config) has not yet been enabled. To auto-categorize these transactions and generate a more informative cash flow report, let's move on to the [auto-categorization quick start guide](/getting_started/quickstart_2).
+### Transaction auto-categorization
+
+You'll notice that in this cashflow object, the only two ledgers that changed the cash balance were `uncategorized cash inflows` and and `uncategorized cash outflows`. That's not very informative! This is because [transaction auto-categorization](/configuration/categorization_config) has not yet been enabled. To auto-categorize these transactions and generate a more informative cash flow report, let's move on to the [auto-categorization quick start guide](/getting_started/quickstart_2).

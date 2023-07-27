@@ -69,6 +69,8 @@ For this exercise, let's create a bank account ledger with the following paramet
   --header 'Content-Type: '
   ```
 
+You'll notice that we set the `report_cashflow` parameter to true. This is because we want the cash flow report to analyze the cash flow in and out of this financial account ledger. When we generate the cash flow report later, it will rely on this parameter to know which ledgers to analyze. You can learn more in the [cash flow report guide](/reports/cash_flow). 
+
 ### Submit the transactions
 In this step, you will use the [Create transactions endpoint](api-reference/transactions/create_transactions) 
 to [submit transactions](/transactions/submitting). We encourage you prepare and submit a diverse set of banking 
@@ -100,8 +102,9 @@ This is as simple as calling the [Get Cash flow endpoint](/api-reference/reports
      --header 'authorization: Bearer <token>'
      ```
 
-At this stage, calling the [Get Cash flow endpoint](/api-reference/reports/get_cashflow_statement) returns 
-an object with associated journal entries, but you'll notice that the transactions are all currently uncategorized. 
+This cash flow report will report out on the starting balances
+
+Calling the [Get Cash flow endpoint](/api-reference/reports/get_cashflow_statement) returns a JSON object with associated line entries, but you'll notice that the transactions are all currently uncategorized. 
 
 Accurate categorization is an essential component of a great accounting product. We have developed a **categorization pipeline** 
 to help with work of categorizing transactions. You can learn more [here](/configuration/categorization_config)

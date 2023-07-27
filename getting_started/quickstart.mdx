@@ -4,8 +4,8 @@ description: "See Teal in action by building a real cash flow report."
 icon: "bolt"
 ---
 
-This Quick start guide will walk you through the steps to build a cash flow report, all while helping you familiarize
-yourself with the Teal API along the way. 
+This Quick start guide will walk you through the steps to build your first cash flow report, familiarizing
+you with the Teal API along the way. 
 
 <Note>
   You'll need to have completed the steps in [Initial Setup](setup) 
@@ -30,7 +30,7 @@ parameters with your desired user `name`, the `coa_template_id` that you
 copied from the [Developer Portal](https://developer.teal.dev), and the appropriate start date in `ISO 8061` format for your
 new user.
     
-<Note>The correct start date for a user is whichever is the later date between the **formation date of the business** or the **first day of the business's financial year**.</Note>
+<Note>You can read more about how to set an appropriate start date in the [user configuration guide](/configuration/user_config). For testing purposes, you can just pick an arbitrary date. Just note that you won't be able to enter any transactions or run any reports that have dates before the start date.</Note>
 
 ``` Shell
 curl --request POST \
@@ -39,15 +39,13 @@ curl --request POST \
 --header 'authorization: Bearer <token>'
 ```
 
-## 2. Submit outside transactions
+## 2. Populate transactions into Teal
 
-You probably want to use Teal to transform real-world business transactions into accounting information. To enable this,
-you need to submit these transactions into Teal.
+In this step, we'll populate some transaction data into Teal that our cash flow report will later report on.
 
 ### Create a financial account ledger
-Real-world transactions need to be mapped to a ledger in the User's chart of accounts. 
-[Create a new financial account ledger](transactions/create_ledger) by calling the [Create ledger](api-reference/ledgers/create_ledger)
-endpoint.
+Before you can submit transactions to Teal, you need to [Create a new financial account ledger](transactions/create_ledger) by calling the [Create ledger](api-reference/ledgers/create_ledger)
+endpoint. This ledger will represent the financial account in which the transactions occurred.
 
 <Tip>
 These ledgers are unique to each user and represent their corresponding financial accounts in the real world. For information
@@ -57,7 +55,7 @@ on how to set these ledgers up properly, visit [creating ledgers](transactions/c
 For this exercise, let's create a bank account ledger with the following parameters:
   ```Shell
   --sort_code 1050
-  --name Chase Check 1234
+  --name Chase Checking 1234
   --ledger_type asset
   --debit_credit debit
   --financial_account_type bank_account
@@ -71,16 +69,16 @@ For this exercise, let's create a bank account ledger with the following paramet
   --header 'Content-Type: '
   ```
 
-### Submit transactions
-In this example, you will use the [Create transactions endpoint](api-reference/transactions/create_transactions) 
+### Submit the transactions
+In this step, you will use the [Create transactions endpoint](api-reference/transactions/create_transactions) 
 to [submit transactions](/transactions/submitting). We encourage you prepare and submit a diverse set of banking 
 transactions so that you can see Teal in action. 
     
-If you want to move to the next step quickly, you can also use **this transaction list** file that we have prepared.
+If you want to move to the next step quickly and don't have any test data on hand, you can also use **this transaction list** file that we have prepared.
 
 <Tip>
-You can also use our [data integrations](/configuration/data_sources_config) 
-so that Teal can do the work for you of fetching transactions for you.
+When building with Teal, submitting the transactions via API is only one method of populating transactions data. You can also use our [data integrations](/configuration/data_sources_config) 
+so that Teal can do the work for you of fetching and reconciling transactions for you from a 3rd party data source.
 </Tip>
 
 ``` Shell

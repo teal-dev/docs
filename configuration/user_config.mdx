@@ -23,6 +23,10 @@ By default, users are created with a **Tier 0** subscription. To enable **Tier 1
 
 It's important to be mindful in setting the start date for a user. The start date is the date from which the user's bookkeeping will be tracked. You will not be able to enter any transactions or journal entries, or generate reports before the start date. 
 
+If the user is switching from another bookkeeping platform, you will generally set a start date that is the beginning of the financial year that they will begin tracking their books on your platform. The will enter opening balances(feature coming soon) to set up their balance sheet properly so that it is accurate on the start date. (Tier 2 only)
+
+If the user is not switching from another platform, and intends to track their books from the opening date of the business, then set the start date as the opening date of the business.
+
 ### Chart of accounts
 
 When you create a new user using the [Create User endpoint](/api-reference/users/create_user), you will need to select a [chart of accounts](/configuration/chart_of_accounts_config) template for their ledgers to be generated from, by using the coa_template_id parameter.

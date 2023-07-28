@@ -1,5 +1,5 @@
 ---
-title: "Quick start: Auto-Categorization @Ian review"
+title: "Quick start: Auto-Categorization"
 description: "See Teal in action by categorizing the transactions in your cash flow report into ledgers."
 icon: "bolt"
 ---
@@ -12,12 +12,11 @@ This Quick start guide will walk you through the steps to configure Teal's auto-
 the cash flow report from the previous guide.  
 
 ## 1. Configure the auto-categorization pipeline
-Start by opening the **Categorization** section of the [Developer portal](https://developer.teal.dev/categorization). 
-Here you will see the categorization pipeline, which is intended to be a first cut at categorizing transactions 
-into the appropriate accounting ledgers. This provides a better UX for the user, as they will not need to manually categorize the majority of transactions.
+Start by opening the **Categorization** section of the [Developer portal](https://developer.teal.dev/categorization). Here you will see the auto-categorization pipeline. This pipeline will execute whenever a new transaction is submitted via the Create Transaction endpoint, or is fetched by Teal via a data integration. Auto-categorization provides a better UX for the end user, as they will not need to manually categorize the majority of transactions. 
 
-This pipeline consists of three categorization steps, each of which can be indepedently enabled and configured. We won't go into a lot of detail 
-in this quick start, but you can visit [categorization configuration](/configuration/categorization_config) for more information. 
+The auto-categorization pipeline consists of three categorization steps, each of which can be indepedently enabled and configured. We won't go into a lot of detail in this quick start, but you can visit [categorization configuration](/configuration/categorization_config) for more information. 
+
+For the purposes of this step in the quickstart guide, we recommend enabling all three steps of the auto-categorization pipeline. 
 
 <AccordionGroup>
   <Accordion 
@@ -69,15 +68,12 @@ in this quick start, but you can visit [categorization configuration](/configura
 
 ## 2. Test the auto-categorizer
 
-You can run categorization tests to check the accuracy and recategorize transactions for specific ledgers 
+You can run auto-categorization tests to check the accuracy and recategorize transactions for specific ledgers 
 from within the [Developer portal](https://developer.teal.dev/categorization).
 
-Once you are ready to test your auto-categorization configuration, select a user from the dropdown menu to view 
-their financial account ledgers. Click **Run Test** to view the output of categorization for the transactions contained
-in that ledger. 
+Once you are ready to test your auto-categorization configuration, select the user we created in the [Quick start 1: Reports guide](/getting_started/quickstart) from the dropdown menu. Select a financial account ledger in the dropdown menu. Now you can click **Run Test** to view the output of auto-categorization for the transactions contained in that ledger. Running the test will give a preview of the auto-categorization results, but will not apply the changes to the user's data.
 
-When you are satisfied with the results of the auto-categorizer, you can click **Recategorize** to push these changes the the chart of accounts. 
-You can now view a cashflow report with the updated categories. 
+When you are satisfied with the results of the auto-categorizer, you can click **Recategorize** to push these changes to the user's data. You can now generate a new cashflow report with the updated categories. 
 
 <Warning>
     **Recategorizing** will delete and recreate all transactions in the ledger with the updated categories and associated journal entries.
@@ -95,4 +91,11 @@ calling the [Get Cash flow endpoint](/api-reference/reports/get_cashflow_stateme
      --header 'authorization: Bearer <token>'
      ```
 
-The API should now return an object with the transactions categorized to the appropriate ledgers. 
+Congratulations! The new cashflow report object now displays the updated categories. 
+
+## What to explore next
+
+This is the end of the quickstart guide. You're now ready to dive into Teal's more detailed guides on how to build your accounting software offering.
+
+A good next step is to visit the [Cash Flow Report guide](/reports/cash_flow). This guide will go into further detail on the Cash Flow report and how to embed it into your front-end application so the end user can interact with it.
+

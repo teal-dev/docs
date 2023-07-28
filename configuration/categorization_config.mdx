@@ -1,12 +1,12 @@
 ---
-title: "Categorization configuration"
+title: "Auto-categorization configuration"
 description: "How to configure auto-categorization on submitted and fetched transactions."
 icon: "folder-gear"
 ---
 
-## Overview of categorization in Teal
+## Overview of auto-categorization in Teal
 
-When you [submit a new transaction](/transactions/submitting) to Teal, the transactions will run through the categorization pipeline that you have configured on the categorization tab in the [developer portal](https://developer.teal.dev/categorization).
+When you [submit a new transaction](/transactions/submitting) to Teal, the transactions will run through the auto-categorization pipeline that you have configured on the categorization tab in the [developer portal](https://developer.teal.dev/categorization).
 
 The categorization pipeline is intended to be a first cut at categorizing transactions into the appropriate accounting ledgers. This provides a better UX for the user, as they will not need to manually categorize the majority of transactions.
 
@@ -130,3 +130,11 @@ The other advantage of AI categorization is that it does not require an existing
 The disadvantage of AI categorization is that it is slow and sometimes unpredictable. When AI categorization is enabled, it can take up to five minutes from submitting a transaction to choose a ledger and generate the journal. Also, since large language models are probabilistic, if you run the same transaction through AI categorization twice it may return two different answers if there are multiple plausible ledgers for a transaction.
 
 Our categorization LLM is under active development and you can expect the accuracy and speed to improve in the coming months.
+
+## Uncategorized transactions
+
+Auto-categorization provides a better UX for the user, as they will not need to manually categorize the majority of transactions. However, many transactions often lack sufficient data to be auto-categorized, for example, a bank transaction which simply says "Payment." Therefore, it is inevitable that any auto-categorization pipeline will have a certain percentage of transactions that are not categorized.
+
+When a transaction is not categorized by any of the auto-categorization steps, it will be categorized into the "Uncategorized cash inflow" or "Uncategorized cash outflow" ledger. These two ledgers are special ledgers hardcoded into each chart of accounts template.
+
+We recommend that you think through the UX flow that a user will follow to categorize any uncategorized transactions.

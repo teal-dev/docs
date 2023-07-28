@@ -86,12 +86,13 @@
       ]
     },
     {
-      "group": "API Documentation",
-      "pages": ["api-reference/authentication"]
-    },
-    {
       "group": "Teal API Endpoints",
       "pages": [
+        "api-reference/authentication",
+        {
+          "group": "Platform",
+          "pages": ["api-reference/platform/get_platform"]
+        },
         {
           "group": "Users",
           "pages": [
@@ -100,32 +101,6 @@
             "api-reference/users/create_user",
             "api-reference/users/update_subscription"
           ]
-        },
-        {
-          "group": "Journal Entries",
-          "pages": [
-            "api-reference/journal_entries/get_journal_entry",
-            "api-reference/journal_entries/update_journal_entry",
-            "api-reference/journal_entries/get_journal_entries",
-            "api-reference/journal_entries/create_journal_entry"
-          ]
-        },
-        {
-          "group": "Platform",
-          "pages": ["api-reference/platform/get_platform"]
-        },
-        {
-          "group": "Line Entries",
-          "pages": [
-            "api-reference/line_entries/get_journal_entry_line_entries",
-            "api-reference/line_entries/update_line_entry",
-            "api-reference/line_entries/get_line_entry_categories",
-            "api-reference/line_entries/get_user_ledger_line_entries"
-          ]
-        },
-        {
-          "group": "Transaction Sources",
-          "pages": ["api-reference/transaction_sources/link_unit_account"]
         },
         {
           "group": "Chart of Accounts",
@@ -141,14 +116,6 @@
           ]
         },
         {
-          "group": "Categorization",
-          "pages": [
-            "api-reference/categorization/get_rules",
-            "api-reference/categorization/create_rule",
-            "api-reference/categorization/delete_rule"
-          ]
-        },
-        {
           "group": "Ledgers",
           "pages": [
             "api-reference/ledgers/get_ledgers",
@@ -158,9 +125,39 @@
           ]
         },
         {
+          "group": "Journal Entries",
+          "pages": [
+            "api-reference/journal_entries/get_journal_entry",
+            "api-reference/journal_entries/update_journal_entry",
+            "api-reference/journal_entries/get_journal_entries",
+            "api-reference/journal_entries/create_journal_entry"
+          ]
+        },
+        {
+          "group": "Line Entries",
+          "pages": [
+            "api-reference/line_entries/get_journal_entry_line_entries",
+            "api-reference/line_entries/update_line_entry",
+            "api-reference/line_entries/get_line_entry_categories",
+            "api-reference/line_entries/get_user_ledger_line_entries"
+          ]
+        },
+        {
           "group": "Transactions",
           "pages": [
             "api-reference/transactions/create_transactions"
+          ]
+        },
+        {
+          "group": "Transaction Sources",
+          "pages": ["api-reference/transaction_sources/link_unit_account"]
+        },
+        {
+          "group": "Categorization",
+          "pages": [
+            "api-reference/categorization/get_rules",
+            "api-reference/categorization/create_rule",
+            "api-reference/categorization/delete_rule"
           ]
         },
         {
@@ -186,3 +183,4 @@
     "isHidden": true
   }
 }
+

@@ -1,125 +1,100 @@
 ---
-title: "Quick start 1: Reports @Ian review"
-description: "See Teal in action by building a real cash flow report."
+title: "Quick start 1: Reports"
+description: "See Teal in action by building a real cash flow report for a test user."
 icon: "bolt"
 ---
 
-This Quick start guide will walk you through the steps to build a cash flow report, all while helping you familiarize
-yourself with the Teal API along the way. 
+This Quick start guide will walk you through the steps to build your first cash flow report, familiarizing
+you with the Teal API along the way. 
 
 <Note>
   You'll need to have completed the steps in [Initial Setup](setup) 
   guide before following this guide.
 </Note>
 
-## By the end of this guide you will have:
-
-1. **Configured a new user**
-2. **Submitted outside transactions**
-4. **Generated a cash flow report from the User's transactions**
-
-Sounds good? Let's get started.
-
 ## 1. Configure a new user
-<AccordionGroup>
-  <Accordion icon="circle-1" title="Pick a Chart of Accounts">
-Every user needs to have a [Chart of Accounts](configuration/chart_of_accounts_config) (CoA). Your Platform 
-comes with default templates that you can use. Visit the [Developer Portal](https://developer.teal.dev) to pick
-a template for your new **User**. Take note of the `coa_template_id`.
+### Select a chart of accounts
+Every user needs to have a [Chart of Accounts](/configuration/chart_of_accounts_config) (CoA). Your Platform 
+comes with default templates that you can use. Visit the [Developer Portal](https://developer.teal.dev) to select
+a template for your new **User**. Take note of the `coa_template_id` associated with the chart of accounts you'd like to use.
 
 <Tip>
 You can view and edit these templates in the [Developer Portal](https://developer.teal.dev) 
 or via the API. You'll likely want to do this later when you get to tailoring your chart
 of accounts based on your unique user's needs. 
 </Tip>
-  </Accordion>
-  <Accordion
-    icon="circle-2"
-    title="Create a User"
-  >
-    Create a new user by calling the [Create User endpoint](/api-reference/users/create_user). Replace the query
-    parameters with your desired user `name`, the `coa_template_id` that you
-    copied from the [Developer Portal](https://developer.teal.dev), and the appropriate start date in `ISO 8061` format for your
-    new user.
+
+### Create user
+Create a new user by calling the [Create User endpoint](/api-reference/users/create_user). Replace the query
+parameters with your desired user `name`, the `coa_template_id` that you
+copied from the [Developer Portal](https://developer.teal.dev), and the appropriate start date in `ISO 8061` format for your
+new user.
     
-    <Note>The correct start date for a user is whichever is the later date between the **formation date of the business** or the **first day of the business's financial year**.</Note>
+<Note>You can read more about how to set an appropriate start date in the [user configuration guide](/configuration/user_config). For testing purposes, you can just pick an arbitrary date. Just note that you won't be able to enter any transactions or run any reports that have dates before the start date.</Note>
 
-    ``` Shell
-    curl --request POST \
-     --url 'https://api.sandbox.teal.dev/v0/users?name=USER_NAME&entries_start=STARTDATE&template_id=TEMPLATE_ID' \
-     --header 'accept: application/json'
-     --header 'authorization: Bearer <token>'
-     ```
+``` Shell
+curl --request POST \
+--url 'https://api.sandbox.teal.dev/v0/users?name=USER_NAME&entries_start=STARTDATE&template_id=TEMPLATE_ID' \
+--header 'accept: application/json'
+--header 'authorization: Bearer <token>'
+```
 
-  </Accordion>
-</AccordionGroup>
+## 2. Populate transactions into Teal
 
-## 2. Submit outside transactions
+In this step, we'll populate some transaction data into Teal that our cash flow report will later report on.
 
-You probably want to use Teal to transform real-world business transactions into accounting information. To enable this,
-you need to submit these transactions into Teal.
+### Create a financial account ledger
+Before you can submit transactions to Teal, you need to [Create a new financial account ledger](transactions/create_ledger) by calling the [Create ledger](api-reference/ledgers/create_ledger)
+endpoint. This ledger will represent the financial account in which the transactions occurred.
 
+<Tip>
+These ledgers are unique to each user and represent their corresponding financial accounts in the real world. For information
+on how to set these ledgers up properly, visit [creating ledgers](transactions/create_ledger)
+</Tip> 
 
-<AccordionGroup>
-   <Accordion
-    icon="circle-1"
-    title="Create a financial account ledger"
-  >
-   
-   Real-world transactions need to be mapped to a ledger in the User's chart of accounts. 
-   [Create a new financial account ledger](transactions/create_ledger) by calling the [Create ledger](api-reference/ledgers/create_ledger)
-   endpoint.
+For this exercise, let's create a bank account ledger with the following parameters:
+  ```Shell
+  --sort_code 1050
+  --name Chase Checking 1234
+  --ledger_type asset
+  --debit_credit debit
+  --financial_account_type bank_account
+  --report_cashflow true
+  ```
 
-   <Tip>
-   These ledgers are unique to each user and represent their corresponding financial accounts in the real world. For information
-   on how to set these ledgers up properly, visit [creating ledgers](transactions/create_ledger)
-   </Tip> 
+  ```Shell
+  curl --request post \
+  --url 'https://api.sandbox.teal.dev/v0/users/{user_id}/ledgers?sort_code=1050&name=Chase Checking 1234&ledger_type=asset&debit_credit=debit&financial_account_type=bank_account&report_cashflow=true' \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: '
+  ```
 
-   For this exercise, let's create a bank account ledger with the following parameters:
-    ```Shell
-      --sort_code 1050
-      --name Chase Check 1234
-      --ledger_type asset
-      --debit_credit debit
-      --financial_account_type bank_account
-      --report_cashflow true
-    ```
+You'll notice that we set the `report_cashflow` parameter to true. This is because we want the cash flow report to analyze the cash flow in and out of this financial account ledger. When we generate the cash flow report later, it will rely on this parameter to know which ledgers to analyze. You can learn more in the [cash flow report guide](/reports/cash_flow). 
 
-    ```Shell
-    curl --request post \
-    --url 'https://api.sandbox.teal.dev/v0/users/{user_id}/ledgers?sort_code=1050&name=Chase Checking 1234&ledger_type=asset&debit_credit=debit&financial_account_type=bank_account&report_cashflow=true' \
-    --header 'Authorization: Bearer <token>' \
-    --header 'Content-Type: '
-    ```
+### Submit the transactions
+In this step, you will use the [Create transactions endpoint](api-reference/transactions/create_transactions) 
+to [submit transactions](/transactions/submitting). We encourage you prepare and submit a diverse set of banking 
+transactions so that you can see Teal in action. 
 
-  </Accordion>
-  <Accordion icon="circle-2" title="Submit transactions">
+<Tip>
+When building with Teal, submitting the transactions via API is only one method of populating transactions data. You can also use our [data integrations](/configuration/data_sources_config) 
+so that Teal can do the work for you of fetching and reconciling transactions for you from a 3rd party data source.
+</Tip>
 
-    In this example, you will use the [Create transactions endpoint](api-reference/transactions/create_transactions) 
-    to [submit transactions](/transactions/submitting). We encourage you prepare and submit a diverse set of banking 
-    transactions so that you can see Teal in action. 
-    
-    If you want to move to the next step quickly, you can also use **this transaction list** file that we have prepared.
-
-    <Tip>
-    You can also use our [data integrations](/configuration/data_sources_config) 
-    so that Teal can do the work for you of fetching transactions for you.
-    </Tip>
-
-    ``` Shell
-    curl --request GET \
-     --url 'https://api.sandbox.teal.dev/v0/reports/users/user_id/cashflow-statement?start_date=START_DATE&end_date=END_DATE' \
-     --header 'accept: application/json' \
-     --header 'authorization: Bearer <token>'
-     ```
-
-  </Accordion>
-</AccordionGroup>
+``` Shell
+curl --request GET \
+--url 'https://api.sandbox.teal.dev/v0/reports/users/user_id/cashflow-statement?start_date=START_DATE&end_date=END_DATE' \
+--header 'accept: application/json' \
+--header 'authorization: Bearer <token>'
+```
 
 ## 3. Generate a cash flow report
 
-You've set up a User and submitted transactions into their financial account ledger. Now it's time to do something useful, like generating a [cash flow report](/reports/cashflow). 
-This is as simple as calling the [Get Cash flow endpoint](/api-reference/reports/get_cashflow_statement).
+You've set up a User and submitted transactions into their financial account ledger. Now you're ready to generate a [cash flow report](/reports/cash_flow).
+
+### Generate the cash flow report
+
+To generate the cash flow report, call the [Get Cash Flow Statement endpoint](/api-reference/reports/get_cashflow_statement) with the appropriate `start_date` and `end_date` parameters.
 
     ``` Shell
     curl --request GET \
@@ -128,9 +103,16 @@ This is as simple as calling the [Get Cash flow endpoint](/api-reference/reports
      --header 'authorization: Bearer <token>'
      ```
 
-At this stage, calling the [Get Cash flow endpoint](/api-reference/reports/get_cashflow_statement) returns 
-an object with associated journal entries, but you'll notice that the transactions are all currently uncategorized. 
+### Interpreting the cash flow report object
 
-Accurate categorization is an essential component of a great accounting product. We have developed a **categorization pipeline** 
-to help with work of categorizing transactions. You can learn more [here](/configuration/categorization_config)
-or jump right into our Quickstart Categorization guide to see it in action.
+This cash flow report will analyze all cash bearing accounts that were created with the `report_cashflow` parameter. Here's how to interpret the report object:
+
+- The `cashflow-statement` endpoint will return `starting_debit_balance` and `ending_debit_balance`. These are the total amounts of cash that the business had across all financial account ledgers marked with the `report_cashflow` parameter, on the `start_date` and `end_date` of the report, respectively.
+- The `starting_balances` and `ending_balances` JSON objects will break down `starting_debit_balance` and `ending_debit_balance` by financial account ledger.
+- The `cashflow_ledgers` JSON object will report out which ledgers contributed to changing the total cash balance over the reporting period between `start_date` and `end_date`, and by how much. It also reports on the individual line items and journal entries that contributed to the change, if you want to provide the ability to provide further detail to the user.
+- The changes reported by the `cashflow_ledgers` object will equal exactly the difference between the `starting_debit_balance` and `ending_debit_balance` amounts.
+- For more information on how to present this report to the end user in your front-end, check out our [cash flow report guide](/reports/cash_flow).
+
+### Transaction auto-categorization
+
+You'll notice that in this cashflow object, the only two ledgers that changed the cash balance were `uncategorized cash inflows` and and `uncategorized cash outflows`. That's not very informative! This is because [transaction auto-categorization](/configuration/categorization_config) has not yet been enabled. To auto-categorize these transactions and generate a more informative cash flow report, let's move on to the [auto-categorization quick start guide](/getting_started/quickstart_2).

@@ -1,7 +1,7 @@
 ---
 title: "Categorization configuration @William review"
 description: "How to configure auto-categorization on submitted and fetched transactions."
-icon: "user-gear"
+icon: "folder-gear"
 ---
 
 ## Overview of categorization in Teal
@@ -16,7 +16,7 @@ This pipeline consists of three categorization steps, each of which can be indep
 - **Step 2:** Categorizing via rules
 - **Step 3:** AI Categorization
 
-If a transaction is categorized by one of the steps, it will skip the rest of the pipeline and not be categorized by any subsequent step. 
+If a transaction is categorized by one of the steps, it will skip the rest of the pipeline and not be categorized by any subsequent step.
 
 If no categorization step matches a transaction, the transaction will be categorized into the "Uncategorized cash inflow" or "Uncategorized cash outflow" ledger.
 
@@ -130,6 +130,3 @@ The other advantage of AI categorization is that it does not require an existing
 The disadvantage of AI categorization is that it is slow and sometimes unpredictable. When AI categorization is enabled, it can take up to five minutes from submitting a transaction to choose a ledger and generate the journal. Also, since large language models are probabilistic, if you run the same transaction through AI categorization twice it may return two different answers if there are multiple plausible ledgers for a transaction.
 
 Our categorization LLM is under active development and you can expect the accuracy and speed to improve in the coming months.
-
-
-

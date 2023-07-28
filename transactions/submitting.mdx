@@ -1,7 +1,7 @@
 ---
 title: Submitting transactions @William review
 description: "How to get transaction data into Teal."
-icon: "list-tree"
+icon: "folder-arrow-up"
 ---
 
 ## Requirements
@@ -24,7 +24,7 @@ At any time you can use the [Get User Ledger Line Entries endpoint](api-referenc
 
 ### External data source
 
-The advantage of linking an external data source, rather than using the Create Transactions endpoint, is that Teal does the work of making sure the list of transactions is complete and correct. 
+The advantage of linking an external data source, rather than using the Create Transactions endpoint, is that Teal does the work of making sure the list of transactions is complete and correct.
 
 Once you have [configured an external data source](/configuration/data_sources_config) in the developer portal, you can link a ledger to this data source using the [transactions sources endpoint](/api-reference/transaction_sources/).
 
@@ -32,7 +32,7 @@ When a ledger is successfully linked with this endpoint, Teal will poll the data
 
 ### Auto-categorizing transactions
 
-When a new transaction is submitted via the [Create Transactions endpoint](/api-reference/transactions/create_transactions) or fetched by Teal via a linked external source, Teal will automatically apply your [categorization pipeline](/configuration/categorization_config) to the new transaction, to automatically book the transaction to an appropriate ledger. 
+When a new transaction is submitted via the [Create Transactions endpoint](/api-reference/transactions/create_transactions) or fetched by Teal via a linked external source, Teal will automatically apply your [categorization pipeline](/configuration/categorization_config) to the new transaction, to automatically book the transaction to an appropriate ledger.
 
 ## Delays in transaction processing
 

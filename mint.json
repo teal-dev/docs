@@ -55,7 +55,8 @@
         "transactions/overview",
         "transactions/create_ledger",
         "transactions/submitting",
-        "transactions/tagging"
+        "transactions/tagging",
+        "transactions/opening_balances"
       ]
     },
     {

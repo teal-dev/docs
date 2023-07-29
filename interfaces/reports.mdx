@@ -1,12 +1,18 @@
 ---
-title: Reports interfaces @Adam content
+title: Reports interfaces
 description: "How to build UI for reports that delight your users."
 icon: "sidebar"
 ---
 
-To be written by @Adam
+## Filtering reports by time periods
 
-## Date picker
+The most common dimension that your end users will want to filter their reports by is time. This functionality is usually offered by providing a date picker interface component that allows a user to select a particular date range that they're interested in viewing.
+
+The most important thing to bear in mind when creating a date picker that's useful in the context of financial reports is that the time periods that are most relevant to understanding financial data are the traditional accounting intervals used in business, for example **Annual**, **Quarterly**, and **Monthly**. Ideally you'll want to provide a date picker that allows your users to select these intervals directly, rather than forcing them to manually select arbitrary start and end dates.
+
+We recommend either choosing a date picker component that allows you to provide smart preset intervals to your users, or building your own date picker component so you can ensure that it's tailored to the context of financial reports.
+
+Here is a prototype of a date picker component that we've built that allows users to select ranges from preset accounting intervals, you can use this as a starting point and a reference for creating the ideal date picker for your platform:
 
 <iframe
   src="https://codesandbox.io/embed/datepicker-my9s2k?fontsize=14&hidenavigation=1&theme=dark?autoresize=1&fontsize=14&hidenavigation=1&codemirror=1&hidedevtools=1&theme=dark&view=preview"
@@ -17,12 +23,46 @@ To be written by @Adam
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 ></iframe>
 
-## Navigating to additional details
-
-## Displaying ledgers vs ledger totals
-
 ## Implementation examples
 
 ### Income statement
 
+An income statement is an excellent way to present a rolled-up view of the financial performance of a business over a specific period of time. An ideal income statement interface will present:
+
+- Lists of ledgers grouped with a total at the bottom of each list that sums the dollar amount of every ledger in the group.
+- Each ledger in a group should also display its own total dollar amount that sums the individual line entries in the that ledger.
+- After all ledger groups have been rendered, render any ledger totals that provide a relevant summary of entire set of data for the time period, for example **Net Profit**, **Net Profit Before Income Taxes**.
+
+Here is an example of a an income statement interface rendred in this way:
+
+<iframe
+  src="https://codesandbox.io/embed/confident-sunset-xg5ygb?fontsize=14&hidenavigation=1&theme=dark?autoresize=1&fontsize=14&hidenavigation=1&codemirror=1&hidedevtools=1&theme=dark&view=preview"
+  width="725"
+  height="1250"
+  title="Income Statement"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+### Displaying ledgers vs ledger totals
+
+In order to structure your data in a way that allows you to render an income statement interface, you'll need to be able to distinguish between ledgers and ledger totals. A ledger contains line entries that each have a dollar amount, and a ledger total has a dollar amount that sums totals of a set of ledgers.
+
+When calling the [Get Income Statement](/api-reference/reports/get_income_statement), you'll receive an object with an index called `summaries` that contains an array containing all ledgers and ledger totals for a user.
+
+In order to separate the ledgers from the ledger totals for rendering purposes, you can check property `ledgerId`, ledgers will have an id string at that index and ledger totals will have a null value.
+
 ### Cash flow report
+
+A cash flow report is a powerful way to transform a linear list of bank transactions into a view of the health and liquidity of a business, taking transaction data you already have and presenting it in a structured format that's very valuable to your users.
+
+An ideal cashflow report interface will, for a specific time period, provide a glanceable high-level view of the opening balance, a list of the various categories of income and expenses that have affected the balance, and a closing balance. It should also allow the user to drill down into the details of each category to see the individual transactions that make up the totals, and make changes to the assigned category of a transaction.
+
+<iframe
+  src="https://codesandbox.io/embed/cashflow-statement-ge9iwv?codemirror=1&fontsize=14&hidenavigation=1&hidedevtools=1&theme=dark&view=preview"
+  width="725"
+  height="800"
+  title="Cash flow report"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>

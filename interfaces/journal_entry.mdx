@@ -12,17 +12,15 @@ icon: "browsers"
   ensuring the sum of credits equals the sum of debits.
 </Info>
 
-You can use the [Create Journal Entry endpoint](/api-reference/journal_entries/create_journal_entry) to create a journal entry (with respective line entries) for a user directly. However, we recommend using this endpoint only for advanced accounting interfaces. It is safer to use the [Create Transaction endpoint](/api-reference/transactions/create_transaction) to create a transaction, which will automatically create a journal entry for you.
+You can use the [Create Journal Entry endpoint](/api-reference/journal_entries/create_journal_entry) to create a journal entry (with respective line entries) for a user directly. However, we recommend using this endpoint only for advanced accounting interfaces. It is safer to use the [Create Transaction endpoint](/api-reference/transactions/create_transaction) to create a transaction, which will automatically create a journal entry for you.You will have an opportunity to submit a unique ID for the transaction. This ID will be added to the corresponding accounting line entry generated for the the transaction. recommend using this field to map the relationship between transactions in your system, and line entries and journal entries in Teal.
 
-When you initially create a transaction with the [Create Transaction endpoint](/api-reference/transactions/create_transaction), we automatically create a journal entry for you. You can update this journal entry using the [Update Transaction endpoint](/api-reference/transactions/update_transaction), you will have an opportunity to submit a unique ID for the transaction. This ID will be added to the corresponding accounting line entry generated for the the transaction. recommend using this field to map the relationship between transactions in your system, and line entries and journal entries in Teal.
-
-Journal entries can be updated using the [Update Journal Entry endpoint](/api-reference/journal_entries/update_journal_entry). A common reason for updating a journal entires is to modify it's associated line entries. Updates maintain the sum of credits equals sum of debits rule.
+Journal entries can be updated using the [Update Journal Entry endpoint](/api-reference/journal_entries/update_journal_entry). A common reason for updating a journal entires is to modify what expense ledger a particular expense is categorized to. Updates maintain the sum of credits equals sum of debits rule.
 
 ## Modifying journal entries from reports
 
 You likely will want to build the ability the edit journal entries into your reports, for example, to allow your user to change the categories assigned to transactions.
 
-Here is an example of a cash flow report with the ability to edit journal entries in-line:
+Here is an example of a cash flow report with the ability to edit journal entries in-line. Click on a ledger to expand it and reveal the ability to edit the categorization.
 
 <iframe
   src="https://codesandbox.io/embed/cashflow-statement-ge9iwv?codemirror=1&fontsize=14&hidenavigation=1&hidedevtools=1&theme=dark&view=preview"

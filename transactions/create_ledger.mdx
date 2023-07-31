@@ -1,18 +1,18 @@
 ---
 title: Creating ledgers
-description: "How to create a ledger for each financial account."
-icon: "list-tree"
+description: "How to create a financial account ledger for each financial account."
+icon: "folder-plus"
 ---
 
 ## Creating ledgers
 
-The first step to working with transactions is to create a ledger for the corresponding financial account that the transactions will belong to. Each bank account, credit card, loan, or other financial account should have its own individual ledger.  
+The first step to working with transactions is to create a ledger for the corresponding financial account that the transactions will belong to. Each bank account, credit card, loan, or other financial account should have its own individual ledger.
 
 If you already have access to financial accounts for the customer, for example because you already serve them a banking product, then it's a good idea to a ledger for each financial account as soon as you create the user's account in Teal.
 
-If you will be allowing customers to track financial accounts that you do not yet have access to, for example via Plaid, then it's a good idea to create an interface that allows them to define what financial accounts they have, and create a ledger for each one. 
+If you will be allowing customers to track financial accounts that you do not yet have access to, for example via Plaid, then it's a good idea to create an interface that allows them to define what financial accounts they have, and create a ledger for each one.
 
-When you first create a user in Teal, you need to specify the user's start date. No transactions are allowed to be entered into Teal before this start date. If the financial account has been open before the user's Teal start date, then it's important for the opening balance on the Teal ledger must match the balance in the financial account on the start date. There is a dedicated feature for opening balances coming soon, however, until then you can simply create a journal entry on the start date with the title "Opening balance", and debit/credit the correct amount to the ledger so that the balance is correct on the opening date. This will ensure that later, the balance will be correct in the user's accounting reports. 
+When you first create a user in Teal, you need to specify the user's start date. No transactions are allowed to be entered into Teal before this start date. If the financial account has been open before the user's `start date`, then it's important for the [opening balance](/transactions/opening_balances) on the Teal ledger must match the balance in the financial account on the start date. There is a dedicated feature for opening balances coming soon, however, until then you can simply create a journal entry on the start date with the title "Opening balance", and debit/credit the correct amount to the ledger so that the balance is correct on the user's `start date`. This will ensure that later, the balance will be correct in the user's accounting reports.
 
 ### Setting up sort codes
 
@@ -20,16 +20,40 @@ When you create the ledger for a financial account, it is important to give the 
 
 If you are using Teal's default chart of accounts, here are the recommended sort codes for each kind of financial account:
 
-Bank accounts: 1011-1099
-Credit cards: 2001-2099
-Loans and lines of credit: 2101-2199
+- Bank accounts: 1011-1099
+- Credit cards: 2001-2099
+- Loans and lines of credit: 2101-2199
 
 If you are not using Teal's default chart of accounts for your users, its important to establish what range of sort codes you will use for each type of financial account, and make sure that the appropriate ledger totals have been set up so that these accounts display and total properly in the user's accounting reports.
 
 ### Naming ledgers
 
-When creating a ledger, it's important to give it a descriptive name so the end user can distinguish which account is which in case they ever open a 2nd account of the same type. We recommend using a naming convention that includes the last 4 digits of the account number, which is generally considered not to be sensitive information. For security and compliance reasons, we do not recommend including any more digits than the last four.
+When creating a financial account ledger, it's important to give it a descriptive name so the end user can distinguish which account is which in case they ever open a 2nd account of the same type. We recommend using a naming convention that includes the last 4 digits of the account number, which is generally considered not to be sensitive information. For security and compliance reasons, we do not recommend including any more digits than the last four.
 
-For example, "Chase Checking **5959" is a good name for a ledger, whereas "Bank Account 1" is not.
+For example, "Chase Checking \*\*5959" is a good name for a ledger, whereas "Bank Account 1" is not.
 
+## Connect the user's external data source
 
+In many cases, you will want to pull in a user's transaction data from their third-party financial accounts (e.g. Unit, Plaid). You can do this by following these steps:
+
+1. Make sure you have configured your platform to pull data from the external data source (see [Data Sources Configuration](/configuration/data_sources_config))
+2. Create a ledger for the financial account by using the [Create Ledger endpoint](/api-reference/ledgers/create_ledger). For bank accounts, you should use the following query parameters:
+
+```
+ "sort_code"="unique_number"
+ "name"="unique_name"
+ "ledger_type"=asset
+ "debit_credit"=debit
+ "financial_account_type"=bank_account
+ "report_cashflow"=true
+```
+
+3. Link the user's financial account to this ledger by using the [Link Unit Account endpoint](/api-reference/transaction_sources/link_unit_account).
+
+## Making ledgers non-user-editable
+
+If you control the financial account (e.g. via a neobanking/Baas offering), then you may want to make the ledger non-user-editable by setting the user_editable parameter to False when using the [Create Ledger endpoint](/api-reference/ledgers/create_ledger). This will prevent the user from editing any line entry that is assigned to the ledger. They will still be able to categorize the transactions and edit the rest of the journal entry. This feature ensures that the user does not accidently break the sync between the Teal ledger and the transactions submitted from the financial account.
+
+For example, if you submit a transaction for a $10 expense for "Starbucks" using the [create transaction endpoint](/transactions/submitting), Teal will automatically generate a journal entry with two line entries. One line entry will credit $10 to the bank account ledger, the other line entry will debit $10 to an expense ledger (depending on your [auto-categorization config](/configuration/categorization_config)). If the bank account ledger is set to user_editable = False, then the user will be able to change the $10 debit to the expense ledger, but not the $10 credit to the bank account ledger.
+
+If the transactions data source is a data aggregator such as Plaid, it is not recommended to make the ledger non-user-editable. Aggregators sometimes miss transactions that the user must manually enter, and if the ledger is non-user-editable, the user will not be able to enter the transaction to correct the error.

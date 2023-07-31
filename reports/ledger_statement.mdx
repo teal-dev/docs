@@ -1,7 +1,36 @@
 ---
 title: Ledger statement
-description: "Teal lets you build accounting software for your small business customers to use."
-icon: "list-tree"
+description: "How to build a ledger statement using Teal."
+icon: "file-lines"
 ---
 
-To be written
+## What is a ledger statement?
+
+A ledger statement displays all of the line entries that have been booked to a single ledger for a given time period. It is typically viewed when a user wants to understand the contents of a particular ledger better.
+
+While the cash flow report, income statement, and balance sheet give the overview of the entire business, the ledger statement gives the next level of detail into a single ledger.
+
+## How does Teal's ledger statement work?
+
+The ledger statement returns the balances at the start and end of the requested time period, as well as all of the line entries that were booked to the ledger during the time period requested.
+
+## Embedding the ledger statement
+
+You can use the [Get Ledger Statement endpoint](/api-reference/reports/get_ledger_statement) in order to get the data required for producing a ledger statement.
+
+<iframe
+  src="https://codesandbox.io/embed/ledger-statement-5t8vrm?fontsize=14&hidenavigation=1&theme=dark?autoresize=1&fontsize=14&hidenavigation=1&codemirror=1&hidedevtools=1&theme=dark&view=preview"
+  height="900"
+  width="100%"
+  title="Ledger Statement"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+## Creating the ledger statement UI
+
+In order to create a useful ledger statement interface for your users, we recommend adding three additional UI elements to your report:
+
+- A date picker (see [reports interfaces](/interfaces/reports) for more details)
+- the ability to re-categorize the ledger of any listed line entry (using the [Update Journal Entry endpoint](/api-reference/journal_entries/update_journal_entry))
+- The ability to navigate to a [journal entry UI](/interfaces/journal_entry) for more detailed manipulation of the listed line entry and its associated journal entry.

@@ -1,12 +1,41 @@
 ---
-title: Balance sheet
+title: "Balance sheet"
 description: "How to build a balance sheet using Teal."
-icon: "list-tree"
+icon: "file-plus-minus"
 ---
+
+## What is a balance sheet?
+
+A balance sheet is one of the foundational financial statements used in accounting. It shows a business' assets, liabilities, and equity at a given point in time. 
+
+This differs from many of the other financial statements such as the P&L, which reports on transactions over a period of time, instead of just balances at a point in time.
+
+The balances in a balance sheet are generated from the all transactions that have occurred in the business since the start of the business. This makes it more difficult to get right, as more data is required than just transactions for the period of time in question.
+
+## How does Teal's balance sheet report work?
+
+The balance sheet reports against all ledgers and ledger totals with ledger types equal to asset, liability, and equity. The values in the report are calculated based on all line entries in each ledger going back to the user's `start date`, plus any opening balances.
+
+You can set up the ledgers and ledger totals in the user's [Chart of Accounts](/configuration/chart_of_accounts_config).
+
+The balance sheet ties to the P&L report via a special ledger titled "Retained earnings." Retained earnings is the cumulative profit calculated from the sum of the revenue and expense ledgers from the beginning of the business up until the date of the balance sheet report.
+
+## Opening balances
+
+If the business was operating and transacting before the user's `start date`, then opening balances will need to be set in order for the balance sheet to be accurate. See our [Opening Balances guide](/transactions/opening_balances) for more information.
 
 ## Generating the balance sheet report
 
 You can use the [Get Balance Sheet endpoint](/api-reference/reports/get_balance_sheet) in order to get the data required for producing a balance sheet.
+
+## Creating the balance sheet UI
+
+In order to create a useful balance sheet interface for your users, we recommend adding two UI elements to your report:
+
+- a date picker
+- the ability to explore the transactions that are within each listed ledger using the [ledger statement report](/reports/ledger_statement) for each ledger
+
+The [reports interfaces](/interfaces/reports) page provides details and code snippets on how to implement these features.
 
 ## Pricing
 

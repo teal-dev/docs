@@ -165,7 +165,7 @@
             "api-reference/reports/get_income_statement",
             "api-reference/reports/get_balance_sheet",
             "api-reference/reports/get_ledger_statement",
-            "api-reference/reports/get_cashflow_statement"
+            "api-reference/reports/get_cash_flow_report"
           ]
         }
       ]

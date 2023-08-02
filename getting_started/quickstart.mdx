@@ -34,8 +34,8 @@ new user.
 
 ``` Shell
 curl --request POST \
---url 'https://api.sandbox.teal.dev/v0/users?name=USER_NAME&entries_start=STARTDATE&template_id=TEMPLATE_ID' \
---header 'accept: application/json'
+--url 'https://api.sandbox.teal.dev/v0/users?name=USER_NAME&entries_start=STARTDATE&coa_template_id=TEMPLATE_ID' \
+--header 'accept: application/json' \
 --header 'authorization: Bearer <token>'
 ```
 
@@ -44,12 +44,12 @@ curl --request POST \
 In this step, we'll populate some transaction data into Teal that our cash flow report will later report on.
 
 ### Create a financial account ledger
-Before you can submit transactions to Teal, you need to [Create a new financial account ledger](transactions/create_ledger) by calling the [Create ledger](api-reference/ledgers/create_ledger)
+Before you can submit transactions to Teal, you need to [Create a new financial account ledger](/transactions/create_ledger) by calling the [Create ledger](/api-reference/ledgers/create_ledger)
 endpoint. This ledger will represent the financial account in which the transactions occurred.
 
 <Tip>
 These ledgers are unique to each user and represent their corresponding financial accounts in the real world. For information
-on how to set these ledgers up properly, visit [creating ledgers](transactions/create_ledger)
+on how to set these ledgers up properly, visit [creating ledgers](/transactions/create_ledger)
 </Tip> 
 
 For this exercise, let's create a bank account ledger with the following parameters:
@@ -63,16 +63,15 @@ For this exercise, let's create a bank account ledger with the following paramet
   ```
 
   ```Shell
-  curl --request post \
-  --url 'https://api.sandbox.teal.dev/v0/users/{user_id}/ledgers?sort_code=1050&name=Chase Checking 1234&ledger_type=asset&debit_credit=debit&financial_account_type=bank_account&report_cashflow=true' \
-  --header 'Authorization: Bearer <token>' \
-  --header 'Content-Type: '
+  curl --request POST \
+  --url 'https://api.sandbox.teal.dev/v0/users/{user_id}/ledgers?sort_code=1050&name=Chase%20Checking%201234&ledger_type=asset&debit_credit=debit&financial_account_type=bank_account&report_cash_flow=true' \
+  --header 'authorization: Bearer <token>'
   ```
 
-You'll notice that we set the `report_cashflow` parameter to true. This is because we want the cash flow report to analyze the cash flow in and out of this financial account ledger. When we generate the cash flow report later, it will rely on this parameter to know which ledgers to analyze. You can learn more in the [cash flow report guide](/reports/cash_flow). 
+You'll notice that we set the `report_cash_flow` parameter to true. This is because we want the cash flow report to analyze the cash flow in and out of this financial account ledger. When we generate the cash flow report later, it will rely on this parameter to know which ledgers to analyze. You can learn more in the [cash flow report guide](/reports/cash_flow).
 
 ### Submit the transactions
-In this step, you will use the [Create transactions endpoint](api-reference/transactions/create_transactions) 
+In this step, you will use the [Create transactions endpoint](/api-reference/transactions/create_transactions)
 to [submit transactions](/transactions/submitting). We encourage you prepare and submit a diverse set of banking 
 transactions so that you can see Teal in action. 
 
@@ -82,10 +81,11 @@ so that Teal can do the work for you of fetching and reconciling transactions fo
 </Tip>
 
 ``` Shell
-curl --request GET \
---url 'https://api.sandbox.teal.dev/v0/reports/users/user_id/cashflow-statement?start_date=START_DATE&end_date=END_DATE' \
---header 'accept: application/json' \
---header 'authorization: Bearer <token>'
+curl --request POST \
+--url https://api.sandbox.teal.dev/v0/ledgers/{ledger_id}/transactions \
+--header 'authorization: Bearer <token>' \
+--header 'content-type: application/json' \
+--data '[{"amount":100,"datetime":"2023-08-01T00:00:00Z","description":"A sample transaction","id":"t_12345","metadata": {}}]'
 ```
 
 ## 3. Generate a cash flow report
@@ -94,14 +94,14 @@ You've set up a User and submitted transactions into their financial account led
 
 ### Generate the cash flow report
 
-To generate the cash flow report, call the [Get Cash Flow Statement endpoint](/api-reference/reports/get_cashflow_statement) with the appropriate `start_date` and `end_date` parameters.
+To generate the cash flow report, call the [Get Cash Flow Report endpoint](/api-reference/reports/get_cash_flow_report) with the appropriate `start_date` and `end_date` parameters.
 
-    ``` Shell
-    curl --request GET \
-     --url 'https://api.sandbox.teal.dev/v0/reports/users/user_id/cashflow-statement?start_date=START_DATE&end_date=END_DATE' \
-     --header 'accept: application/json' \
-     --header 'authorization: Bearer <token>'
-     ```
+``` Shell
+curl --request GET \
+--url 'https://api.sandbox.teal.dev/v0/reports/users/{user_id}/cash-flow-report?start_date=START_DATE&end_date=END_DATE' \
+--header 'accept: application/json' \
+--header 'authorization: Bearer <token>'
+```
 
 ### Interpreting the cash flow report object
 

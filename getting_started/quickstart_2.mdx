@@ -12,7 +12,10 @@ This Quick start guide will walk you through the steps to configure Teal's auto-
 the cash flow report from the previous guide.  
 
 ## 1. Configure the auto-categorization pipeline
-Start by opening the **Categorization** section of the [Developer portal](https://developer.teal.dev/categorization). Here you will see the auto-categorization pipeline. This pipeline will execute whenever a new transaction is submitted via the Create Transaction endpoint, or is fetched by Teal via a data integration. Auto-categorization provides a better UX for the end user, as they will not need to manually categorize the majority of transactions. 
+Start by opening the **Categorization** section of the [Developer portal](https://developer.teal.dev/categorization). 
+Here you will see the auto-categorization pipeline. This pipeline will execute whenever a new transaction is submitted 
+via the [Create Transaction endpoint](/api-reference/transactions/create_transactions), or is fetched by Teal via a data integration. 
+Auto-categorization provides a better user experience for the end user, as they will not need to manually categorize the majority of transactions. 
 
 The auto-categorization pipeline consists of three categorization steps, each of which can be indepedently enabled and configured. We won't go into a lot of detail in this quick start, but you can visit [categorization configuration](/configuration/categorization_config) for more information. 
 
@@ -73,7 +76,7 @@ from within the [Developer portal](https://developer.teal.dev/categorization).
 
 Once you are ready to test your auto-categorization configuration, select the user we created in the [Quick start 1: Reports guide](/getting_started/quickstart) from the dropdown menu. Select a financial account ledger in the dropdown menu. Now you can click **Run Test** to view the output of auto-categorization for the transactions contained in that ledger. Running the test will give a preview of the auto-categorization results, but will not apply the changes to the user's data.
 
-When you are satisfied with the results of the auto-categorizer, you can click **Recategorize** to push these changes to the user's data. You can now generate a new cashflow report with the updated categories. 
+When you are satisfied with the results of the auto-categorizer, you can click **Recategorize** to push these changes to the user's data. You can now generate a new cash flow report with the updated categories. 
 
 <Warning>
     **Recategorizing** will delete and recreate all transactions in the ledger with the updated categories and associated journal entries.
@@ -82,16 +85,15 @@ When you are satisfied with the results of the auto-categorizer, you can click *
 ## 3. View an updated cash flow report
 
 As outlined in [Quick start: Reports](/getting_started/Quickstart), generating a cash flow report is an as simple as 
-calling the [Get Cash flow endpoint](/api-reference/reports/get_cashflow_statement).
+calling the [Get Cash flow endpoint](/api-reference/reports/get_cash_flow_report).
 
     ``` Shell
-    curl --request GET \
-     --url 'https://api.sandbox.teal.dev/v0/reports/users/user_id/cashflow-statement?start_date=START_DATE&end_date=END_DATE' \
-     --header 'accept: application/json' \
-     --header 'authorization: Bearer <token>'
+    curl --request get \
+    --url 'https://api.sandbox.teal.dev/v0/reports/users/{user_id}/cash-flow-report?start_date=start_date&end_date=end_date' \
+    --header 'Authorization: Bearer <token>' \
      ```
 
-Congratulations! The new cashflow report object now displays the updated categories. 
+Congratulations! The new cash flow report object now displays the updated categories. 
 
 ## What to explore next
 

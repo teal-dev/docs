@@ -24,9 +24,9 @@ At any time you can use the [Get User Ledger Line Entries endpoint](api-referenc
 
 ### External data source
 
-The advantage of linking an external data source, rather than using the Create Transactions endpoint, is that Teal does the work of making sure the list of transactions is complete and correct.
+The advantage of linking an external data source, rather than using [Create Transactions endpoint](/api-reference/transactions/create_transactions), is that Teal does the work of making sure the list of transactions is complete and correct.
 
-Once you have [configured an external data source](/configuration/data_sources_config) in the developer portal, you can link a ledger to this data source using the [transactions sources endpoint](/api-reference/transaction_sources/).
+Once you have [configured an external data source](/configuration/data_sources_config) in the developer portal, you can link a ledger to this data source using the [Transaction Sources endpoint](/api-reference/transaction_sources/).
 
 When a ledger is successfully linked with this endpoint, Teal will poll the data source for new transactions and input them into the ledger when they are available. It will also automatically check for missing or incorrect transactions and give an alert if it finds them. This is more important when using aggregators like Plaid, as unfortunately these aggregators can often send wrong or conflicting data that needs to be cleaned.
 

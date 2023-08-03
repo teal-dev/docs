@@ -35,7 +35,6 @@ new user.
 ``` Shell
 curl --request POST \
 --url 'https://api.sandbox.teal.dev/v0/users?name=USER_NAME&entries_start=STARTDATE&coa_template_id=TEMPLATE_ID' \
---header 'accept: application/json' \
 --header 'authorization: Bearer <token>'
 ```
 
@@ -44,8 +43,7 @@ curl --request POST \
 In this step, we'll populate some transaction data into Teal that our cash flow report will later report on.
 
 ### Create a financial account ledger
-Before you can submit transactions to Teal, you need to [Create a new financial account ledger](/transactions/create_ledger) by calling the [Create ledger](/api-reference/ledgers/create_ledger)
-endpoint. This ledger will represent the financial account in which the transactions occurred.
+Before you can submit transactions to Teal, you need to [Create a new financial account ledger](/transactions/create_ledger) by calling the [Create Ledger endpoint](/api-reference/ledgers/create_ledger). This ledger will represent the financial account in which the transactions occurred.
 
 <Tip>
 These ledgers are unique to each user and represent their corresponding financial accounts in the real world. For information
@@ -59,7 +57,7 @@ For this exercise, let's create a bank account ledger with the following paramet
   --ledger_type asset
   --debit_credit debit
   --financial_account_type bank_account
-  --report_cashflow true
+  --report_cash_flow true
   ```
 
   ```Shell
@@ -84,7 +82,6 @@ so that Teal can do the work for you of fetching and reconciling transactions fo
 curl --request POST \
 --url https://api.sandbox.teal.dev/v0/ledgers/{ledger_id}/transactions \
 --header 'authorization: Bearer <token>' \
---header 'content-type: application/json' \
 --data '[{"amount":100,"datetime":"2023-08-01T00:00:00Z","description":"A sample transaction","id":"t_12345","metadata": {}}]'
 ```
 
@@ -99,20 +96,19 @@ To generate the cash flow report, call the [Get Cash Flow Report endpoint](/api-
 ``` Shell
 curl --request GET \
 --url 'https://api.sandbox.teal.dev/v0/reports/users/{user_id}/cash-flow-report?start_date=START_DATE&end_date=END_DATE' \
---header 'accept: application/json' \
 --header 'authorization: Bearer <token>'
 ```
 
 ### Interpreting the cash flow report object
 
-This cash flow report will analyze all cash bearing accounts that were created with the `report_cashflow` parameter. Here's how to interpret the report object:
+This cash flow report will analyze all cash bearing accounts that were created with the `report_cash_flow` parameter. Here's how to interpret the report object:
 
-- The `cashflow-statement` endpoint will return `starting_debit_balance` and `ending_debit_balance`. These are the total amounts of cash that the business had across all financial account ledgers marked with the `report_cashflow` parameter, on the `start_date` and `end_date` of the report, respectively.
+- The `cash-flow-report` endpoint will return `starting_debit_balance` and `ending_debit_balance`. These are the total amounts of cash that the business had across all financial account ledgers marked with the `report_cash_flow` parameter, on the `start_date` and `end_date` of the report, respectively.
 - The `starting_balances` and `ending_balances` JSON objects will break down `starting_debit_balance` and `ending_debit_balance` by financial account ledger.
-- The `cashflow_ledgers` JSON object will report out which ledgers contributed to changing the total cash balance over the reporting period between `start_date` and `end_date`, and by how much. It also reports on the individual line items and journal entries that contributed to the change, if you want to provide the ability to provide further detail to the user.
-- The changes reported by the `cashflow_ledgers` object will equal exactly the difference between the `starting_debit_balance` and `ending_debit_balance` amounts.
+- The `cash_flow_ledgers` JSON object will report out which ledgers contributed to changing the total cash balance over the reporting period between `start_date` and `end_date`, and by how much. It also reports on the individual line items and journal entries that contributed to the change, if you want to provide the ability to provide further detail to the user.
+- The changes reported by the `cash_flow_ledgers` object will equal exactly the difference between the `starting_debit_balance` and `ending_debit_balance` amounts.
 - For more information on how to present this report to the end user in your front-end, check out our [cash flow report guide](/reports/cash_flow).
 
 ### Transaction auto-categorization
 
-You'll notice that in this cashflow object, the only two ledgers that changed the cash balance were `uncategorized cash inflows` and `uncategorized cash outflows`. That's not very informative! This is because [transaction auto-categorization](/configuration/categorization_config) has not yet been enabled. To auto-categorize these transactions and generate a more informative cash flow report, let's move on to the [auto-categorization quick start guide](/getting_started/quickstart_2).
+You'll notice that in this cash flow object, the only two ledgers that changed the cash balance were `uncategorized cash inflows` and `uncategorized cash outflows`. That's not very informative! This is because [transaction auto-categorization](/configuration/categorization_config) has not yet been enabled. To auto-categorize these transactions and generate a more informative cash flow report, let's move on to the [auto-categorization quick start guide](/getting_started/quickstart_2).

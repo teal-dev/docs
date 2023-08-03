@@ -8,7 +8,7 @@ icon: "folder-gear"
 
 When you [submit a new transaction](/transactions/submitting) to Teal, the transactions will run through the auto-categorization pipeline that you have configured on the categorization tab in the [developer portal](https://developer.teal.dev/categorization).
 
-The categorization pipeline is intended to be a first cut at categorizing transactions into the appropriate accounting ledgers. This provides a better UX for the user, as they will not need to manually categorize the majority of transactions.
+The categorization pipeline is intended to be a first cut at categorizing transactions into the appropriate accounting ledgers. This provides a better user experience for the user, as they will not need to manually categorize the majority of transactions.
 
 This pipeline consists of three categorization steps, each of which can be indepedently enabled and configured.
 
@@ -133,8 +133,8 @@ Our categorization LLM is under active development and you can expect the accura
 
 ## Uncategorized transactions
 
-Auto-categorization provides a better UX for the user, as they will not need to manually categorize the majority of transactions. However, many transactions often lack sufficient data to be auto-categorized, for example, a bank transaction which simply says "Payment." Therefore, it is inevitable that any auto-categorization pipeline will have a certain percentage of transactions that are not categorized.
+Auto-categorization provides a better user experience for the user, as they will not need to manually categorize the majority of transactions. However, many transactions often lack sufficient data to be auto-categorized, for example, a bank transaction which simply says "Payment." Therefore, it is inevitable that any auto-categorization pipeline will have a certain percentage of transactions that are not categorized.
 
 When a transaction is not categorized by any of the auto-categorization steps, it will be categorized into the "Uncategorized cash inflow" or "Uncategorized cash outflow" ledger. These two ledgers are special ledgers hardcoded into each chart of accounts template.
 
-We recommend that you think through the UX flow that a user will follow to categorize any uncategorized transactions.
+We recommend that you think through the user experience flow that a user will follow to categorize any uncategorized transactions.

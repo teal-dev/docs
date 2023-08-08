@@ -73,7 +73,7 @@ match("Slack", t.description)
 
 ### Payments to a specific merchant over a given threshold amount
 
-A rule that applies to any transaction where the vendor is "Chevron" and the amount is more than $50:
+A rule that applies to any transaction where the vendor is "Chevron" and the amount is more than \$50:
 
 ```python
 match("Chevron", t.description) and t.amount > 50

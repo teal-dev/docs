@@ -146,7 +146,8 @@
           "pages": [
             "api-reference/transactions/create_transactions",
             "api-reference/transactions/get_transactions",
-            "api-reference/transactions/delete_transaction"
+            "api-reference/transactions/delete_transaction",
+            "api-reference/transactions/get_transaction_processing_status"
           ]
         },
         {

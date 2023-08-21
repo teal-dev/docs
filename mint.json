@@ -42,7 +42,7 @@
     {
       "group": "Configuring your platform",
       "pages": [
-        "configuration/configuration_overview",
+        "configuration/overview",
         "configuration/chart_of_accounts_config",
         "configuration/categorization_config",
         "configuration/data_sources_config",

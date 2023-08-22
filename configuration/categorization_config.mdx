@@ -6,9 +6,11 @@ icon: "folder-gear"
 
 ## Overview of auto-categorization in Teal
 
-When you [submit a new transaction](/transactions/submitting) to Teal, the transactions will run through the auto-categorization pipeline that you have configured on the categorization tab in the [developer portal](https://developer.teal.dev/categorization).
+When you [submit a new transaction](/transactions/submitting) to Teal, the transactions will run through the 
+auto-categorization pipeline that you have configured on the categorization tab in the [developer portal](https://developer.teal.dev/auto_categorization).
 
-The categorization pipeline is intended to be a first cut at categorizing transactions into the appropriate accounting ledgers. This provides a better user experience for the user, as they will not need to manually categorize the majority of transactions.
+The categorization pipeline is intended to be a first cut at categorizing transactions into the appropriate accounting ledgers. 
+This minimizes the number of transactions a user will need to manually categorize.
 
 This pipeline consists of three categorization steps, each of which can be indepedently enabled and configured.
 
@@ -75,19 +77,23 @@ Transaction {
 
 Expressions may include the following operators and literals:
 
-- **Operators**
+<AccordionGroup>
+<Accordion title="Operators">
   - `and`, `or` for logical AND and OR operations
   - `()` for defining the order of operations
   - `==`, `>`, `>=`, `<`, `<=` for equality and comparison
   - `+`, `-`, `*`, `/`, `%` for mathematical operations
-- **If/else Expression**
+</Accordion>
+<Accordion title="If/else Expression">
   - `true_expr if boolean_expr else false_expr`
-- **Literals**
-
-  - Strings: `"string"`
+</Accordion>
+<Accordion title="Literals">
+    - Strings: `"string"`
   - Numbers: `1.23`
   - Booleans: `True`, `False`
   - Datetime: `datetime("2023-01-10T00:00:00.000Z")`
+</Accordion>
+</AccordionGroup>
 
 ### Regular Expressions
 
@@ -121,15 +127,12 @@ t.metadata.counterparty == "Sophie's Contracting LLC"
 
 ## AI Categorization
 
-The final step in the categorization pipeline is AI categorization. This step uses a large language model to categorize transactions into the appropriate ledger.
+The final step in the categorization pipeline is AI categorization. This step uses a combination of machine learning (ML) and 
+large language models (LLMs) to categorize transactions into the appropriate ledger. We use a combination of ML and LLMs to 
+leverage the unique advantages of each.
 
-The advantage of AI categorization is that it can handle new and unanticipated kinds of transactions, whereas rules need to be pre-configured, generally from past experience.
-
-The other advantage of AI categorization is that it does not require an existing corpus of structured data to work. You can freely customize your chart of accounts, and the AI will use it intelligently, without requiring any training data specific to the chart of accounts.
-
-The disadvantage of AI categorization is that it is slow and sometimes unpredictable. When AI categorization is enabled, it can take up to five minutes from submitting a transaction to choose a ledger and generate the journal. Also, since large language models are probabilistic, if you run the same transaction through AI categorization twice it may return two different answers if there are multiple plausible ledgers for a transaction.
-
-Our categorization LLM is under active development and you can expect the accuracy and speed to improve in the coming months.
+To enable AI categorization, please reach out to your Teal contact. You'll first need to submit example transactions 
+from your users, and then Teal will train a custom AI auto-categorization model for your platform.
 
 ## Uncategorized transactions
 

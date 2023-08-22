@@ -12,7 +12,7 @@ This Quick start guide will walk you through the steps to configure Teal's auto-
 the cash flow report from the previous guide.  
 
 ## 1. Configure the auto-categorization pipeline
-Start by opening the **Categorization** section of the [Developer portal](https://developer.teal.dev/categorization). 
+Start by opening the **Categorization** section of the [Developer portal](https://developer.teal.dev/auto_categorization). 
 Here you will see the auto-categorization pipeline. This pipeline will execute whenever a new transaction is submitted 
 via the [Create Transaction endpoint](/api-reference/transactions/create_transactions), or is fetched by Teal via a data integration. 
 Auto-categorization provides a better user experience for the end user, as they will not need to manually categorize the majority of transactions. 
@@ -72,7 +72,7 @@ For the purposes of this step in the quickstart guide, we recommend enabling all
 ## 2. Test the auto-categorizer
 
 You can run auto-categorization tests to check the accuracy and recategorize transactions for specific ledgers 
-from within the [Developer portal](https://developer.teal.dev/categorization).
+from within the [Developer portal](https://developer.teal.dev/auto_categorization).
 
 Once you are ready to test your auto-categorization configuration, select the user we created in the [Quick start 1: Reports guide](/getting_started/quickstart) from the dropdown menu. Select a financial account ledger in the dropdown menu. Now you can click **Run Test** to view the output of auto-categorization for the transactions contained in that ledger. Running the test will give a preview of the auto-categorization results, but will not apply the changes to the user's data.
 

@@ -87,11 +87,11 @@ When you are satisfied with the results of the auto-categorizer, you can click *
 As outlined in [Quick start: Reports](/getting_started/Quickstart), generating a cash flow report is an as simple as 
 calling the [Get Cash flow endpoint](/api-reference/reports/get_cash_flow_report).
 
-    ``` Shell
-    curl --request get \
-    --url 'https://api.sandbox.teal.dev/v0/reports/users/{user_id}/cash-flow-report?start_date=start_date&end_date=end_date' \
-    --header 'Authorization: Bearer <token>' \
-     ```
+``` Shell
+curl --request get \
+--url 'https://api.sandbox.teal.dev/v0/reports/users/{user_id}/cash-flow-report?start_date=start_date&end_date=end_date' \
+--header 'Authorization: Bearer <token>' \
+```
 
 Congratulations! The new cash flow report object now displays the updated categories. 
 

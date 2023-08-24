@@ -18,11 +18,51 @@ If you would like more direct control over the accounting treatment, it is possi
 
 ### Create Transactions endpoint
 
-You can submit transactions to Teal using the [Create Transactions endpoint](/api-reference/transactions/create_transactions). This endpoint allows you to submit multiple transactions at once.
+You can submit transactions to Teal using the [Create Transactions endpoint](/api-reference/transactions/create_transactions). 
+This endpoint allows you to submit multiple transactions at once.
 
-When submitting transactions using this API, you will need to do the work of making sure that you have sent all of the transactions successfully. i.e. that you have not missed any transactions, sent any duplicate transactions, or submitted transactions with incorrect dates, amounts, etc.
+When submitting transactions using this API, you will need to do the work of making sure that you have 
+sent all of the transactions successfully. i.e. that you have not missed any transactions, sent any 
+duplicate transactions, or submitted transactions with incorrect dates, amounts, etc.
 
-At any time you can use the [Get Transactions endpoint](/api-reference/transactions/get_transactions) to get a list of the transactions that you have submitted for a ledger. Each transaction in the list will contain the ID you submitted on creation, allowing you to compare the lists and making sure nothing is mismatched. You can also compare the dates, amounts, and metadata to ensure they are accurate. If you find any problems with an individual transaction, you can delete it using the [Delete Transaction endpoint](/api-reference/transactions/delete_transaction) and resubmit it.
+At any time you can use the [Get Transactions endpoint](/api-reference/transactions/get_transactions) to get a list 
+of the transactions that you have submitted for a ledger. Each transaction in the list will contain the 
+ID you submitted on creation, allowing you to compare the lists and making sure nothing is mismatched. 
+You can also compare the dates, amounts, and metadata to ensure they are accurate. If you find any problems 
+with an individual transaction, you can delete it using the [Delete Transaction endpoint](/api-reference/transactions/delete_transaction) 
+and resubmit it.
+
+<Accordion 
+title="Example"
+>
+Transaction body:
+```
+{
+  description: "A sample transaction"
+  datetime: "2023-08-01T00:00:00Z"
+  amount: "100"
+  metadata: "null"
+}
+```
+
+Request
+``` Shell
+curl --request POST \
+--url https://api.sandbox.teal.dev/v0/ledgers/{ledger_id}/transactions \
+--header 'authorization: Bearer <token>' \
+--data '[{"amount":100,"datetime":"2023-08-01T00:00:00Z","description":"A sample transaction","id":"t_12345","metadata": {}}]'
+```
+
+Response
+``` 
+{
+  "created_datetime": "2023-08-02T00:00:00Z",
+  "id": "UjL3BQnEaJtecuC7CUeDk",
+  "status": "complete",
+  "updated_datetime": "null"
+}
+```
+</Accordion>
 
 ### External data source
 

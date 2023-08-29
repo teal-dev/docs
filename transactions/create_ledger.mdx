@@ -8,7 +8,8 @@ icon: "folder-plus"
 
 The first step to working with transactions is to create a ledger for the corresponding financial 
 account that the transactions will belong to. Each bank account, credit card, loan, or other 
-financial account should have its own individual ledger.
+financial account should have its own individual ledger. You can find the complete list of supported 
+financial account types [here](/ledgers/create_ledger).
 
 If you already have access to financial accounts for the customer, for example because you already 
 serve them a banking or payroll product, then it's a good idea to create a ledger for each financial 
@@ -18,14 +19,14 @@ If you will be allowing customers to track financial accounts that you do not ye
 to, for example via Plaid, then it's a good idea to create an interface that allows them 
 to define what financial accounts they have, and create a ledger for each one.
 
-When you first create a user in Teal, you need to specify the user's `start_date`. No 
-transactions are allowed to be entered into Teal before this `start_date`. If the financial 
-account has been open before the user's `start_date`, then it's important for the 
+When you first create a user in Teal, you need to specify the user's [start date](/users/create_user) (`entries_start`). No 
+transactions are allowed to be entered into Teal before this start date. If the financial 
+account has been open before the user's start date, then it's important for the 
 [opening balance](/transactions/opening_balances) on the Teal ledger to match the balance 
-in the financial account on the `start_date`. There is a dedicated feature for opening balances 
-coming soon, however, until then you can simply create a journal entry on the `start_date` with 
+in the financial account on the start date. There is a dedicated feature for opening balances 
+coming soon, however, until then you can simply create a journal entry on the start date with 
 the title "Opening balance", and debit/credit the correct amount to the ledger so that the 
-balance is correct on the user's `start_date`. This will ensure that later, the balance will 
+balance is correct on the user's start date. This will ensure that later, the balance will 
 be correct in the user's accounting reports.
 
 ### Setting up sort codes
@@ -34,12 +35,12 @@ When you create the ledger for a financial account, it is important to give the 
 a `sort_code` appropriate to the kind of financial account it is, so that it is captured in 
 the appropriate totals defined in the user's chart of accounts.
 
-If you are using Teal's default chart of accounts, here are the recommended sort codes for 
-each kind of financial account:
+If you are using Teal's default chart of accounts, here are the recommended sort codes for the 
+major financial account types:
 
 - Bank accounts: 1011-1099
 - Credit cards: 2001-2099
-- Loans and lines of credit: 2101-2199
+- Loans (and lines of credit): 2101-2199
 
 If you are not using Teal's default chart of accounts for your users, its important to 
 establish what range of sort codes you will use for each type of financial account, and 

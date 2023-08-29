@@ -43,10 +43,10 @@
       "group": "Configuring your platform",
       "pages": [
         "configuration/overview",
+        "configuration/user_config",
         "configuration/chart_of_accounts_config",
         "configuration/categorization_config",
-        "configuration/data_sources_config",
-        "configuration/user_config"
+        "configuration/data_sources_config"
       ]
     },
     {

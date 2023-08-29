@@ -4,42 +4,40 @@ description: "This page walks you through configuring your users."
 icon: "user-gear"
 ---
 
-## Creating a user
+A user in your Teal platform represents your end customer's small business. This means that a user always has a single set of "books". You can create 
+and configure users in Teal, and you will need to store the association between a user in your Teal platform and their associated entity in your product. 
 
-Users represent the businesses (end customers) you serve. For your users to use Teal, you will need to create a corresponding user on the Teal platform.
-
-You can create users on your Teal platform using the [Create User API](/api-reference/users/create_user). 
 
 <Note>
-  Remember to store the association between users on your platform and their
-  Teal counterparts.
+  Remember to store the association between a user in your Teal platform and their associated entity in your product. 
 </Note>
+
+## Creating a user
+
+You can create users on your Teal platform by using the [Create User API](/api-reference/users/create_user). 
 
 ### Subscription Level
 
-By default, users are created with a **Tier 0** subscription. To enable **Tier 1 or 2** features, upgrade the user subscription using the [Update Subscription endpoint](/api-reference/users/update_subscription). Remember that there are the difference charges depending on subscription level in product. Sandbox subscriptions incur no charges.
+By default, users are created with a **Tier 0** subscription. To enable **Tier 1 or 2** features, upgrade the user 
+subscription using the [Update Subscription endpoint](/api-reference/users/update_subscription). Remember 
+that there are different charges depending on subscription level. Sandbox subscriptions incur no charges.
 
 ### Start date
 
-It's important to be mindful in setting the start date for a user. The start date is the date from which the user's bookkeeping will be tracked. You will not be able to enter any transactions or journal entries, or generate reports before the start date. 
+It's important to be mindful in setting the start date (`entries_start`) for a user. The start date is the date from which 
+the user's bookkeeping will be tracked. You will not be able to enter any transactions or 
+journal entries, or generate reports before the start date. 
 
-If the user is switching from another bookkeeping platform, you will generally set a start date that is the beginning of the financial year that they will begin tracking their books on your platform. The will enter opening balances(feature coming soon) to set up their balance sheet properly so that it is accurate on the start date. (Tier 2 only)
+If the user is switching from another bookkeeping platform, you will generally set a start date that is 
+the beginning of the financial year that they will begin tracking their books on your platform. The will enter 
+opening balances(feature coming soon) to set up their balance sheet properly so that it is accurate on the start date. (Tier 2 only)
 
-If the user is not switching from another platform, and intends to track their books from the opening date of the business, then set the start date as the opening date of the business.
+If the user is not switching from another platform, and intends to track their books from the opening date of 
+the business, then set the start date as the opening date of the business.
 
 ### Chart of accounts
 
-When you create a new user using the [Create User endpoint](/api-reference/users/create_user), you will need to select a [chart of accounts](/configuration/chart_of_accounts_config) template for their ledgers to be generated from, by using the `coa_template_id` parameter.
+When you create a new user using the [Create User endpoint](/api-reference/users/create_user), you will need to select a
+ [chart of accounts](/configuration/chart_of_accounts_config) template for their ledgers to be generated from, 
+ by using the `coa_template_id` parameter.
 
-## Other: Create sample data
-
-You can leverage Teal's sample data for the purposes of testing your configuration. From the [Developer Portal](https://developer.teal.dev/), generate data for your platform in the sandbox environment.
-
-1. Log into the [Developer Portal](https://developer.teal.dev/) and navigate to the **Sandbox** tab.
-2. In your platform's menu, select **Generate Sample User** (see example)
-
-<Frame>
-  <img src="/images/generate_sample_user.png" />
-</Frame>
-
-The sample user will have **Tier 2** subscription and be populated with a chart of accounts for a **C-Corp** with journal entries dating back a year. You can use this sample user to quickly get started testing out reporting functionality.

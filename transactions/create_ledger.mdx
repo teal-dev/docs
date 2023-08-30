@@ -7,9 +7,11 @@ icon: "folder-plus"
 ## Creating financial account ledgers
 
 The first step to working with transactions is to create a ledger for the corresponding financial 
-account that the transactions will belong to. Each bank account, credit card, loan, or other 
-financial account should have its own individual ledger. You can find the complete list of supported 
-financial account types [here](/ledgers/create_ledger).
+account that the transactions will belong to. We support multiple types of financial accounts and 
+set smart defaults based on the `financial_account_type` selected. For example, if you set 
+`financial_account_type` to bank, we set `type` to asset, `debit_credit` to debit, and 
+`report_cash_flow` to true. Each financial acount should have its own individual ledger. You can see the 
+complete list of supported financial account types [here](/api-reference/ledgers/create_ledger).
 
 If you already have access to financial accounts for the customer, for example because you already 
 serve them a banking or payroll product, then it's a good idea to create a ledger for each financial 
@@ -19,7 +21,7 @@ If you will be allowing customers to track financial accounts that you do not ye
 to, for example via Plaid, then it's a good idea to create an interface that allows them 
 to define what financial accounts they have, and create a ledger for each one.
 
-When you first create a user in Teal, you need to specify the user's [start date](/users/create_user) (`entries_start`). No 
+When you first [create a user](/api-reference/users/create_user) in Teal, you need to specify the user's start date (`entries_start`). No 
 transactions are allowed to be entered into Teal before this start date. If the financial 
 account has been open before the user's start date, then it's important for the 
 [opening balance](/transactions/opening_balances) on the Teal ledger to match the balance 

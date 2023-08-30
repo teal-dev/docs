@@ -120,7 +120,8 @@
             "api-reference/ledgers/get_ledgers",
             "api-reference/ledgers/create_ledger",
             "api-reference/ledgers/get_total_ledgers",
-            "api-reference/ledgers/create_total_ledger"
+            "api-reference/ledgers/create_total_ledger",
+            "api-reference/ledgers/set_opening_balance"
           ]
         },
         {

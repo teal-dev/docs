@@ -107,8 +107,10 @@
             "api-reference/chart_of_accounts/get_coa_templates",
             "api-reference/chart_of_accounts/create_coa_template",
             "api-reference/chart_of_accounts/get_coa_template",
+            "api-reference/chart_of_accounts/clone_coa_template",
             "api-reference/chart_of_accounts/delete_coa_template",
             "api-reference/chart_of_accounts/create_ledger_template",
+            "api-reference/chart_of_accounts/update_ledger_template",
             "api-reference/chart_of_accounts/delete_ledger_template"
           ]
         },
@@ -117,6 +119,7 @@
           "pages": [
             "api-reference/ledgers/get_ledgers",
             "api-reference/ledgers/create_ledger",
+            "api-reference/ledgers/update_ledger",
             "api-reference/ledgers/set_opening_balance"
           ]
         },

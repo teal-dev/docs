@@ -6,21 +6,32 @@ icon: "file-chart-column"
 
 ## What is an income statement?
 
-An income statement, also known as a profit & loss (P&L) statement, is one of the foundational financial statements used in accounting. It shows a company's revenues, expenses, and profits over a given period of time.
+An income statement, also known as a profit & loss (P&L) statement, is one of the foundational financial statements used in accounting. 
+It shows a company's revenues, expenses, and profits over a given period of time.
 
-This differs from the cash flow report, as the P&L statement does not show many of the cash inflows and outflows of the business such as loan payments, investments, and dividends.
+This differs from the cash flow report, as the P&L statement does not show many of the cash inflows and outflows of the business such 
+as loan payments, investments, and dividends.
 
-The timing of when a revenue or expense is recognized can differ significantly from the time an invoice is paid. On the revenue side for example, it's common for a company to recognize revenue when an invoice is sent, even though payment has not been received, by debitting Accounts Receivable and crediting Revenue. Later, when the customer pays the invoice, a separate journal entry is created to credit Accounts Receivable, and debit Cash. The former journal entry will show only on the income statement, and the latter journal entry will show only on the cash flow report.
+The timing of when a revenue or expense is recognized can differ significantly from the time an invoice is paid. On the revenue side 
+for example, it's common for a company to recognize revenue when an invoice is sent, even though payment has not been received, by 
+debitting Accounts Receivable and crediting Revenue. Later, when the customer pays the invoice, a separate journal entry is created to 
+credit Accounts Receivable, and debit Cash. The former journal entry will show only on the income statement, and the latter journal entry 
+will show only on the cash flow report.
 
 ## How does Teal's income statement work?
 
-The income statement returns all ledgers and ledger totals with ledger types equal to revenue, expense, or profit. The values are tabulated over the specified date range.
+The income statement returns an array of ledger summaries for ledger types equal to revenue or expense. It also returns calculated totals that are 
+typically included in an income statement, such as `sub_type` totals (e.g. "Total Cost of Goods Sold") and profit metrics (e.g "Gross Profit" and "Net Profit"). 
+The values are tabulated over the specified date range. 
+ 
 
-You can set up the ledgers and ledger totals in the user's Chart of Accounts.
+<Note> Ledger summaries are returned in the order that you can render them in your user interface. This makes it easy to display a conventional income 
+statement with minimal effort.</Note> 
 
 ## Embedding the income statement
 
-You can use the [Get Income Statement endpoint](/api-reference/reports/get_income_statement) in order to get the data required for producing an income statement.
+You can use the [Get Income Statement endpoint](/api-reference/reports/get_income_statement) in order to get the data required for producing 
+an income statement.
 
 <iframe
   src="https://codesandbox.io/embed/confident-sunset-xg5ygb?fontsize=14&hidenavigation=1&theme=dark?autoresize=1&fontsize=14&hidenavigation=1&codemirror=1&hidedevtools=1&theme=dark&view=preview"

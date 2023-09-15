@@ -109,9 +109,7 @@
             "api-reference/chart_of_accounts/get_coa_template",
             "api-reference/chart_of_accounts/delete_coa_template",
             "api-reference/chart_of_accounts/create_ledger_template",
-            "api-reference/chart_of_accounts/delete_ledger_template",
-            "api-reference/chart_of_accounts/create_total_ledger_template",
-            "api-reference/chart_of_accounts/delete_total_ledger_template"
+            "api-reference/chart_of_accounts/delete_ledger_template"
           ]
         },
         {
@@ -119,8 +117,6 @@
           "pages": [
             "api-reference/ledgers/get_ledgers",
             "api-reference/ledgers/create_ledger",
-            "api-reference/ledgers/get_total_ledgers",
-            "api-reference/ledgers/create_total_ledger",
             "api-reference/ledgers/set_opening_balance"
           ]
         },
@@ -169,7 +165,12 @@
             "api-reference/reports/get_income_statement",
             "api-reference/reports/get_balance_sheet",
             "api-reference/reports/get_ledger_statement",
-            "api-reference/reports/get_cash_flow_report"
+            "api-reference/reports/get_cash_flow_report",
+            "api-reference/reports/get_cash_flow_totals_by_ledger",
+            "api-reference/reports/get_cash_flow_totals_by_period",
+            "api-reference/reports/get_partitioned_ledger_sub_type_totals",
+            "api-reference/reports/get_partitioned_ledger_type_totals",
+            "api-reference/reports/get_top_expenses"
           ]
         }
       ]

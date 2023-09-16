@@ -101,19 +101,20 @@ Revenues and expenses relate to the company's performance over a period, while a
 the financial position at a given point. The type of the ledger is used to determine which financial statements the ledger appears on. 
 For example, revenues and expenses appear on the income statement, while assets, liabilities, and equity appear on the balance sheet. 
 
-Ledgers are also commonly grouped into subtypes that have similar characteristics and accounting treatment. For example, 
+Ledgers are also commonly grouped into sub types that have similar characteristics and accounting treatment. For example, 
 asset ledgers are commonly grouped into current assets and non-current asset subtypes. There isn't a single "correct" 
 set of ledger subtypes, and subtypes can vary based on accounting convention and preferences. Teal uses a commonly accepted convention for our 
 defaults, but you have the ability to modify these based on your preferences. 
 
-## Total ledgers
+## Calculated Totals
 
-Total ledgers are used to group and sum ledgers. They are used to make reports easier to read by summing the amounts from multiple 
-ledgers into a single total. A total ledger holds no line entries of their own. Further, a total ledger can sum a group of ledgers, 
-but it cannot sum other total ledgers. 
-
-Total ledgers are categorized as one of six types: revenues, expenses, profit, assets, liabilities, or equity. The sixth additional type, "profit," is used when summing revenues and expenses into a single total.
+Calculated totals are used to sum groups of ledgers and calculate other important metrics such as "Net Profit". They are simply sums or substractions of 
+ledger subtypes. Here are some examples: 
+- Total Current Assets = sum of legders with subtype `current_assets`
+- Net Profit = sum of ledgers with type `revenue` minus sum of ledgers with types `expense`
 
 ## Chart of Accounts
 
-A [chart of accounts](/configuration/chart_of_accounts_config) is the complete set of ledgers and total ledgers that belong to a business. A company's chart of accounts typically reflects the unique structure of the business, and so there is no single standard. However, there are certain protocols that companies are expected to follow when filing their taxes with the IRS.
+A [chart of accounts](/configuration/chart_of_accounts_config) is the complete set of ledgers that belong to a business. A company's chart of accounts 
+typically reflects the unique structure of the business, and so there is no single standard. However, there are certain protocols that companies 
+are expected to follow when filing their taxes with the IRS (or relevant body).

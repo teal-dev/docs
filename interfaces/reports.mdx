@@ -6,13 +6,19 @@ icon: "sidebar"
 
 ## Filtering reports by time periods
 
-The most common dimension that your end users will want to filter their reports by is time period. This functionality is usually offered by providing a date picker interface component that allows a user to select a particular date range that they're interested in viewing.
+The most common dimension that your end users will want to filter their reports by is time period. This functionality is usually offered by providing a 
+date picker interface component that allows a user to select a particular date range that they're interested in viewing.
 
-The most important thing to bear in mind when creating a date picker that's useful in the context of financial reports is that the time periods that are most relevant to understanding financial data are the traditional accounting intervals used in business, for example **Annual**, **Quarterly**, and **Monthly**. Ideally you'll want to provide a date picker that allows your users to select these intervals directly, rather than forcing them to manually select arbitrary start and end dates.
+The most important thing to bear in mind when creating a date picker that's useful in the context of financial reports is that the time periods that are 
+most relevant to understanding financial data are the traditional accounting intervals used in business, for example **Annual**, **Quarterly**, and **Monthly**. 
+Ideally you'll want to provide a date picker that allows your users to select these intervals directly, rather than forcing them to manually 
+select arbitrary start and end dates.
 
-We recommend either choosing a date picker component that allows you to provide smart preset intervals to your users, or building your own date picker component so you can ensure that it's tailored to the context of financial reports.
+We recommend either choosing a date picker component that allows you to provide smart preset intervals to your users, or building your own date picker 
+component so you can ensure that it's tailored to the context of financial reports.
 
-Here is a prototype of a date picker component that we've built that allows users to select ranges from preset accounting intervals, you can use this as a starting point and a reference for creating the ideal date picker for your platform:
+Here is a prototype of a date picker component that we've built that allows users to select ranges from preset accounting intervals, you can use this 
+as a starting point and a reference for creating the ideal date picker for your platform:
 
 <iframe
   src="https://codesandbox.io/embed/datepicker-my9s2k?fontsize=14&hidenavigation=1&theme=dark?autoresize=1&fontsize=14&hidenavigation=1&codemirror=1&hidedevtools=1&theme=dark&view=preview"
@@ -27,11 +33,16 @@ Here is a prototype of a date picker component that we've built that allows user
 
 ### Income statement
 
-An income statement is an excellent way to present a rolled-up view of the financial performance of a business over a specific period of time. An ideal income statement interface will present:
+An income statement is an excellent way to present a rolled-up view of the financial performance of a business over a specific period of time. An ideal income 
+statement interface will present:
 
-- Lists of ledgers grouped with a ledger total at the bottom of each list that sums the dollar amount of every ledger in the group.
-- Each ledger in a group should also display its own total dollar amount that sums the individual line entries in that ledger.
-- After all ledger groups have been rendered, render any ledger totals that provide a relevant summary of the entire set of data for the time period, for example **Net Profit**, **Net Profit Before Income Taxes**.
+- Lists of ledgers grouped by `sub_type` with a `sub_type` calculated total at the bottom of group.
+- Each ledger should also display its own total dollar amount that sums the individual line entries in that ledger.
+- Calculated totals that provide a relevant summary of the entire set of data for the time period, for example **Gross Profit**, **Total Operating Profit**, 
+and **Net Profit**.
+
+Teal makes it easy to render an income statement like the one described by providing you with this information in the 
+[Get Income Statement](/api-reference/reports/get_income_statement) endpoint response. 
 
 Here is an example of an income statement interface rendered in this way:
 
@@ -43,14 +54,6 @@ Here is an example of an income statement interface rendered in this way:
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 ></iframe>
-
-### Displaying ledgers vs ledger totals
-
-In order to structure your data in a way that allows you to render an income statement interface, you'll need to be able to distinguish between ledgers and ledger totals. A ledger contains line entries that each have a dollar amount, and a ledger total has a dollar amount that sums totals of a set of ledgers.
-
-When calling the [Get Income Statement](/api-reference/reports/get_income_statement), you'll receive an object with an index called `summaries` that contains an array containing all ledgers and ledger totals for a user.
-
-In order to separate the ledgers from the ledger totals for rendering purposes, you can check property `ledgerId`, ledgers will have an id string at that index and ledger totals will have a `null` value.
 
 ### Cash flow report
 

@@ -1,12 +1,23 @@
 ---
 title: "Plaid Integration"
-description: "How to link your user’s external financial accounts to Teal using Plaid."
+description: "How to connect your user’s external financial accounts to Teal using Plaid."
 icon: "gear-code"
 ---
+We have an official processor-token partnership with Plaid so that your users easily connect their external financial accounts directly to Teal.
 
-## 1. Enable your Plaid account
-You'll need to have an account at [Plaid](https://plaid.com) in order to use the Teal + Plaid integration. You'll also need to enable 
-your Plaid account for the Teal integration. If you do not yet have a Plaid account, reach out to your Teal contact so 
+## Getting Started
+
+You'll first want to familiarize yourself with [Plaid Link](https://plaid.com/docs/link/), a drop-in client-side integration for the Plaid API 
+that handles input validation, error handling, and multi-factor authentication. You will also need to have a Teal platform to use this integration. 
+
+Your customers will use Link to authenticate with their financial institution and select the financial accounts they wish to connect to Teal. 
+From there, you'll receive a Plaid `access_token` and a Teal `processor_token`, which you will pass onto Teal via Teal’s API without having to store 
+any sensitive bank information. Utilizing Teal + Plaid enables a seamless workflow for connecting external financial accounts to Teal.
+
+## Instructions
+### Set up your accounts
+You'll need accounts at both [Plaid](https://plaid.com)and Teal in order to use the Plaid + Teal integration. You'll also need to enable your 
+Plaid account for the Teal integration. If you do not yet have a Plaid account, reach out to your Teal contact so 
 that we can help you set one up. 
 
 To enable your Plaid account for the integration, go to the [Integrations](https://dashboard.plaid.com/developers/integrations) section of the 
@@ -16,157 +27,32 @@ Finally, you'll need to complete your [Plaid Application Profile](https://dashbo
 which involves filling out basic information about your app, such as your company name and website. This step helps your end-users learn more 
 how your product uses their bank information and is also required for connecting to some banks.
 
-## 2. Implement Plaid Link inside your app
-Your customers will use [Plaid Link](https://plaid.com/docs/link/) to authenticate with their financial institution and select the financial accounts 
-they wish to connect to Teal. [Plaid Link](https://plaid.com/docs/link/) is a drop-in client-side integration for the Plaid API that handles input validation, 
-error handling, and multi-factor authentication.
+### Implement Plaid Link inside your app
+You'll need to implement will likely want to implement  in your user interface so that you can securely pass us a Teal `processor_token` 
+so that we can fetch and reconcile transactions. You can find detailed instructions for implementing Plaid Link
+[here](https://plaid.com/docs/auth/partnerships/teal/#create-a-link_token). Please follow these instructions.
 
-You will likely want to implement [Plaid Link](https://plaid.com/docs/link/) in your application as part of a “connect your accounts” 
-interface. When a user completes the [Plaid Link](https://plaid.com/docs/link/) flow and authorizes you to access their account information, you'll 
-receive a Plaid access_token and a Teal `processor_token`, which you will pass onto Teal via Teal’s API without having to store any sensitive 
-bank information. This enables a simple workflow for connecting external financial accounts to Teal. 
+<Note> We recommend embedding [Plaid Link](https://plaid.com/docs/link/) as part of a "connect your accounts" workflow or similar. </Note>
 
-### Create a `link_token`
-In order to integrate with Plaid Link, you will first need to create a `link_token`. A `link_token` is a short-lived, one-time use 
-token that is used to authenticate your app with Link. To create one, make a [/link/token/create](https://plaid.com/docs/api/tokens/#linktokencreate) 
-request with your `client_id`, secret, and a few other required parameters from your app server. For a full list of `link_token` 
-configurations, see [/link/token/create](https://plaid.com/docs/api/tokens/#linktokencreate).
+### Send us your processor tokens
+By following the steps above, you will have implemented a server-side handler to create Teal `processor_token`s. You'll want to send us these 
+`processor_token`s via the **(ENDPOINT)** and we will use it to automatically set up financial account ledgers and begin to securely 
+retrieve transaction data.
 
-To see your `client_id` and `secret`, visit the [Plaid Dashboard](https://dashboard.plaid.com/developers/keys).
+You can create Teal processor tokens in all three of the Plaid API environments: [Sandbox](https://sandbox.plaid.com), [Development](https://development.plaid.com), 
+and [Production](https://production.plaid.com).
 
-<Accordion title="Example code">
- 
- ```shell
-curl -X POST https://sandbox.plaid.com/link/token/create \
--H 'Content-Type: application/json' \
--d '{
-  "client_id": "CLIENT_ID",
-  "secret": "SECRET",
-  "client_name": "Plaid Test App",
-  "user": { "client_user_id": "user-id" },
-  "products": ["auth"],
-  "country_codes": ["US"],
-  "language": "en",
-  "webhook": "https://webhook.example.com",
-  "redirect_uri": "https://domainname.com/oauth-page.html",
-}'
-```
-</Accordion>
+There are no hard restrictions for which Plaid environment to use with which Teal environment. We recommend testing using the Plaid Sandbox and Development 
+environments with your Teal Sandbox implementation, and using Plaid Production with Teal Production APIs. 
 
-### Integrate with Plaid Link
-Once you have a `link_token`, all it takes is a few lines of client-side JavaScript to launch Link. Then, in the onSuccess 
-callback, you can call a simple server-side handler to exchange the Link `public_token` for a Plaid `access_token` and a Teal `processor_token`.
-
-<Accordion title="Example code">
- ```shell
-<button id="linkButton">Open Link - Institution Select</button>
-<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
-<script>
-  (async function(){
-    var linkHandler = Plaid.create({
-      // Make a request to your server to fetch a new link_token.
-      token: (await $.post('/create_link_token')).link_token,
-      onSuccess: function(public_token, metadata) {
-        // The onSuccess function is called when the user has successfully
-        // authenticated and selected an account to use.
-        //
-        // When called, you will send the public_token and the selected accounts,
-        // metadata.accounts, to your backend app server.
-        sendDataToBackendServer({
-           public_token: public_token,
-           accounts: metadata.accounts
-        });
-      },
-      onExit: function(err, metadata) {
-        // The user exited the Link flow.
-        if (err != null) {
-            // The user encountered a Plaid API error prior to exiting.
-        }
-        // metadata contains information about the institution
-        // that the user selected and the most recent API request IDs.
-        // Storing this information can be helpful for support.
-      },
-    });
-  })();
-
-  // Trigger the authentication view
-  document.getElementById('linkButton').onclick = function() {
-    // Link will automatically detect the institution ID
-    // associated with the public token and present the
-    // credential view to your user.
-    linkHandler.open();
-  };
-</script>
-```
-</Accordion>
-
-See the [Link parameter reference](https://plaid.com/docs/link/web/#create) for complete documentation on possible configurations.
-
-Plaid.create accepts one argument, a configuration Object, and returns an Object with three functions, [open](https://plaid.com/docs/link/web/#open), 
-[exit](https://plaid.com/docs/link/web/#exit), and [destroy](https://plaid.com/docs/link/web/#destroy). Calling open will display the "Institution Select" 
-view, calling exit will close Link, and calling destroy will clean up the iframe.
-
-### Write server-side handler
-The Link module handles the entire onboarding flow securely and quickly, but does not actually retrieve account data for a user. 
-Instead, the Link module returns a public_token and an accounts array, which is a property on the metadata object, via the onSuccess 
-callback. Exchange this `public_token` for a Plaid `access_token` using the [/item/public_token/exchange](https://plaid.com/docs/api/tokens/#itempublic_tokenexchange) 
-API endpoint.
-
-The accounts array will contain information about bank accounts associated with the credentials entered by the user, and may contain 
-multiple accounts if the user has more than one account at the institution. In most cases, you will want your users to connect all of 
-their accounts so that they can be tracked in Teal. 
-
-You will then send the `access_token` and `account_id` property of the account to Plaid via the [/processor/token/create endpoint](/processor/token/create) in 
-order to create a Teal `processor_token` for each account. Finally, you will then send each `processor_token` to Teal via the **(ENDPOINT)** and we 
-will use it to automatically set up financial account ledgers and begin to securely retrieve transaction data 
-from Plaid.
-
-You can create Teal processor tokens in all three API environments:
-- Sandbox (https://sandbox.plaid.com): test simulated users
-- Development (https://development.plaid.com): test live users
-- Production (https://production.plaid.com): production environment for when you're ready to go live and have valid Modern Treasury Production credentials
-
-<Accordion title="Example code">
- ```shell
-# Exchange token
-curl -X POST https://sandbox.plaid.com/item/public_token/exchange \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "client_id": "[Plaid Client ID]",
-    "secret": "[Plaid secret]",
-    "public_token": "[Public token]"
-  }'
-
-# Create a processor token for a specific account id.
-curl -X POST https://sandbox.plaid.com/processor/token/create \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "client_id": "PLAID_CLIENT_ID",
-    "secret": "PLAID_SECRET",
-    "access_token": "ACCESS_TOKEN",
-    "account_id": "ACCOUNT_ID",
-    "processor": ""
-  }'
-```
-
-For a valid request, the API will return a JSON response similar to:
-``` shell
-{
-  "processor_token": "processor-sandbox-0asd1-a92nc",
-  "request_id": "m8MDnv9okwxFNBV"
-}
-```
-</Accordion>
-
-For possible error codes, see the full listing of [Plaid error codes](https://plaid.com/docs/errors/).
-
-## 3. Manage connections using webhooks
+### Manage connections using webhooks
 Once your user has connected a financial account via Plaid, Teal does the work of syncing transactions. However, Plaid can sometimes 
 run into issues connecting to your user’s financial accounts. For example, some banks require users to reauthenticate their Plaid 
 connection every 90 days. In such a case, you would need to ask your users to go through the Plaid Link flow to reconnect their account.
 
 We make it easy for you to know when to take action by passing you events via webhooks. We use a popular third-party service called [SVIX](https://www.svix.com/) 
-to handle our outgoing webhooks. 
+to handle our outgoing webhooks. These events will include messages from Plaid, such as errors codes. For all possible Plaid error codes and recommended actions, see the full 
+listing of [Plaid error codes](https://plaid.com/docs/errors/).
 
 ### Register to receive webhooks
 You can register for webhooks via the `POST /webhooks/register` endpoint. Once registered, you will have access to the **Webhook Dashboard** in the developer portal. 
@@ -192,17 +78,3 @@ To keep your application secure, it is important for you to implement a way to v
 use of the [S]vix library](https://docs.svix.com/receiving/verifying-payloads/how), though you can also choose to do this manually.  
 
 For other information on receiving webhooks, we recommend reading [SVIX’s documentation](https://docs.svix.com/receiving/introduction).
-
-## 4. Request Plaid Production Access
-
-We recommend that you first test the integration in Plaid Sandbox mode by using the [Plaid Sandbox credentials](https://plaid.com/docs/sandbox/test-credentials/) 
-along when launching Link with a `link_token` created in the Sandbox environment.
-
-When testing in the Sandbox, you have the option to use the [/sandbox/public_token/create endpoint](https://plaid.com/docs/api/sandbox/#sandboxpublic_tokencreate) 
-instead of the end-to-end Link flow to create a `public_token`. When using the 
-[/sandbox/public_token/create](https://plaid.com/docs/api/sandbox/#sandboxpublic_tokencreate)-based flow, the Account Select flow will be 
-bypassed and the accounts array will not be populated. On Sandbox, instead of using the accounts array, you can call [/accounts/get](https://plaid.com/docs/api/accounts/#accountsget) 
-and test with any returned account ID associated with an account with the subtype checking or savings.
-
-To move to Plaid Production, please request access from the [Plaid Dashboard](https://dashboard.plaid.com/developers/keys). You will need Production 
-credentials prior to connecting live bank accounts in the Teal API (sandbox or production) with Plaid. 

@@ -152,7 +152,11 @@
         },
         {
           "group": "Transaction Sources",
-          "pages": ["api-reference/transaction_sources/link_unit_account"]
+          "pages": [
+            "api-reference/transaction_sources/link_unit_account",
+            "api-reference/transaction_sources/link_plaid_account",
+            "api-reference/transaction_sources/get_plaid_link_status"
+          ]
         },
         {
           "group": "Categorization",

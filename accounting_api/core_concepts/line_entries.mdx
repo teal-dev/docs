@@ -1,0 +1,22 @@
+---
+title: Line entries
+description: 
+---
+
+<Snippet file="needs_updating.mdx" />
+
+Line entries are the most basic atomic unit of accounting in Teal. 
+
+Each line entry has an **amount**, a **direction**, and a **ledger**. The **amount** is the amount of value that is 
+flowing into or out of a ledger. The direction can be either **debit** or **credit**.
+
+Debits and credits are tricky, even for accounting experts, but you can generally think of them this way:
+
+- **Debit:** A debit is a flow of value _into_ a ledger.
+- **Credit:** A credit is a flow of value _out of_ a ledger.
+
+A business cannot create or destroy money, only transfer it from one place to another. Therefore, the sum of credits in any set of 
+line entries must equal the sum of debits. Debits = credits is one of the most foundational rules of accounting. 
+Teal has multiple safeguards to ensure this is true, so you don't need to worry about violating this rule when using Teal.
+
+In Teal, line entries cannot be created directly. Instead, they are created only as part of a journal entry. This is one of the built in safeguards.

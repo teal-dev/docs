@@ -1,20 +1,19 @@
 ---
 title: "Charts of accounts"
 description: "This page walks you through configuring the chart of accounts for your users."
-icon: "gear"
+icon:
 ---
+<Snippet file="needs_updating.mdx" />
 
-## What is a chart of accounts
+A [chart of accounts](/configuration/chart_of_accounts_config) is the complete set of ledgers that belong to a business. A company's chart of accounts 
+typically reflects the unique structure of the business, and so there is no single standard. However, there are certain protocols that companies 
+are expected to follow when filing their taxes with the IRS (or relevant body).
 
-Every user needs to have a chart of accounts (CoA). A chart of accounts is the full set of ledgers that a 
-user has access to when categorizing transactions or creating journal entries. 
+## Features by instance
+| Endpoint | Description                           | QuickBooks | Xero | Teal GL |
+| -------- | ------------------------------------- | ------ | ------ | ------ |
+| Get Ledgers | Returns the chart of accounts for a given accounting instance | Yes | Yes | Yes |
 
-<Info>
-  A company's chart of accounts typically reflects
-  the unique aspects of the business, and so there is no single standard.
-  However, there are certain protocols that companies are expected to follow
-  when filing their taxes with the IRS (or relevant body).
-</Info>
 
 ### Contents of a chart of accounts (CoA)
 

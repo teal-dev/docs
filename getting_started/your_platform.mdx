@@ -1,0 +1,40 @@
+---
+title: Platform setup
+description: "Configure your Platform"
+icon: 
+---
+
+<Snippet file="needs_updating.mdx" />
+
+A Platform is Teal's representation of your business, with its own configuration, data, and users. All of Teal's APIs operate within the scope of 
+a Platform.
+
+We provision your Platform for you. If you do not already have a provisioned Platform, reach out to your Teal contact or visit 
+the [Teal home page](https://teal.dev) to get in touch.
+
+## 2. Create a developer account
+
+Once we have provisioned your Platform, you will be able to access our [Developer Portal](https://developer.teal.dev/). The first time you 
+visit the portal you will need to create an account using your email address.
+
+<Note>
+  Your email address must match the address we have on file. If you want to use a
+  different email for access or add additional developer emails, please reach
+  out to us.
+</Note>
+
+## 3. Generate an API token
+
+Once you are in the [Developer Portal](https://developer.teal.dev/), you can create API tokens to access the API. 
+Be sure to take note of the token value as you can't retrieve this later. You can create multiple tokens and they do not expire.
+
+Calls to our API are authenticated using a bearer token and are sent to our API using an `Authentication: Bearer <token>` HTTP header.
+
+<Warning>
+  Tokens should always be kept secret. Don't share outside of your organization
+  and be careful when sharing within.
+</Warning>
+
+Tokens can be managed at our [Developer Portal](https://developer.teal.dev/). You will only be able to generate tokens after a Platform has 
+been provisioned for your company.
+

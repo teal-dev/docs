@@ -25,8 +25,16 @@
   },
   "tabs": [
     {
+      "name": "Guides",
+      "url": "guides"
+    },
+    {
       "name": "API Reference",
       "url": "api-reference"
+    },
+    {
+      "name": "Changelog",
+      "url": "changelog"
     }
   ],
   "navigation": [
@@ -34,54 +42,116 @@
       "group": "Getting started",
       "pages": [
         "getting_started/what_is_teal",
-        "getting_started/setup",
-        "getting_started/quickstart",
-        "getting_started/quickstart_2"
+        "getting_started/your_platform",
+        "getting_started/instances",
+        "getting_started/developer_portal"
       ]
     },
     {
-      "group": "Configuring your platform",
+      "group": "Accounting API",
       "pages": [
-        "configuration/overview",
-        "configuration/user_config",
-        "configuration/chart_of_accounts_config",
-        "configuration/categorization_config",
-        "configuration/data_sources_config"
+        {
+          "group": "Overview",
+          "pages": [
+            "accounting_api/overview/authentication",
+            "accounting_api/overview/errors",
+            "accounting_api/overview/pagination",
+            "accounting_api/overview/metadata",
+            "accounting_api/overview/rate_limiting",
+            "accounting_api/overview/versioning"
+          ]
+        },
+        {
+          "group": "Core concepts",
+          "pages": [
+            "accounting_api/core_concepts/line_entries",
+            "accounting_api/core_concepts/journal_entries",
+            "accounting_api/core_concepts/ledgers",
+            "accounting_api/core_concepts/chart_of_accounts",
+            "accounting_api/core_concepts/transactions"
+          ]
+        }
       ]
     },
     {
-      "group": "Working with transactions",
+      "group": "Generating charts & reports",
+      "pages": [
+        "reports/overview",
+        {
+          "group": "Reports",
+          "pages": [
+            "reports/cash_flow_report",
+            "reports/income_statement",
+            "reports/balance_sheet",
+            "reports/ledger_statement",
+            "reports/general_ledger",
+            "reports/enriching"
+          ]
+        },
+        {
+          "group": "Charts",
+          "pages": [
+            "reports/coming_soon"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Writing transactions",
       "pages": [
         "transactions/overview",
-        "transactions/create_ledger",
-        "transactions/submitting",
-        "transactions/tagging",
-        "transactions/opening_balances"
+        "transactions/coming_soon"
       ]
     },
     {
-      "group": "Generating reports",
+      "group": "Accounting packages",
       "pages": [
-        "reports/cash_flow",
-        "reports/income_statement",
-        "reports/ledger_statement",
-        "reports/balance_sheet",
-        "reports/general_ledger",
-        "reports/enriching"
+        {
+          "group": "QuickBooks",
+          "pages": [
+            "accounting_packages/quickbooks/overview"
+          ]
+        },
+        {
+          "group": "Xero",
+          "pages": [
+            "accounting_packages/xero/coming_soon"
+          ]
+        }
       ]
     },
     {
-      "group": "Building complex interfaces",
+      "group": "Data integrations",
       "pages": [
-        "interfaces/reports",
-        "interfaces/journal_entry",
-        "interfaces/excel_export"
+        "data_integrations/plaid",
+        {
+          "group": "Banking-as-a-Service (BaaS)",
+          "pages": [
+            "data_integrations/baas/unit",
+            "data_integrations/baas/stripe_treasury"
+          ]
+        }
       ]
     },
     {
-      "group": "Accounting Fundamentals",
+      "group": "Quickstart",
       "pages": [
-        "accounting/core_concepts"
+        "guides/setup",
+        "guides/quickstart_cash_flow_report",
+        "guides/quickstart_auto_categorize"
+      ]
+    },
+    {
+      "group": "Use cases",
+      "pages": [
+        {
+          "group": "Building complex interfaces",
+          "pages": [
+            "guides/interfaces/reports",
+            "guides/interfaces/journal_entry",
+            "guides/interfaces/excel_export"
+          ]
+        }
       ]
     },
     {
@@ -180,6 +250,12 @@
             "api-reference/reports/get_top_expenses"
           ]
         }
+      ]
+    },
+    {
+      "group": "",
+      "pages": [
+        "changelog/changelog"
       ]
     }
   ],

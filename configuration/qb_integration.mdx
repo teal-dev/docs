@@ -1,0 +1,21 @@
+---
+title: "QuickBooks integration"
+description: "How to  to your user's QuickBooks accounts."
+icon: "gear-code"
+---
+
+This guide will walk you through how to set up your QuickBooks Online integration so that you can connect to your customer’s QuickBooks accounts. 
+Set up your QuickBooks “app”
+
+A QuickBooks “app” manages the way your customers grant you permission to access their accounting data within QuickBooks. The app manages 
+the authorization process and generates secure access tokens that Teal uses to read/write accounting data. We take care of the app development for you. 
+Make the authorization flow accessible in your user interface
+Once we set up your app, you will need to provide a visible link for your customers to connect their QuickBooks account. This link is a magic 
+link, and it will trigger the authorization flow.
+
+You can create a magic link for your user via our API. You will need the `qb_app_id` and a `redirect_url`, which determines where your user will 
+be returned to after authenticating.
+
+When your user follows the magic link, they will be redirected to QuickBooks in order to authorize our QuickBooks app to access their data. After 
+successfully signing in to QuickBooks, they will be redirected to the redirect_url that was set when creating their magic link. 
+

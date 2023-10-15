@@ -42,6 +42,35 @@
       "group": "Accounting packages",
       "pages": [
         {
+          "group": "PlatformGL",
+          "pages": [
+            "accounting_packages/platform_gl/what_is_pgl",
+            "accounting_packages/platform_gl/quickstart_pgl",
+            "accounting_packages/platform_gl/quickstart_pgl_2",
+            "accounting_packages/platform_gl/core_accounting_concepts",
+            {
+              "group": "Configuring PlatformGL",
+              "pages": [
+                "accounting_packages/platform_gl/configuration/overview",
+                "accounting_packages/platform_gl/configuration/user_config",
+                "accounting_packages/platform_gl/configuration/chart_of_accounts_config",
+                "accounting_packages/platform_gl/configuration/categorization_config",
+                "accounting_packages/platform_gl/configuration/data_sources_config"
+              ]
+            },
+            {
+              "group": "Working with transactions",
+              "pages": [
+                "accounting_packages/platform_gl/transactions/overview",
+                "accounting_packages/platform_gl/transactions/create_ledger",
+                "accounting_packages/platform_gl/transactions/submitting",
+                "accounting_packages/platform_gl/transactions/tagging",
+                "accounting_packages/platform_gl/transactions/opening_balances"
+              ]
+            }
+          ]
+        },
+        {
           "group": "QuickBooks",
           "pages": [
             "accounting_packages/quickbooks/overview"
@@ -53,26 +82,6 @@
             "accounting_packages/xero/coming_soon"
           ]
         }
-      ]
-    },
-    {
-      "group": "Configuring your platform",
-      "pages": [
-        "configuration/overview",
-        "configuration/user_config",
-        "configuration/chart_of_accounts_config",
-        "configuration/categorization_config",
-        "configuration/data_sources_config"
-      ]
-    },
-    {
-      "group": "Working with transactions",
-      "pages": [
-        "transactions/overview",
-        "transactions/create_ledger",
-        "transactions/submitting",
-        "transactions/tagging",
-        "transactions/opening_balances"
       ]
     },
     {
@@ -104,12 +113,6 @@
         "interfaces/reports",
         "interfaces/journal_entry",
         "interfaces/excel_export"
-      ]
-    },
-    {
-      "group": "Accounting Fundamentals",
-      "pages": [
-        "accounting/core_concepts"
       ]
     },
     {

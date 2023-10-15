@@ -59,14 +59,26 @@
       ]
     },
     {
-      "group": "Generating reports",
+      "group": "Generating charts & reports",
       "pages": [
-        "reports/cash_flow",
-        "reports/income_statement",
-        "reports/ledger_statement",
-        "reports/balance_sheet",
-        "reports/general_ledger",
-        "reports/enriching"
+        "reports/overview",
+        {
+          "group": "Reports",
+          "pages": [
+            "reports/cash_flow",
+            "reports/income_statement",
+            "reports/balance_sheet",
+            "reports/ledger_statement",
+            "reports/general_ledger",
+            "reports/enriching"
+          ]
+        },
+        {
+          "group": "Charts",
+          "pages": [
+            "reports/coming_soon"
+          ]
+        }
       ]
     },
     {

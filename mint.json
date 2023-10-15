@@ -39,6 +39,23 @@
       ]
     },
     {
+      "group": "Accounting packages",
+      "pages": [
+        {
+          "group": "QuickBooks",
+          "pages": [
+            "accounting_packages/quickbooks/overview"
+          ]
+        },
+        {
+          "group": "Xero",
+          "pages": [
+            "accounting_packages/xero/coming_soon"
+          ]
+        }
+      ]
+    },
+    {
       "group": "Configuring your platform",
       "pages": [
         "configuration/overview",

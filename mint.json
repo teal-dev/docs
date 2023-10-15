@@ -113,6 +113,19 @@
       ]
     },
     {
+      "group": "API design",
+      "pages": [
+            "api_design/overview/authentication",
+            "api_design/overview/errors",
+            "api_design/overview/pagination",
+            "api_design/overview/metadata",
+            "api_design/overview/rate_limiting",
+            "api_design/overview/versioning"
+        ]
+      },
+      
+    
+    {
       "group": "Teal API Endpoints",
       "pages": [
         "api-reference/authentication",

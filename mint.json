@@ -39,35 +39,35 @@
       ]
     },
     {
-      "group": "Accounting platforms",
+      "group": "Accounting packages",
       "pages": [
-        "accounting_platforms/overview",
-        "accounting_platforms/add_instance",
+        "accounting_package/overview",
+        "accounting_package/add_instance",
         {
           "group": "PlatformGL",
           "pages": [
-            "accounting_platforms/platform_gl/what_is_pgl",
-            "accounting_platforms/platform_gl/quickstart_pgl",
-            "accounting_platforms/platform_gl/quickstart_pgl_2",
-            "accounting_platforms/platform_gl/core_accounting_concepts",
+            "accounting_package/platform_gl/what_is_pgl",
+            "accounting_package/platform_gl/quickstart_pgl",
+            "accounting_package/platform_gl/quickstart_pgl_2",
+            "accounting_package/platform_gl/core_accounting_concepts",
             {
               "group": "Configuring PlatformGL",
               "pages": [
-                "accounting_platforms/platform_gl/configuration/overview",
-                "accounting_platforms/platform_gl/configuration/user_config",
-                "accounting_platforms/platform_gl/configuration/chart_of_accounts_config",
-                "accounting_platforms/platform_gl/configuration/categorization_config",
-                "accounting_platforms/platform_gl/configuration/data_sources_config"
+                "accounting_package/platform_gl/configuration/overview",
+                "accounting_package/platform_gl/configuration/user_config",
+                "accounting_package/platform_gl/configuration/chart_of_accounts_config",
+                "accounting_package/platform_gl/configuration/categorization_config",
+                "accounting_package/platform_gl/configuration/data_sources_config"
               ]
             },
             {
               "group": "Working with transactions",
               "pages": [
-                "accounting_platforms/platform_gl/transactions/overview",
-                "accounting_platforms/platform_gl/transactions/create_ledger",
-                "accounting_platforms/platform_gl/transactions/submitting",
-                "accounting_platforms/platform_gl/transactions/tagging",
-                "accounting_platforms/platform_gl/transactions/opening_balances"
+                "accounting_package/platform_gl/transactions/overview",
+                "accounting_package/platform_gl/transactions/create_ledger",
+                "accounting_package/platform_gl/transactions/submitting",
+                "accounting_package/platform_gl/transactions/tagging",
+                "accounting_package/platform_gl/transactions/opening_balances"
               ]
             }
           ]
@@ -75,13 +75,13 @@
         {
           "group": "QuickBooks",
           "pages": [
-            "accounting_platforms/quickbooks/overview"
+            "accounting_package/quickbooks/overview"
           ]
         },
         {
           "group": "Xero",
           "pages": [
-            "accounting_platforms/xero/coming_soon"
+            "accounting_package/xero/coming_soon"
           ]
         }
       ]

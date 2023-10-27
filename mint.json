@@ -135,94 +135,102 @@
         "api-reference/authentication",
         {
           "group": "Platform",
-          "pages": ["api-reference/platform/get_platform"]
+          "pages": ["api-reference/platform/get-platform"]
         },
         {
-          "group": "Users",
+          "group": "Instances",
           "pages": [
-            "api-reference/users/get_details",
-            "api-reference/users/get_users",
-            "api-reference/users/create_user",
-            "api-reference/users/update_subscription"
+            "api-reference/instances/get-instance-details",
+            "api-reference/instances/get-instances",
+            "api-reference/instances/create-instance",
+            "api-reference/instances/delete-instance",
+            "api-reference/instances/update-subscription"
           ]
         },
         {
-          "group": "Chart of Accounts",
+          "group": "Chart of Accounts Templates",
           "pages": [
-            "api-reference/chart_of_accounts/get_coa_templates",
-            "api-reference/chart_of_accounts/create_coa_template",
-            "api-reference/chart_of_accounts/get_coa_template",
-            "api-reference/chart_of_accounts/clone_coa_template",
-            "api-reference/chart_of_accounts/delete_coa_template",
-            "api-reference/chart_of_accounts/create_ledger_template",
-            "api-reference/chart_of_accounts/update_ledger_template",
-            "api-reference/chart_of_accounts/delete_ledger_template"
+            "api-reference/chart-of-accounts-templates/get-coa-templates",
+            "api-reference/chart-of-accounts-templates/create-coa-template",
+            "api-reference/chart-of-accounts-templates/get-coa-template",
+            "api-reference/chart-of-accounts-templates/clone-coa-template",
+            "api-reference/chart-of-accounts-templates/delete-coa-template",
+            "api-reference/chart-of-accounts-templates/create-ledger-template",
+            "api-reference/chart-of-accounts-templates/update-ledger-template",
+            "api-reference/chart-of-accounts-templates/delete-ledger-template"
           ]
         },
         {
           "group": "Ledgers",
           "pages": [
-            "api-reference/ledgers/get_ledgers",
-            "api-reference/ledgers/create_ledger",
-            "api-reference/ledgers/update_ledger",
-            "api-reference/ledgers/set_opening_balance"
+            "api-reference/ledgers/get-ledgers",
+            "api-reference/ledgers/create-ledger",
+            "api-reference/ledgers/update-ledger",
+            "api-reference/ledgers/set-ledger-opening-balance"
           ]
         },
         {
           "group": "Journal Entries",
           "pages": [
-            "api-reference/journal_entries/get_journal_entry",
-            "api-reference/journal_entries/update_journal_entry",
-            "api-reference/journal_entries/get_journal_entries",
-            "api-reference/journal_entries/create_journal_entry"
+            "api-reference/journal-entries/get-journal-entry",
+            "api-reference/journal-entries/update-journal-entry",
+            "api-reference/journal-entries/get-journal-entries",
+            "api-reference/journal-entries/create-journal-entry"
           ]
         },
         {
           "group": "Line Entries",
           "pages": [
-            "api-reference/line_entries/get_journal_entry_line_entries",
-            "api-reference/line_entries/update_line_entry",
-            "api-reference/line_entries/get_line_entry_categories",
-            "api-reference/line_entries/get_user_ledger_line_entries"
+            "api-reference/line-entries/get-journal-entry-line-entries",
+            "api-reference/line-entries/update-line-entry",
+            "api-reference/line-entries/get-line-entry-categories",
+            "api-reference/line-entries/get-filtered-line-entries"
           ]
         },
         {
           "group": "Transactions",
           "pages": [
-            "api-reference/transactions/create_transactions",
-            "api-reference/transactions/get_transactions",
-            "api-reference/transactions/delete_transaction",
-            "api-reference/transactions/get_transaction_processing_status"
+            "api-reference/transactions/create-transactions",
+            "api-reference/transactions/get-transactions",
+            "api-reference/transactions/delete-transaction",
+            "api-reference/transactions/get-transaction-processing-status"
           ]
         },
         {
           "group": "Transaction Sources",
           "pages": [
-            "api-reference/transaction_sources/link_unit_account",
-            "api-reference/transaction_sources/link_plaid_account",
-            "api-reference/transaction_sources/get_plaid_link_status"
+            "api-reference/transaction-sources/link-unit-account",
+            "api-reference/transaction-sources/create-plaid-link",
+            "api-reference/transaction-sources/get-plaid-link-statuses"
           ]
         },
         {
           "group": "Categorization",
           "pages": [
-            "api-reference/categorization/get_rules",
-            "api-reference/categorization/create_rule",
-            "api-reference/categorization/delete_rule"
+            "api-reference/categorization/get-rules",
+            "api-reference/categorization/create-rule",
+            "api-reference/categorization/delete-rule"
           ]
         },
         {
           "group": "Reports",
           "pages": [
-            "api-reference/reports/get_income_statement",
-            "api-reference/reports/get_balance_sheet",
-            "api-reference/reports/get_ledger_statement",
-            "api-reference/reports/get_cash_flow_report",
-            "api-reference/reports/get_cash_flow_totals_by_ledger",
-            "api-reference/reports/get_cash_flow_totals_by_period",
-            "api-reference/reports/get_partitioned_ledger_sub_type_totals",
-            "api-reference/reports/get_partitioned_ledger_type_totals",
-            "api-reference/reports/get_top_expenses"
+            "api-reference/reports/get-income-statement",
+            "api-reference/reports/get-balance-sheet",
+            "api-reference/reports/get-ledger-statement",
+            "api-reference/reports/get-cash-flow-report",
+            "api-reference/reports/get-cash-flow-totals-by-ledger",
+            "api-reference/reports/get-cash-flow-totals-by-period",
+            "api-reference/reports/get-net-profit-by-period",
+            "api-reference/reports/get-gross-profit-by-period",
+            "api-reference/reports/get-financial-summaries-by-period",
+            "api-reference/reports/get-top-expenses"
+          ]
+        },
+        {
+          "group": "QuickBooks",
+          "pages": [
+            "api-reference/quickbooks/generate-auth-link"
           ]
         }
       ]

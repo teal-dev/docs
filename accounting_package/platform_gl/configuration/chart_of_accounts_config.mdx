@@ -1,13 +1,13 @@
 ---
 title: "Charts of accounts"
-description: "This page walks you through configuring the chart of accounts for your users."
+description: "This page walks you through configuring the chart of accounts for your instances."
 icon: "gear"
 ---
 
 ## What is a chart of accounts
 
-Every user needs to have a chart of accounts (CoA). A chart of accounts is the full set of ledgers that a 
-user has access to when categorizing transactions or creating journal entries. 
+Every instance needs to have a chart of accounts (CoA). A chart of accounts is the full set of ledgers that a 
+instance has access to when categorizing transactions or creating journal entries. 
 
 <Info>
   A company's chart of accounts typically reflects
@@ -50,7 +50,7 @@ To assist you in getting set up, your platform will contain four CoA templates b
 - **C-Corp**
 - **S-Corp**
 
-You can manage CoA templates and the ledgers associated with each via the [Chart of Accounts endpoint](/api-reference/chart_of_accounts/get_coa_templates), or 
+You can manage CoA templates and the ledgers associated with each via the [Chart of Accounts Templates endpoint](/api-reference/chart-of-accounts-templates/get-coa-templates), or 
 via the [Developer Portal](https://developer.teal.dev/chart_of_accounts).
 
 ### Customizing the default chart of accounts (CoA)
@@ -61,25 +61,25 @@ want to modify these defaults so that they are more tailored to the end users th
 While you can create new CoA templates from scratch, it is often easier to clone one of the default charts of 
 accounts and modify it to suit your needs. 
 
-## Managing user-specific ledgers
+## Managing instance-specific ledgers
 
-Once a user is created, they will have every ledger from their specified CoA template available to them. 
-Future changes to the template will not affect existing users.
+Once an instance is created, they will have every ledger from their specified CoA template available to them. 
+Future changes to the template will not affect existing instances.
 
 <Info>
-When a user is created with a default CoA, the ledger names will be identical to the ledger names in 
-the default companies, however, every user's ledger "ids" are unique. 
-These "ids" are not shared between users.
+When a instance is created with a default CoA, the ledger names will be identical to the ledger names in 
+the default companies, however, every instance's ledger "ids" are unique. 
+These "ids" are not shared between instances.
 </Info>
 
-Users will need some additional user-specific ledgers beyond the default CoA in order to do their bookkeeping. 
+Instances will need some additional instance-specific ledgers beyond the default CoA in order to do their bookkeeping. 
 At a minimum, they will need to add at least one financial account ledger to track 
 the funds in their bank account. Financial account ledgers can be created via 
-the [Create Ledger endpoint](/api-reference/ledgers/create_ledger). See the guide 
-on [creating ledgers](/transactions/create_ledger) for more information.
+the [Create Ledger endpoint](/api-reference/ledgers/create-ledger). See the guide 
+on [creating ledgers](/accounting_package/platform_gl/transactions/create_ledger) for more information.
 
 In addition, you may opt to allow users to create their own custom ledgers beyond the 
-defaults you have provided. You can use the [Create Ledger endpoint](/api-reference/ledgers/create_ledger) 
+defaults you have provided. You can use the [Create Ledger endpoint](/api-reference/ledgers/create-ledger) 
 to allow users to create their own ledgers.
 
 When creating a ledger, take care to enforce the `sort_code` conventions of the chart of accounts 

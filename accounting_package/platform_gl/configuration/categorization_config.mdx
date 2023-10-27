@@ -6,7 +6,7 @@ icon: "folder-gear"
 
 ## Overview of auto-categorization in Teal
 
-When you [submit a new transaction](/transactions/submitting) to Teal, the transactions will run through the 
+When you [submit a new transaction](/accounting_package/platform_gl/transactions/submitting) to Teal, the transactions will run through the 
 auto-categorization pipeline that you have configured on the categorization tab in the [developer portal](https://developer.teal.dev/auto_categorization).
 
 The categorization pipeline is intended to be a first cut at categorizing transactions into the appropriate accounting ledgers. 
@@ -40,13 +40,13 @@ If you (or your user) knows that a cash outflow is a transfer between accounts b
 
 Platforms have the ability to set their own categorization rules. This feature enables you to define specific rules, which, when matched, will automatically categorize a transaction into a particular ledger.
 
-Categorization rules are set at the **Platform level**. We don't currently offer User level categorization rules (please reach out to your Teal contact if this is an important feature to you). We plan to implement user-level categorization rules in a future release.
+Categorization rules are set at the **Platform level**. We don't currently offer Instance level categorization rules (please reach out to your Teal contact if this is an important feature to you). We plan to implement instance-level categorization rules in a future release.
 
 A rule consists of three components:
 
 - **Priority**: If multiple rules match a transaction, the rule with the highest priority will be implemented first.
 - **Expression**: A conditional statement that is evaluated against each transaction to determine whether it satisfies the criteria of the rule.
-- **Target Ledger Name**: This is the name of the ledger into which the transaction will be categorized if the rule conditions are met. If the specified ledger name doesn't exist in a user's chart of accounts, the system will disregard the rule.
+- **Target Ledger Name**: This is the name of the ledger into which the transaction will be categorized if the rule conditions are met. If the specified ledger name doesn't exist in a instance's chart of accounts, the system will disregard the rule.
 
 ### Crafting an Expression
 

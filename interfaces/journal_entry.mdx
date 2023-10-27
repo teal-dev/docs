@@ -12,9 +12,9 @@ icon: "browsers"
   ensuring the sum of credits equals the sum of debits.
 </Info>
 
-You can use the [Create Journal Entry endpoint](/api-reference/journal_entries/create_journal_entry) to create a journal entry (with respective line entries) for a user directly. However, we recommend using this endpoint only for advanced accounting interfaces. It is safer to use the [Create Transaction endpoint](/api-reference/transactions/create_transaction) to create a transaction, which will automatically create a journal entry for you.You will have an opportunity to submit a unique ID for the transaction. This ID will be added to the corresponding accounting line entry generated for the the transaction. We recommend using this field to map the relationship between transactions in your system, and line entries and journal entries in Teal.
+You can use the [Create Journal Entry endpoint](/api-reference/journal-entries/create-journal-entry) to create a journal entry (with respective line entries) for a user directly. However, we recommend using this endpoint only for advanced accounting interfaces. It is safer to use the [Create Transaction endpoint](/api-reference/transactions/create-transactions) to create a transaction, which will automatically create a journal entry for you.You will have an opportunity to submit a unique ID for the transaction. This ID will be added to the corresponding accounting line entry generated for the the transaction. We recommend using this field to map the relationship between transactions in your system, and line entries and journal entries in Teal.
 
-Journal entries can be updated using the [Update Journal Entry endpoint](/api-reference/journal_entries/update_journal_entry). A common reason for updating a journal entires is to modify what expense ledger a particular expense is categorized to. Updates maintain the sum of credits equals sum of debits rule.
+Journal entries can be updated using the [Update Journal Entry endpoint](/api-reference/journal-entries/update-journal-entry). A common reason for updating a journal entires is to modify what expense ledger a particular expense is categorized to. Updates maintain the sum of credits equals sum of debits rule.
 
 ## Modifying journal entries from reports
 

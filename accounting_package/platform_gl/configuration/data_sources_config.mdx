@@ -39,7 +39,7 @@ which involves filling out basic information about your app, such as your compan
 how your product uses their bank information and is also required for connecting to some banks.
 
 ### Implement Plaid Link inside your app
-You'll need to implement will likely want to implement  in your user interface so that you can securely pass us a Teal `processor_token` 
+You'll need to implement will likely want to implement in your user interface so that you can securely pass us a Teal `processor_token` 
 so that we can fetch and reconcile transactions. You can find detailed instructions for implementing Plaid Link
 [here](https://plaid.com/docs/auth/partnerships/teal/#create-a-link_token). Please follow these instructions.
 
@@ -47,7 +47,7 @@ so that we can fetch and reconcile transactions. You can find detailed instructi
 
 ### Send us your processor tokens
 By following the steps above, you will have implemented a server-side handler to create Teal `processor_token`s. You'll want to send us these 
-`processor_token`s via the [link Plaid account](/api-reference/transaction_sources/link_plaid_account) endpoint and we will use it to automatically set 
+`processor_token`s via the [link Plaid account](/api-reference/transaction-sources/create-plaid-link) endpoint and we will use it to automatically set 
 up financial account ledgers and begin to securely retrieve transaction data.
 
 You can create Teal processor tokens in all three of the Plaid API environments: [Sandbox](https://sandbox.plaid.com), [Development](https://development.plaid.com), 
@@ -86,7 +86,7 @@ disable CSRF protection on this route.
 
 ### Set up webhook verification
 To keep your application secure, it is important for you to implement a way to verify the webhooks that we send to you. We recommend that you make 
-use of the [S]vix library](https://docs.svix.com/receiving/verifying-payloads/how), though you can also choose to do this manually.  
+use of the [Svix library](https://docs.svix.com/receiving/verifying-payloads/how), though you can also choose to do this manually.  
 
 For other information on receiving webhooks, we recommend reading [SVIX’s documentation](https://docs.svix.com/receiving/introduction).
 
@@ -112,7 +112,7 @@ Stripe Treasury currently does not support data access for 3rd parties such as T
 active development. For an update on timelines, please reach out to your Stripe Treasury support contact.
 
 In the mean time, you can still submit transactions to Teal directly by using the 
-[Create Transactions endpoint](/api-reference/transactions/create_transactions). See the [transactions guide](/transactions/overview) 
+[Create Transactions endpoint](/api-reference/transactions/create-transactions). See the [submitting transactions guide](/accounting_package/platform_gl/transactions/submitting) 
 for details on how to proceed.
 
   </Tab>

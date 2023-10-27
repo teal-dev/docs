@@ -1,0 +1,136 @@
+---
+title: Core Concepts
+description: "An overview of core accounting concepts and how they are modeled in PlatformGL."
+# icon: "cube"
+---
+
+Below we'll describe some foundational accounting concepts and how they are modelled in PlatformGL. 
+
+## Transactions
+
+Transactions in PlatformGL represent real-world transactions, like those found in bank accounts and credit cards. 
+They have a date, amount, and description, and often include additional useful metadata that comes from banking and BaaS systems, 
+such as merchant details.
+
+Transactions are used to bridge between the world of payments and banking, and the world of accounting. 
+Our API is designed to allow you to [submit transactions](/accounting_package/platform_gl/transactions/submitting) in more or less 
+raw format, and have us do the work of properly transforming this data into journal entries and line entries in your customer's 
+accounting.
+
+## Line entries
+
+Line entries are the most basic atomic unit of accounting.
+
+Each line entry has an **amount**, a **direction**, and a **ledger**. The **amount** is the amount of value that is 
+flowing into or out of a ledger. The direction can be either **debit** or **credit**.
+
+Debits and credits are tricky, even for accounting experts, but you can generally think of them this way:
+
+- **Debit:** A debit is a flow of value _into_ a ledger.
+- **Credit:** A credit is a flow of value _out of_ a ledger.
+
+A business cannot create or destroy money, only transfer it from one place to another. Therefore, the sum of credits in any set of 
+line entries must equal the sum of debits. Debits = credits is one of the most foundational rules of accounting. 
+PlatformGL has multiple safeguards to ensure this is true, so you don't need to worry about violating this rule when using PlatformGL.
+
+In PlatformGL, line entries cannot be created directly. Instead, they are created only as part of a journal entry. 
+This is one of the built in safeguards.
+
+## Journal entries
+
+Journal entries bundle line entries together into understandable flows of value between an origin and a destination.
+
+Each individual journal entry enforces that the debit line entries sum to equal the credits line entries. This ensures that each 
+individual journal entry is a closed system that tells the story of where a certain amount of value came from, and where it went.
+
+Each **journal entry** consists of at least **two line entries**, but complex journal entries can have more than two line 
+entries, as long as the sum of credits equal the sum of debits.
+
+Keep in mind that journal entries record the flow of value, not just the flow of money. It is possible for a flow of value 
+to occur without any money changing hands. For example, if a company makes a sale but the customer has not yet paid, the 
+value of the transaction will generally be recorded on the date the invoice was issued, even though no payment has yet been made. 
+Another example is depreciation: over time, equipment breaks down and becomes less valuable. The business will generally create a 
+journal entry to record this loss of value, even though no money has changed hands. A journal entry that records a flow of value 
+with no transfer of funds is called an **accrual**. Whereas a journal entry that records a flow of funds is often called a **cash** 
+entry, regardless of whether the transaction was made electronically or with physical cash. Teal supports accounting for 
+both cash and accrual entries.
+
+Let's take a look at some examples of common journal entries.
+
+### Example 1: Purchase of supplies from a credit card
+
+| Ledger           | Debit ($) | Credit ($) |
+| ---------------- | --------: | ---------: |
+| Supplies expense |        50 |            |
+| Pluto Card *8575 |           |         50 |
+
+<Info>
+This is an example of one of the most simple and common types of journal entries. A purchase of \$50 has been made for supplies 
+from a credit card. Since the credit card is the source of the funds, there's a \$50 credit to the card. Since the destination 
+of the funds was an external vendor for supplies, there's a \$50 debit to the supplies expense ledger. Since there is a flow of 
+funds, this is a **cash** entry.
+</Info>
+
+### Example 2: Purchase of inventory without payment
+
+| Account          | Debit ($) | Credit ($) |
+| ---------------- | --------: | ---------: |
+| Inventory        |     5,000 |            |
+| Accounts Payable |           |      5,000 |
+
+<Info>
+In this journal entry, \$5,000 of inventory is being purchased, but the purchase invoice has not yet been paid. To represent the 
+flow of value into the inventory account, it is debited with \$5,000. Meanwhile, \$5,000 is credited to the Accounts 
+Payable ledger, to represent the liability that the company has to pay this invoice in the future. Note however that no 
+money has yet changed hands, making this an **accrual** entry.
+</Info>
+
+### Example 3: Payment of salaries
+
+| Account               | Debit ($) | Credit ($) |
+| ---------------       | --------: | ---------: |
+| Salaries expense      |    85,000 |            |
+| Payroll taxes expense |    15,000 |            |
+| Pluto Checking *3472  |           |    100,000 |
+
+<Info>
+This is an example of one of the most common types of complex journal entries: the bi-weekly payroll. The company transferred 
+\$100,000 out of their bank account to a payroll company to pay their employees, in a single lump sum. However, this single 
+large transfer was meant to pay for not just salaries, but also the payroll taxes levied by the government. To represent this, 
+the company debits the Salaries Expense ledger for \$85,000, and the Payroll Taxes Expense ledger for \$15,000, while entering a 
+single credit for \$100,000. Since there is a flow of funds, this is a **cash** entry.
+</Info>
+
+## Ledgers
+
+Ledgers describe the purpose and location of funds and value. Ledgers can be one of five types: revenues, expenses, assets, 
+liabilities, or equity.
+
+1. **Revenues:** Money earned from the company's operating activities.
+2. **Expenses:** Costs incurred to generate revenues.
+3. **Assets:** Company-owned resources with future economic value, tangible or intangible.
+4. **Liabilities:** Financial obligations or debts of the company.
+5. **Equity:** The ownership interest in the company after deducting liabilities from assets.
+
+Revenues and expenses relate to the company's performance over a period, while assets, liabilities, and equity reflect 
+the financial position at a given point. The type of the ledger is used to determine which financial statements the ledger appears on. 
+For example, revenues and expenses appear on the income statement, while assets, liabilities, and equity appear on the balance sheet. 
+
+Ledgers are also commonly grouped into sub types that have similar characteristics and accounting treatment. For example, 
+asset ledgers are commonly grouped into current assets and non-current asset subtypes. There isn't a single "correct" 
+set of ledger subtypes, and subtypes can vary based on accounting convention and preferences. Teal uses a commonly accepted convention for our 
+defaults, but you have the ability to modify these based on your preferences. 
+
+## Calculated Totals
+
+Calculated totals are used to sum groups of ledgers and calculate other important metrics such as "Net Profit". They are simply 
+sums or substractions of 
+ledger subtypes. Here are some examples: 
+- Total Current Assets = sum of legders with subtype `current_assets`
+- Net Profit = sum of ledgers with type `revenue` minus sum of ledgers with types `expense`
+
+## Chart of Accounts
+
+A [chart of accounts](/accounting_package/platform_gl/configuration/chart_of_accounts_config) is the complete set of ledgers that belong to a business. A company's 
+chart of accounts typically reflects the unique structure of the business, and so there is no single standard. However, there 
+are certain protocols that companies are expected to follow when filing their taxes with the IRS (or relevant body).

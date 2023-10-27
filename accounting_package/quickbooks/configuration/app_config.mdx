@@ -1,0 +1,38 @@
+---
+title: "Authorization"
+description: "Set up authorization so that your customers can sync their QuickBooks accounting package"
+icon: "user-gear"
+---
+
+This guide walks you through how to set up our QuickBooks GL integration.
+
+<Note> You can test our QuickBooks GL integration using your demo instance. Need a live run-through? Contact us and we'd be 
+happy to give you one.</Note>
+
+### Enabling the integration
+The QuickBooks GL integration is disabled by default on your Platform. Message us if you want to turn it on. Intuit, the company 
+behind QuickBooks, requires that Platforms complete several manual steps to set up a QuickBooks integration. We handle this for you. 
+It can take up to a few business days, but we usually get it done much sooner (the day of). 
+
+### Understand how your end users authorize a QuickBooks connection:
+QuickBooks requires that Platforms create an “app” to manage how their end users securely grant permissions to their QuickBooks 
+accounting data. The app controls the authorization process, and generates secure access tokens that Teal uses to read/write 
+accounting data.
+
+The app will reflect your branding. It's crucial to understand this since end users will see this app in their QuickBooks 
+account once they grant you permission. Rest assured, we manage the app's setup, hosting, and maintenance.
+
+### Implementing the Authorization Flow in Your UI
+We'll notify you when your platform is ready for the QuickBooks GL integration. Once this is done, you must embed a visible link 
+or your end users to connect their QuickBooks account. This link is an auth link, and it will trigger the authorization flow.
+
+To set up this link:
+- Use the auth-link endpoint to create the auth link.
+- Define a redirect_url to specify where your end users should land once authorization is complete
+
+When users click on the auth link:
+- They'll be directed to QuickBooks for app authorization.
+- They'll be prompted to enter their QuickBooks login details and grant you permission to access their data.
+- Finally, users land on the previously set redirect_url.
+
+

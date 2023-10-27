@@ -1,7 +1,38 @@
 ---
 title: Adding an instance
 description: 
-icon: check
+# icon: check 
 ---
 
-Coming soon.
+Instances are an important concept as they hold the accounting data for a single business. You can 
+think of them as a "set of books". This means that a small business customer in your product, such as a "user", 
+will be associated with an instance in Teal. 
+
+<Note> 
+  Remember to store the association between an instance in Teal and their associated entity in your product. 
+</Note>
+
+You can add instances on your Platform by using the [Create User API](/api-reference/users/create_user). 
+
+#### Accounting package
+An instance must be associated with an accounting package (e.g. PlatformGL, QuickBooks). This is set using the `gl_backend` parameter. 
+
+#### Subscription tier
+By default, users are created with a **Tier 0** subscription. To enable **Tier 1 or 2** features, upgrade the user 
+subscription using the [Update Subscription endpoint](/api-reference/users/update_subscription). Remember 
+that there are different charges depending on subscription level. Sandbox subscriptions incur no charges.
+
+#### Start date
+The start date (`entries_start`) is the date from which the API will sync your user's accounting data. You will not be able to enter transactions or journal entries before the start date, but you will be able to read reports.
+You will generally set a start date that is the beginning of the financial year that your users will begin tracking their books on your platform, or the start date of their business, whichever is sooner.
+
+<Note>
+You can use the [opening balances](/transactions/opening_balances) endpoint to set up their balance sheet properly so that it is accurate on the start date. (PlatformGL only).
+</Note>
+
+#### Chart of accounts (Platform GL)
+
+When you create a new PlatformGL instance using the [Create User endpoint](/api-reference/users/create_user), you will need to select 
+a [chart of accounts](/configuration/chart_of_accounts_config) template for their ledgers to be generated from. You can do this by setting 
+the `coa_template_id` parameter. You can view and manage your templates in the Developer Portal. 
+

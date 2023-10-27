@@ -1,64 +1,10 @@
 ---
-title: What is PlatformGL
+title: Overview
 description: An overview of PlatformGL
-icon: "list-tree"
+# icon: "list-tree"
 ---
 
-## PlatformGL Overview
+PlatformGL is your own accounting package hosted by Teal. It is typically used to build simple accounting features for 
+your small business customers that don't currently use an accounting package for the accounting. 
 
-PlatformGL is a platform upon which you can build accounting features and services for your small business customers to use. The platform is flexible 
-and intended to be customized to your own use case.
-
-Here are examples of the kinds of offerings you can build with Teal:
-
-- A simple enhancement to a banking offering that allows customers to analyze their cash flow. (e.g. "Mint for your small business").
-- Accounting features powered with 2-way sync to a customer's existing accounting package (e.g. QuickBooks, Xero), such as 
-dashboards, charts, custom reports, and workflows.
-- A fully-featured accounting suite that allows customers to prepare and manage their bookkeeping and accounting.
-- A managed bookkeeping service which prepares bookkeeping on customers' behalf with live bookkeepers. **(coming in 2024)**
-- A tax filing service that collects tax documents from customers and combines it with their bookkeeping data to 
-prepare and file their business income tax returns. **(coming in 2024)**
-
-Often, the most valuable implementation is a combination of these offerings. For example, a neobank might offer a simple cash flow 
-analysis tool for free, with an upgrade path to a full-featured accounting suite that 2-way syncs to a customer's QuickBooks account, 
-which can be further upgraded with a built-in live bookkeeper and tax filer.
-
-Teal offers native integrations with external data sources such as Plaid, Unit, Stripe, and QuickBooks, with more coming soon. 
-It also supports integrations with your own data sources for data such as banking transactions and balances, payroll data, payments data, and more.
-
-### Examples
-
-<AccordionGroup>
-  <Accordion title="Cash flow analysis app">
-
-You can use Teal to build a simple but powerful cash flow analysis app that shows your customers where their cash started in the 
-month, where it ended, and what kinds of transactions moved their cash balance up and down.
-
-This style of app is sometimes called "mint for business."
-
-Here is an example implemented inside the UI for a fictional neobank called Pluto:
-
-<Frame>
-  <img src="/images/pluto-t1.png" />
-</Frame>
-
-  </Accordion>
-
-<Accordion title="Full accounting suite">
-
-You can use Teal to build a complex fully featured accounting suite. This suite can be a standalone suite, or 2-way sync to popular accounting 
-packages such as QuickBooks.
-
-The below example shows a small portion of the full accounting suite for a fictional platform called Pluto, including financial statements, 
-and the ability to create custom journal entries:
-
-<Frame>
-  <img src="/images/pluto-t2.png" />
-</Frame>
-
-</Accordion>
-</AccordionGroup>
-
-### Live Teal demo
-
-We have a live demos available of multiple Teal apps. Feel free to [contact us for a live walkthrough](https://teal.dev/contact).
+All of our endpoints are compatable with `PlatformGL` instances except for those containing the `\quickbooks` in their route. 

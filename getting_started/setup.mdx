@@ -27,8 +27,11 @@ icon: "box"
     Tokens should always be kept secret. Don't share outside of your organization and be careful when sharing within.
     </Warning>
 
-    Our API requires a bearer token for authentication, which can create and manage in the 
-    [Developer Portal](https://developer.teal.dev/). Tokens are unique to your Platform and to the API environment. 
+    Calls to our API are authenticated using a bearer token and are sent to our API using an `Authentication: Bearer <token>` 
+    HTTP header. 
+    
+    You can create which can create and manage these tokens in the [Developer Portal](https://developer.teal.dev/). 
+    Tokens are unique to your Platform and to the API environment. 
 
     We support two different API environemnts: 
       - **Sandbox:** `https://api.sandbox.teal.dev`

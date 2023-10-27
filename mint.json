@@ -38,6 +38,7 @@
         "getting_started/quickstart"
       ]
     },
+  
     {
       "group": "Accounting packages",
       "pages": [
@@ -47,14 +48,10 @@
           "group": "PlatformGL",
           "pages": [
             "accounting_package/platform_gl/what_is_pgl",
-            "accounting_package/platform_gl/quickstart_pgl",
-            "accounting_package/platform_gl/quickstart_pgl_2",
             "accounting_package/platform_gl/core_accounting_concepts",
             {
               "group": "Configuring PlatformGL",
               "pages": [
-                "accounting_package/platform_gl/configuration/overview",
-                "accounting_package/platform_gl/configuration/user_config",
                 "accounting_package/platform_gl/configuration/chart_of_accounts_config",
                 "accounting_package/platform_gl/configuration/categorization_config",
                 "accounting_package/platform_gl/configuration/data_sources_config"
@@ -69,13 +66,26 @@
                 "accounting_package/platform_gl/transactions/tagging",
                 "accounting_package/platform_gl/transactions/opening_balances"
               ]
+            },
+            {
+              "group": "Quick start guides",
+              "pages": [
+                "accounting_package/platform_gl/quickstart_pgl",
+                "accounting_package/platform_gl/quickstart_pgl_2"
+              ]
             }
           ]
         },
         {
           "group": "QuickBooks",
           "pages": [
-            "accounting_package/quickbooks/overview"
+            "accounting_package/quickbooks/overview",
+            {
+              "group": "Configuring QuickBooks",
+              "pages": [
+                "accounting_package/quickbooks/configuration/app_config"
+              ]
+            }
           ]
         },
         {
@@ -117,18 +127,6 @@
         "interfaces/excel_export"
       ]
     },
-    {
-      "group": "API design",
-      "pages": [
-            "api_design/authentication",
-            "api_design/errors",
-            "api_design/idempotency",
-            "api_design/pagination",
-            "api_design/metadata",
-            "api_design/rate_limiting",
-            "api_design/versioning"
-        ]
-      },
       
     
     {

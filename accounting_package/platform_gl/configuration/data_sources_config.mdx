@@ -11,19 +11,10 @@ Use our data integrations so that Teal can do the work of fetching and reconcili
 <Tabs>
   <Tab title="Plaid">
 
-We have an official processor-token [partnership](https://plaid.com/docs/auth/partnerships/teal/) with Plaid so that your users easily connect their external financial 
-accounts directly to Teal.
+Utilizing Teal's Plaid integration enables a seamless workflow for connecting external financial accounts to Teal. We have an official processor-token [partnership](https://plaid.com/docs/auth/partnerships/teal/) with Plaid so that your users easily connect their external financial 
+accounts directly to Teal's back end, through your own Plaid account and UX.
 
 <Note>This feature is currently in **beta**.</Note>
-
-## Getting Started
-
-You'll first want to familiarize yourself with [Plaid Link](https://plaid.com/docs/link/), a drop-in client-side integration for the Plaid API 
-that handles input validation, error handling, and multi-factor authentication. You will also need to have a Teal platform to use this integration. 
-
-Your customers will use Link to authenticate with their financial institution and select the financial accounts they wish to connect to Teal. 
-From there, you'll receive a Plaid `access_token` and a Teal `processor_token`, which you will pass onto Teal via Teal’s API without having to store 
-any sensitive bank information. Utilizing Teal + Plaid enables a seamless workflow for connecting external financial accounts to Teal.
 
 ## Instructions
 ### Set up your accounts
@@ -39,7 +30,7 @@ which involves filling out basic information about your app, such as your compan
 how your product uses their bank information and is also required for connecting to some banks.
 
 ### Implement Plaid Link inside your app
-You'll need to implement will likely want to implement in your user interface so that you can securely pass us a Teal `processor_token` 
+You'll need to implement Plaid link in order to generate a Teal `processor_token` 
 so that we can fetch and reconcile transactions. You can find detailed instructions for implementing Plaid Link
 [here](https://plaid.com/docs/auth/partnerships/teal/#create-a-link_token). Please follow these instructions.
 

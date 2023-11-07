@@ -130,7 +130,9 @@
     {
       "group": "Working with the API",
       "pages": [
-        "api_design/pagination"
+        "api_design/authentication",
+        "api_design/pagination",
+        "api_design/instances"
       ]
     },
       

@@ -127,6 +127,12 @@
         "interfaces/excel_export"
       ]
     },
+    {
+      "group": "Working with the API",
+      "pages": [
+        "api_design/pagination"
+      ]
+    },
       
     
     {

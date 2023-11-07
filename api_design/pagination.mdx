@@ -1,8 +1,66 @@
 ---
 title: Pagination
 description: 
-icon: check
+icon: 
 ---
 
-Coming soon.
+Our API was designed with responsiveness in mind, and as such, many of our list endpoints have been built
+with the ability to paginate through records.
 
+
+In the API, pagination was implemented using a cursor. Cursor-based pagination gives you a deterministic
+result, where not records are skipped between pages. Additionally, cursor-based pagination is more performant
+since there is less data to load when navigating between pages.
+
+### How to paginate through records?
+
+When pagination is available, the API will respond with a payload similar to:
+
+```json
+{
+    "next_page_token": "gAAAAABlSRfLM0b-MzI3NmM0N0MmLWJkOTQtYjkxZTRkMzkyNTE3==",
+    "prev_page_token": "gAAAAABlSRfLFpdvYTM3OTQ0Y0OlLWI0YzYtNmYxMjU3N2NmMDk2==",
+    "records": []
+}
+```
+
+As you can see, there are two tokens `next_page_token` and `prev_page_token`. As their name suggest, the `next_page_token` is
+used to request the next page, and the `prev_page_token` is used to retrieve the previous page. In addition, when there isn't
+a next page or a previous page, the value for either token will be `null`. 
+
+To request the next or previous page, you must pass the url parameter `page_token` with the `next_page_token` value assigned to
+it. For example, here is a request to get the next page of Ledgers:
+
+``` Shell
+curl --request get \
+--url 'https://api.sandbox.teal.dev/v0/ledgers?page_token=<next_page_token>' \
+--header 'Authorization: Bearer <token>' \
+--header 'teal-instance-id: <instance_id>'
+```
+
+And here is the command to request the previous page:
+
+
+``` Shell
+curl --request get \
+--url 'https://api.sandbox.teal.dev/v0/ledgers?page_token=<prev_page_token>' \
+--header 'Authorization: Bearer <token>' \
+--header 'teal-instance-id: <instance_id>'
+```
+
+Keep in mind that the `page_token` url paramter is optional. If the value is not specified, the first page will be returned
+by the API.
+
+### How many records can I retrive?
+
+By default, the API returns 50 records per page, with a maxium value of 100 records per page. This value is configurable by
+passing the `limit` attribute as a url param. For example:
+
+``` Shell
+curl --request get \
+--url 'https://api.sandbox.teal.dev/v0/ledgers?page_token=<next_page_token>&limit=100' \
+--header 'Authorization: Bearer <token>' \
+--header 'teal-instance-id: <instance_id>'
+```
+
+The request above will return 100 records for the next page. 

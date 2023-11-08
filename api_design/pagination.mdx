@@ -4,15 +4,14 @@ description:
 icon: 
 ---
 
-Our API was designed with responsiveness in mind, and as such, many of our list endpoints have been built
-with the ability to paginate through records.
+Most of our API endpoints that return lists of objects support the ability to paginate through records. Our API uses cursor based 
+pagination, which breaks down a large response into smaller responses called **pages**, that the caller can step through to read 
+all of the data. 
 
+Our cursor-based pagination gives you a deterministic result, so no records are skipped between pages. Cursor-based pagination is 
+typically more performant than other approaches, since there is less data to load when navigating between pages.
 
-In the API, pagination was implemented using a cursor. Cursor-based pagination gives you a deterministic
-result, where not records are skipped between pages. Additionally, cursor-based pagination is more performant
-since there is less data to load when navigating between pages.
-
-### How to paginate through records?
+### Paginating through records
 
 When pagination is available, the API will respond with a payload similar to:
 
@@ -48,10 +47,10 @@ curl --request get \
 --header 'teal-instance-id: <instance_id>'
 ```
 
-Keep in mind that the `page_token` url parameter is optional. If the value is not specified, the first page will be returned
-by the API.
+<Note> Keep in mind that the `page_token` url parameter is optional. If the value is not specified, the first page will be returned
+by the API. </Note>
 
-### How many records can I retrive?
+### Page sizes
 
 By default, the API returns 50 records per page, with a maxium value of 100 records per page. This value is configurable by
 passing the `limit` attribute as a url parameter. For example:

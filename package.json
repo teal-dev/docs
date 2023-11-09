@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "clean-openapi": "node scripts/cleanup_openapi.js",
+    "dev": "mintlify dev",
+    "scrape-openapi": "node scripts/cleanup_openapi.js && node scripts/scrape_openapi.js"
+  },
+  "dependencies": {
+    "mintlify": "^4.0.45"
+  }
+}

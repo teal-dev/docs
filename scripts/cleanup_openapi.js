@@ -13,7 +13,7 @@ for (const [parent_schema, schema] of Object.entries(openapi_schema.components.s
     if (!("properties" in schema)) continue;
  
     for (const [property_name, property] of Object.entries(schema.properties)) {
-        if ("anyOf" in property && property.anyOf[0].items?.$ref.endsWith(parent_schema)) {
+        if ("anyOf" in property && property.anyOf[0].items?.$ref?.endsWith(parent_schema)) {
             delete property.anyOf[0].items;
         }
     };

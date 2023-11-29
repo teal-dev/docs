@@ -4,7 +4,7 @@ description: "Reviewing the category of a transaction is a key accounting workfl
 icon: "folder-grid"
 ---
 
-Being able to review and confirm the categories of your business transactions is a core accounting workflow. We make it easy to build 
+Being able to review and confirm the categories of your business transactions is a key accounting workflow. We make it easy to build 
 an interface using our API.
 
 When a transaction is created in Teal it has the following attributes:  
@@ -25,7 +25,7 @@ When a transaction is created in Teal it has the following attributes:
 
 <Steps>
   <Step title="Display list of transactions for review">
-    All transactions are created with the `transaction_status` attribute set to `unreviewed`. 
+    All transactions are initially created with the `transaction_status` attribute set to `unreviewed`. 
     
     Use the [Get Categorized Transactions](/api-reference/transactions/get-categorized-transactions) endpoint and filter by 
     `transaction_status` = `unreviewed` to get a list of `unreviewed` transactions and their associated categories. 
@@ -40,7 +40,7 @@ When a transaction is created in Teal it has the following attributes:
     
   </Step>
   <Step title="Prompt the user to confirm the transaction">
-    Once the user has reviewed the transaction, use the [Update Transaction Status](/api-reference/transactions/update-transaction-status) endpoint to update the 
+    Once the user has reviewed the transaction, either by confirming the category or selecting a new one, use the [Update Transaction Status](/api-reference/transactions/update-transaction-status) endpoint to update the 
     `transaction_status` to `reviewed`. 
   </Step>
 </Steps>

@@ -4,7 +4,8 @@ description: "How to get transaction data into Teal."
 icon: #"folder-arrow-up"
 ---
 
-<Note> [Complete this step](/accounting_package/platform_gl/transactions/create_ledger) before attempting to create transactions. </Note>
+<Note> Ensure you have completed the steps outlined in [Mapping Ledgers](/accounting_package/platform_gl/transactions/create_ledger) before attempting 
+to create transactions. </Note>
 
 ## Submitting transaction data
 
@@ -12,9 +13,6 @@ In order for Teal to generate a report for a user, it first needs accounting jou
 generate these journal entries is to submit transactions to Teal. Once Teal receives a transaction, it will automatically generate a 
 two-sided journal entry to be used in generating reports. This allows you to abstract away the complexity of accounting journal entries 
 and focus on just submitting raw financial transactions, while Teal handles the accounting treatment.
-
-There are a two ways to submit transactions to Teal, either using the [Create Transactions endpoint](/api-reference/transactions/create-transactions), 
-or by configuring an external data source.
 
 If you would like more direct control over the accounting treatment, it is possible to create journal entries directly by calling 
 the [Create Journal Entry endpoint](/api-reference/journal-entries/create-journal-entry). However, this is not recommended unless you have very 

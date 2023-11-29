@@ -1,0 +1,47 @@
+---
+title: Reviewing transactions
+description: "Reviewing the category of a transaction is a key accounting workflow"
+icon: "folder-grid"
+---
+
+Being able to review and confirm the categories of your business transactions is a core accounting workflow. We make it easy to build 
+an interface using our API.
+
+When a transaction is created in Teal it has the following attributes:  
+```json JSON
+    {
+      "id": "t_9237232",
+      "description": "Example transaction",
+      "datetime": "2022-01-01T00:00:00Z",
+      "amount": 100,
+      "metadata": {
+        "location": "TX, USA",
+        "vendor_type": "Gas station"
+      },
+      "review_status": "reviewed",
+      "posted_status": "posted"
+    }
+    ```
+
+<Steps>
+  <Step title="Display list of transactions for review">
+    All transactions are created with the `transaction_status` attribute set to `unreviewed`. 
+    
+    Use the [Get Categorized Transactions](/api-reference/transactions/get-categorized-transactions) endpoint and filter by 
+    `transaction_status` = `unreviewed` to get a list of `unreviewed` transactions and their associated categories. 
+    
+    Display these transactions and associated categories to your user. 
+
+  </Step>
+  <Step title="Prompt the user to review the transaction">
+    Prompt the user to review the transaction category. Allow the user to recategorize the transaction by displaying the available ledgers 
+    using the [Get Ledgers](/api-reference/ledgers/get-ledgers) endpoint, and the [Recategorize Transaction](/api-reference/transactions/recategorize-transaction) 
+    endpoint. 
+    
+  </Step>
+  <Step title="Prompt the user to confirm the transaction">
+    Once the user has reviewed the transaction, use the [Update Transaction Status](/api-reference/transactions/update-transaction-status) endpoint to update the 
+    `transaction_status` to `reviewed`. 
+  </Step>
+</Steps>
+

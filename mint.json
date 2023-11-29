@@ -35,10 +35,18 @@
       "pages": [
         "getting_started/what_is_teal",
         "getting_started/setup",
-        "getting_started/quickstart"
+        "getting_started/quickstart",
+        {
+          "group": "API overview",
+          "icon": "gear-code",
+          "pages": [
+            "api_design/authentication",
+            "api_design/pagination",
+            "api_design/instances"
+          ]
+        }
       ]
     },
-  
     {
       "group": "Accounting packages",
       "pages": [
@@ -49,24 +57,7 @@
           "pages": [
             "accounting_package/platform_gl/what_is_pgl",
             "accounting_package/platform_gl/core_accounting_concepts",
-            {
-              "group": "Configuring PlatformGL",
-              "pages": [
-                "accounting_package/platform_gl/configuration/chart_of_accounts_config",
-                "accounting_package/platform_gl/configuration/categorization_config",
-                "accounting_package/platform_gl/configuration/data_sources_config"
-              ]
-            },
-            {
-              "group": "Working with transactions",
-              "pages": [
-                "accounting_package/platform_gl/transactions/overview",
-                "accounting_package/platform_gl/transactions/create_ledger",
-                "accounting_package/platform_gl/transactions/submitting",
-                "accounting_package/platform_gl/transactions/tagging",
-                "accounting_package/platform_gl/transactions/opening_balances"
-              ]
-            },
+            "accounting_package/platform_gl/configuration/chart_of_accounts_config",
             {
               "group": "Quick start guides",
               "pages": [
@@ -80,12 +71,7 @@
           "group": "QuickBooks",
           "pages": [
             "accounting_package/quickbooks/overview",
-            {
-              "group": "Configuring QuickBooks",
-              "pages": [
-                "accounting_package/quickbooks/configuration/app_config"
-              ]
-            }
+            "accounting_package/quickbooks/app_config"
           ]
         },
         {
@@ -94,6 +80,23 @@
             "accounting_package/xero/coming_soon"
           ]
         }
+      ]
+    },
+    {
+      "group": "Working with transactions",
+      "pages": [
+        "accounting_package/platform_gl/transactions/overview",
+        {
+          "group": "Submitting transactions",
+          "pages": [
+            "accounting_package/platform_gl/transactions/submitting_transactions/create_ledger",
+            "accounting_package/platform_gl/transactions/submitting_transactions/submitting",
+            "accounting_package/platform_gl/transactions/submitting_transactions/tagging",
+            "accounting_package/platform_gl/transactions/opening_balances"
+          ]
+        },
+        "accounting_package/platform_gl/transactions/data_integrations",
+        "accounting_package/platform_gl/configuration/categorization_config"
       ]
     },
     {
@@ -123,28 +126,16 @@
       "group": "Building complex interfaces",
       "pages": [
         "interfaces/reports",
+        "interfaces/reviewing_transactions",
         "interfaces/journal_entry",
         "interfaces/excel_export"
       ]
     },
-    {
-      "group": "Working with the API",
-      "pages": [
-        "api_design/authentication",
-        "api_design/pagination",
-        "api_design/instances"
-      ]
-    },
-      
-    
+
     {
       "group": "Teal API Endpoints",
       "pages": [
         "api-reference/authentication",
-        {
-          "group": "Platform",
-          "pages": ["api-reference/platform/get-platform"]
-        },
         {
           "group": "Instances",
           "pages": [
@@ -163,6 +154,12 @@
             "api-reference/journal-entries/delete-journal-entry",
             "api-reference/journal-entries/get-journal-entries",
             "api-reference/journal-entries/create-journal-entry"
+          ]
+        },
+        {
+          "group": "Platform",
+          "pages": [
+            "api-reference/platform/get-platform"
           ]
         },
         {
@@ -234,13 +231,19 @@
             "api-reference/transactions/create-transactions",
             "api-reference/transactions/get-transactions",
             "api-reference/transactions/get-transaction-processing-status",
-            "api-reference/transactions/delete-transaction"
+            "api-reference/transactions/delete-transaction",
+            "api-reference/transactions/update-transaction-status",
+            "api-reference/transactions/get-categorized-transactions",
+            "api-reference/transactions/get-transaction-categories",
+            "api-reference/transactions/recategorize-transaction"
           ]
         },
         {
           "group": "Quickbooks",
           "pages": [
-            "api-reference/quickbooks/generate-quickbooks-auth-link"
+            "api-reference/quickbooks/generate-quickbooks-auth-link",
+            "api-reference/quickbooks/link-account",
+            "api-reference/quickbooks/force-transaction-sync"
           ]
         }
       ]

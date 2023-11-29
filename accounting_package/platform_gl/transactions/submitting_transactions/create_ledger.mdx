@@ -1,0 +1,131 @@
+---
+title: Mapping ledgers
+description: #"How to map real-world financial accounts to accounting ledgers."
+icon: #"folder-plus"
+---
+
+The first step to submitting your user's transactions is to map their real-world financial accounts, such as their 
+bank account, to a corresponding ledger in their chart of accounts. The process works a bit differently 
+depending on the end user's accounting package. This section outlines how the process works for `PlatformGL` 
+and `QuickBooks`.  
+
+<Tabs>
+  <Tab title="PlatformGL">
+    <Steps>
+
+    <Step title="Create a financial account ledger">
+        Real-world financial accounts are represented by financial account ledgers. You create these ledgers in the 
+        same way you create any ledger, by using the [Create Ledger](/api-reference/ledgers/create_ledger) endpoint. 
+
+        Financial account ledgers must have a `financial_account_type`. By selecting the financial account type, we 
+        set smart defaults to ensure that the accounting treatment is accurate. For example, setting `financial_account_type` to 
+        `bank` automatically sets `type` to `asset`, `debit_credit` to `debit`, and `report_cash_flow` to `true`.
+
+        <Tip> 
+        Each real-world financial acount should have its own individual ledger. You can see the complete list of supported financial 
+        account types [here](/api-reference/ledgers/create_ledger). 
+        </Tip> 
+    </Step>
+
+    <Step title="Map the ledger">
+        Once you have created a financial account ledger, you must store the association between the `ledger_id` of the 
+        financial account ledger and the real-world financial account it represents.
+
+        We call this mapping, and you will use this mapping for various use cases such as submitting transactions. 
+    </Step>
+    
+    <Step title="Set the opening balance">
+        It is important that the balance of the financial account ledger matches that of the real-world financial account on 
+        your user's [start date](/accounting_package/add_instance#start-date), or else their accounting will be inacurate. 
+
+        If the real-world financial account was opened before your user's [start date](/accounting_package/add_instance#start-date), 
+        an opening balance must be set via the [Opening Balance](/api-reference/ledgers/set-ledger-opening-balance) endpoint. 
+    </Step>
+
+    </Steps>
+
+        #### Best practices
+        <AccordionGroup>
+        <Accordion title="Map financial account ledgers at the beginning">
+            If you already have access to financial accounts for the customer, for example because you already 
+            serve them a banking or payroll product, then it's a good idea to create a ledger for each financial 
+            account as soon as you create the user's account in Teal.
+        </Accordion>
+
+        <Accordion title="Give descriptive names to ledgers">
+            When creating a financial account ledger, it's important to give it a descriptive name so 
+            the end user can distinguish which account is which in case they ever open a 2nd account 
+            of the same type. We recommend using a naming convention that includes the last 4 digits 
+            of the account number, which is generally considered not to be sensitive information. For 
+            security and compliance reasons, we do not recommend including any more digits than the last four.
+
+            For example, "Chase Checking \*\*5959" is a good name for a ledger, whereas "Bank Account 1" is not.
+        </Accordion>
+
+        <Accordion title="Make ledgers representing platform controlled financial accounts non-editable">
+            If you control the financial account (e.g. via a neobanking/Baas offering), then you may 
+            want to make the ledger non-user-editable by setting the `user_editable` parameter to False 
+            when using the [Create Ledger endpoint](/api-reference/ledgers/create-ledger). This will 
+            prevent the user from editing any line entry that is assigned to the ledger. They will still 
+            be able to categorize the transactions and edit the rest of the journal entry. This feature 
+            ensures that the user does not accidently break the sync between the Teal ledger and the 
+            transactions submitted from the financial account.
+
+            For example, if you submit a transaction for a \$10 expense for "Starbucks" using the 
+            [Create Transaction endpoint](/api-reference/transactions/create-transactions), Teal will automatically generate a 
+            journal entry with two line entries. One line entry will credit \$10 to the bank account ledger, 
+            the other line entry will debit \$10 to an expense ledger (depending on your 
+            [auto-categorization config](/accounting_package/platform_gl/configuration/categorization_config)). If the bank account ledger 
+            is set to user_editable = False, then the user will be able to change the \$10 debit to the 
+            expense ledger, but not the \$10 credit to the bank account ledger.
+        </Accordion>
+        </AccordionGroup>
+
+  </Tab>
+
+  <Tab title="QuickBooks">
+
+    <Note> 
+        For `QuickBooks` instances, you do not have full control over your user's chart of accounts. You can't know for sure 
+        if a ledger that represents your user's real-world financial account already exists, or if you need to create a new one 
+        in order to complete the mapping.
+        
+        Therefore, you will need to get input from your user.
+        </Note> 
+
+    <Steps>
+
+    <Step title="Identify the ledger in QuickBooks">
+        We recommend creating an interface that presents the user's chart of accounts and asks them to select the ledger 
+        that represents the real-world financial account that you want to map. Use the [Get Ledgers](/api-reference/ledgers/get-ledgers) 
+        endpoint to generate the list.  If a ledger does not yet exist, then create one using the 
+        [Create Ledger](/api-reference/ledgers/create-ledger) endpoint.
+
+    </Step>
+
+    <Step title="Map the ledger">
+        Once the user has identified the ledger to be used, or you have created a new ledger, you must store the association between 
+        the `id` and the real-world financial account it represents.
+
+        We call this mapping, and you will use this mapping for various use cases such as submitting transactions. 
+    </Step>
+    
+    <Step title="Link the Account">
+        In order to be able to submit transactions to the mapped ledger, you need to call the [Link Account](/api-reference/quickbooks/link-account) 
+        endpoint and set the `financial_account_type`. Setting the financial account type also lets Teal know that transactions can 
+        be written to this QuickBooks ledger. 
+        
+        By setting the financial account type, we also set smart defaults to ensure that the accounting treatment is accurate. For example,  
+        if you set `financial_account_type` to bank, we set `type` to asset, `debit_credit` to debit, and `report_cash_flow` to true. 
+
+    </Step>
+
+    </Steps>
+
+
+  </Tab>
+
+</Tabs>
+
+
+

@@ -6,11 +6,9 @@ icon: "folder-grid"
 
 ![An example of a transaction review page](/images/transactions-review-example.png)
 
-Reviewing Transactions is a key part of building an accounting package for your users as it allows them to provide input on Transaction's categories, ensuring that ledgers are correctly balanced. Use a combination of the [Transactions](/api-reference/transactions/get-categorized-transactions) and [Ledger](/api-reference/transactions/get-ledgers) endpoints to enable users to review transactions. There are several use cases:
+The goal of categorizing transactions is to ensure that your user's accounting reports are accurate. Teal's auto-categorization pipeline streamlines much of this tedious process, but there are times where you will want to prompt your users to confirm some transactions.
 
-- Check that transactions have been categorized properly
-- Categorize transactions that have been assigned the "uncategorized inflow" or "uncategorized outflow" category by the auto-categorizer (See notes)
-- Review specific transactions that have gone through another workflow
+We call this key accounting workflow **Reviewing Transactions**, and versions of this workflow existing in most popular accounting products. Using a combination of the [Transactions](/api-reference/transactions/get-categorized-transactions) and [Ledger](/api-reference/transactions/get-ledgers) endpoints, you can build a customizable transaction review workflow for your unique needs.
 
 ---
 

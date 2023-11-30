@@ -3,6 +3,8 @@ title: Reviewing transactions
 description: "Build a transaction review workflow"
 icon: "folder-grid"
 ---
+<Note> This guide assumes your platform is [provisioned](/getting_started/setup) and that you have at least one [instance](/accounting_package/add_instance) with a `tier1` 
+[subscription](/accounting_package/add_instance#subscription-tier) or higher. </Note>
 
 ![An example of a transaction review page](/images/transactions-review-example.png)
 
@@ -12,10 +14,7 @@ We call this key accounting workflow **Reviewing Transactions**, and versions of
 
 ---
 
-### Set up
-
-This guide assumes your platform is set up and you have at least one [instance](/accounting_package/add_instance) with an accounting package.
-
+### Implementation example
 <Steps>
 	<Step title="Display unreviewed Transactions">
 		Use the [Get Categorized Transactions](/api-reference/transactions/get-categorized-transactions) endpoint with the `ledger_id` of a specific ledger to get a list of all `unreviewed` transactions.
@@ -101,12 +100,13 @@ This guide assumes your platform is set up and you have at least one [instance](
 
 ---
 
-## Notes
-- When a Transaction is processed in Teal's auto-categorization pipeline and it does not match any ledger, it will be categorized as either the "uncategorized inflow" or "uncategorized outflow", depending on if the Transaction is a credit or a debit. 
+### Notes
+- When a Transaction is processed in Teal's [auto-categorization](/accounting_package/platform_gl/configuration/categorization_config) pipeline and it does not 
+match any ledger, it will be categorized as either an **uncategorized cash inflow** or **uncategorized cash outflow**. 
 
 ---
 
-## Relevant resources
+### Relevant resources
 
 - [Core accounting concepts](/accounting_package/platform_gl/core_accounting_concepts)
 - [Platform auto-categorization settings](https://developer.teal.dev/auto_categorization)

@@ -10,14 +10,15 @@ Use a combination of the [Transactions](/api-reference/transactions/get-categori
 - Check that transactions have been categorized properly
 - Review specific transactions that have gone through another workflow
 
----
-This guide describes building a transaction review page that allows end-users to categorize transactions for a specific financial account ledger (e.g. a bank account or credit card).
-
-![An example of a transaction review page](/images/transactions-review-example.png)
-
 ### Set up
 
-This guide assumes you have already set up your platform and have [created instances](/accounting_package/add_instance) with an accounting package.
+This guide assumes your platform is set up and you have at least one [instance](/accounting_package/add_instance) with an accounting package.
+
+---
+
+This guide describes building a transaction review page that allows end-users to categorize Transactions for a specific ledger.
+
+![An example of a transaction review page](/images/transactions-review-example.png)
 
 <Steps>
   <Step title="Get unreviewed Transactions">
@@ -58,7 +59,7 @@ This guide assumes you have already set up your platform and have [created insta
 
   <Step title="Save the updated Transaction">
 	Complete the review process by pushing the changes in Teal.
-	1. If the Transaction changed categories, use the [Recategorize Transaction](/api-reference/transactions/recategorize-transaction) endpoint with the `id` of the selected ledger to update the selected transaction category.
+	1. If the Transaction changed categories, use the [Recategorize Transaction](/api-reference/transactions/recategorize-transaction) endpoint with the `ledger_id` of the selected category.
 
     ```tsx
     const financial_ledger_id = '123';
@@ -101,8 +102,6 @@ This guide assumes you have already set up your platform and have [created insta
 
   </Step>
 </Steps>
-
-With this workflow, users can reivew Transactions to confirm a category or assign new one. 
 
 ---
 

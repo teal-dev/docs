@@ -8,15 +8,17 @@ icon: "folder-grid"
 
 ![An example of a transaction review page](/images/transactions-review-example.png)
 
-The goal of categorizing transactions is to ensure that your user's accounting reports are accurate. Teal's auto-categorization pipeline streamlines much of this tedious process, but there are times where you will want to prompt your users to confirm some transactions.
+The goal of categorizing transactions is to ensure that your user's accounting reports are accurate. Teal's [auto-categorization](/accounting_package/platform_gl/configuration/categorization_config) pipeline streamlines much of this tedious process, but there are times where you will want to prompt your users to confirm some transactions.
 
-We call this key accounting workflow **Reviewing Transactions**, and versions of this workflow exist in most popular accounting products. Using a combination of the [Transactions](/api-reference/transactions/get-categorized-transactions) and [Ledger](/api-reference/transactions/get-ledgers) endpoints, you can build a customizable transaction review workflow for your unique needs.
+We call this key accounting workflow **Reviewing Transactions**, and versions of this workflow exist in most popular accounting products. Using a combination of the [Transactions](/api-reference/transactions/get-categorized-transactions) and [Ledger](/api-reference/transactions/get-ledgers) endpoints, you can build a customizable transaction review workflow for your users.
 
 ---
 
 ### Implementation example
 <Steps>
-	<Step title="Display unreviewed Transactions">
+	<Step title="Display a list of Transactions for review">
+		Display the transactions that you want your users to reviewt. In this example, all transactions with `review_status` = `unreviewed` are displayed. This is the default status for all newly created transactions. 
+		
 		Use the [Get Categorized Transactions](/api-reference/transactions/get-categorized-transactions) endpoint with the `ledger_id` of a specific ledger to get a list of all `unreviewed` transactions.
 
 		```tsx
@@ -76,8 +78,8 @@ We call this key accounting workflow **Reviewing Transactions**, and versions of
 		```
     </Step>
 
-	<Step title="Save the updated Transaction">
-		When you&rsquo;re ready, update the Transaction `review_status` from `unreviewed` to `reviewed` using the [Update Transaction Status](/api-reference/transactions/update-transaction-status) endpoint with `ledger_id` and `transaction_id`, passing along the new review status.
+	<Step title="Confirm the Transaction and remove from the list">
+		Once the user has reviewed the transaction and confirm the category, update the Transaction `review_status` from `unreviewed` to `reviewed` using the [Update Transaction Status](/api-reference/transactions/update-transaction-status) endpoint with `ledger_id` and `transaction_id`, passing along the new review status.
 
 		```tsx
 		const options = {
@@ -102,7 +104,8 @@ We call this key accounting workflow **Reviewing Transactions**, and versions of
 
 ### Notes
 - When a Transaction is processed in Teal's [auto-categorization](/accounting_package/platform_gl/configuration/categorization_config) pipeline and it does not 
-match any ledger, it will be categorized as either an **uncategorized cash inflow** or **uncategorized cash outflow**. 
+match any ledger, it will be categorized as either an **uncategorized cash inflow** or **uncategorized cash outflow**. You can choose to only display transactions with these categories in your review list. 
+- **Coming soon:** the ability to apply more granular filters to transactions based on the auto-categorization method applied. 
 
 ---
 

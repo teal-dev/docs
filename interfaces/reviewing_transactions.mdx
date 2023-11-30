@@ -1,47 +1,114 @@
 ---
 title: Reviewing transactions
-description: "Reviewing the category of a transaction is a key accounting workflow"
+description: "Build a transaction review workflow"
 icon: "folder-grid"
 ---
+<Note> This guide assumes your platform is [provisioned](/getting_started/setup) and that you have at least one [instance](/accounting_package/add_instance) with a `tier1` 
+[subscription](/accounting_package/add_instance#subscription-tier) or higher. </Note>
 
-Being able to review and confirm the categories of your business transactions is a key accounting workflow. We make it easy to build 
-an interface using our API.
+![An example of a transaction review page](/images/transactions-review-example.png)
 
-When a transaction is created in Teal it has the following attributes:  
-```json JSON
-    {
-      "id": "t_9237232",
-      "description": "Example transaction",
-      "datetime": "2022-01-01T00:00:00Z",
-      "amount": 100,
-      "metadata": {
-        "location": "TX, USA",
-        "vendor_type": "Gas station"
-      },
-      "review_status": "reviewed",
-      "posted_status": "posted"
-    }
-    ```
+The goal of categorizing transactions is to ensure that your user's accounting reports are accurate. Teal's auto-categorization pipeline streamlines much of this tedious process, but there are times where you will want to prompt your users to confirm some transactions.
 
+We call this key accounting workflow **Reviewing Transactions**, and versions of this workflow exist in most popular accounting products. Using a combination of the [Transactions](/api-reference/transactions/get-categorized-transactions) and [Ledger](/api-reference/transactions/get-ledgers) endpoints, you can build a customizable transaction review workflow for your unique needs.
+
+---
+
+### Implementation example
 <Steps>
-  <Step title="Display list of transactions for review">
-    All transactions are initially created with the `transaction_status` attribute set to `unreviewed`. 
-    
-    Use the [Get Categorized Transactions](/api-reference/transactions/get-categorized-transactions) endpoint and filter by 
-    `transaction_status` = `unreviewed` to get a list of `unreviewed` transactions and their associated categories. 
-    
-    Display these transactions and associated categories to your user. 
+	<Step title="Display unreviewed Transactions">
+		Use the [Get Categorized Transactions](/api-reference/transactions/get-categorized-transactions) endpoint with the `ledger_id` of a specific ledger to get a list of all `unreviewed` transactions.
 
-  </Step>
-  <Step title="Prompt the user to review the transaction">
-    Prompt the user to review the transaction category. Allow the user to recategorize the transaction by displaying the available ledgers 
-    using the [Get Ledgers](/api-reference/ledgers/get-ledgers) endpoint, and the [Recategorize Transaction](/api-reference/transactions/recategorize-transaction) 
-    endpoint. 
-    
-  </Step>
-  <Step title="Prompt the user to confirm the transaction">
-    Once the user has reviewed the transaction, either by confirming the category or selecting a new one, use the [Update Transaction Status](/api-reference/transactions/update-transaction-status) endpoint to update the 
-    `transaction_status` to `reviewed`. 
-  </Step>
+		```tsx
+		const options = {
+			method: 'GET',
+			headers: {
+				Authorization: AUTHORIZATION_KEY
+				'teal-instance-id': TEAL_INSTANCE_ID,
+			}
+		};
+		const ledger_id = 12345;
+
+		const request = await fetch(`https://api.sandbox.teal.dev/v0/ledgers/${ledger_id}/transactions/categories?review_status=unreviewed`, options)
+		const data = await request.json();
+		```
+		Display these to the user by iterating over `data.records`.
+	</Step>
+	<Step title="Update the category (Optional)">	
+		Sometimes a user needs to change how a Transaction is categorized. To do this, you need a list of all Ledgers and then allow the user to select which one they would like to assign as the new category.
+
+		1. Use the [Get Ledgers](/api-reference/transactions/get-ledgers) endpoint to retrieve all Ledgers.
+
+    	```tsx
+    	const options = {
+    		method: 'GET',
+    		headers: {
+    			Authorization: AUTHORIZATION_KEY,
+    			'teal-instance-id': TEAL_INSTANCE_ID
+    		}
+    	};
+    	const request = await fetch(`https://api.sandbox.teal.dev/v0/ledgers`, options)
+    	const data = await request.json();
+    	```
+		
+		Display the possible ledgers in a `<select>` element by iterating over `data.records`.
+
+		2. After a user has selected a category, submit the `ledger_id` of the new category to the [Recategorize Transaction](/api-reference/transactions/recategorize-transaction) endpoint.
+
+		```tsx
+		const selected_ledger_id = '67890';
+
+		const options = {
+			method: 'PUT',
+			headers: {
+				Authorization: AUTHORIZATION_KEY,
+				'Content-Type': 'application/json',
+				'teal-instance-id': TEAL_INSTANCE_ID
+			},
+			body: {
+				"updated_category_ledger_id": selected_ledger_id
+			}
+		};
+		const ledger_id = 12345;
+
+		const request = await fetch(`https://api.sandbox.teal.dev/v0/ledgers/${ledger_id}/transactions/${transaction_id}/categories`, options)
+		const response = await request.json();
+		```
+    </Step>
+
+	<Step title="Save the updated Transaction">
+		When you&rsquo;re ready, update the Transaction `review_status` from `unreviewed` to `reviewed` using the [Update Transaction Status](/api-reference/transactions/update-transaction-status) endpoint with `ledger_id` and `transaction_id`, passing along the new review status.
+
+		```tsx
+		const options = {
+			method: 'PUT',
+			headers: {
+				Authorization: AUTHORIZATION_KEY,
+				'Content-Type': 'application/json',
+				'teal-instance-id': TEAL_INSTANCE_ID
+			},
+			body: {
+				"review_status": "reviewed"
+			}
+		};
+
+		const request = await fetch(`https://api.sandbox.teal.dev/v0/ledgers/${ledger_id}/transactions/${transaction_id}`, options);
+		const response = await request.json();
+		```
+	</Step>
 </Steps>
 
+---
+
+### Notes
+- When a Transaction is processed in Teal's [auto-categorization](/accounting_package/platform_gl/configuration/categorization_config) pipeline and it does not 
+match any ledger, it will be categorized as either an **uncategorized cash inflow** or **uncategorized cash outflow**. 
+
+---
+
+### Relevant resources
+
+- [Core accounting concepts](/accounting_package/platform_gl/core_accounting_concepts)
+- [Platform auto-categorization settings](https://developer.teal.dev/auto_categorization)
+- [Transactions API](/api-reference/transactions/get-categorized-transactions)
+- [Ledger API](/api-reference/transactions/get-ledgers)

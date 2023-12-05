@@ -1,34 +1,36 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Teal",
-  "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg",
-    "href": "https://teal.dev"
-  },
-  "favicon": "/favicon.png",
   "api": {
     "auth": {
       "method": "bearer"
     }
   },
+  "backgroundImage": "/background.png",
   "colors": {
-    "primary": "#5EEAD4",
-    "light": "#5EEAD4",
+    "background": {
+      "dark": "#18181B",
+      "light": "#FFFFFF"
+    },
     "dark": "#18181B",
-    "background": { "light": "#FFFFFF", "dark": "#18181B" }
+    "light": "#5EEAD4",
+    "primary": "#5EEAD4"
   },
-  "topbarLinks": [],
-  "topbarCtaButton": {
-    "name": "Developer Portal",
-    "url": "https://developer.teal.dev"
+  "favicon": "/favicon.png",
+  "footerSocials": {
+    "github": "https://github.com/mintlify",
+    "linkedin": "https://www.linkedin.com/company/mintsearch",
+    "twitter": "https://twitter.com/mintlify"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "href": "https://teal.dev",
+    "light": "/logo/light.svg"
+  },
+  "modeToggle": {
+    "default": "dark",
+    "isHidden": true
+  },
+  "name": "Teal",
   "navigation": [
     {
       "group": "Getting started",
@@ -36,13 +38,14 @@
         "getting_started/what_is_teal",
         "getting_started/setup",
         "getting_started/quickstart",
+        "getting_started/core_accounting_concepts",
         {
           "group": "API overview",
           "icon": "gear-code",
           "pages": [
-            "api_design/authentication",
-            "api_design/pagination",
-            "api_design/instances"
+            "getting_started/api_design/authentication",
+            "getting_started/api_design/pagination",
+            "getting_started/api_design/instances"
           ]
         }
       ]
@@ -56,13 +59,12 @@
           "group": "PlatformGL",
           "pages": [
             "accounting_package/platform_gl/what_is_pgl",
-            "accounting_package/platform_gl/core_accounting_concepts",
             "accounting_package/platform_gl/configuration/chart_of_accounts_config",
             {
               "group": "Quick start guides",
               "pages": [
-                "accounting_package/platform_gl/quickstart_pgl",
-                "accounting_package/platform_gl/quickstart_pgl_2"
+                "accounting_package/platform_gl/quick_start/quickstart_pgl",
+                "accounting_package/platform_gl/quick_start/quickstart_pgl_2"
               ]
             }
           ]
@@ -76,9 +78,7 @@
         },
         {
           "group": "Xero",
-          "pages": [
-            "accounting_package/xero/coming_soon"
-          ]
+          "pages": ["accounting_package/xero/coming_soon"]
         }
       ]
     },
@@ -116,9 +116,7 @@
         },
         {
           "group": "Charts",
-          "pages": [
-            "reports/coming_soon"
-          ]
+          "pages": ["reports/coming_soon"]
         }
       ]
     },
@@ -131,7 +129,6 @@
         "interfaces/excel_export"
       ]
     },
-
     {
       "group": "Teal API Endpoints",
       "pages": [
@@ -158,9 +155,7 @@
         },
         {
           "group": "Platform",
-          "pages": [
-            "api-reference/platform/get-platform"
-          ]
+          "pages": ["api-reference/platform/get-platform"]
         },
         {
           "group": "Line Entries",
@@ -249,15 +244,15 @@
       ]
     }
   ],
-  "footerSocials": {
-    "twitter": "https://twitter.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Developer Portal",
+    "url": "https://developer.teal.dev"
   },
-  "backgroundImage": "/background.png",
-  "modeToggle": {
-    "default": "dark",
-    "isHidden": true
-  }
+  "topbarLinks": []
 }
-

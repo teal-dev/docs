@@ -10,7 +10,7 @@ Categorizing transactions is the process of assigning a ledger to a transaction 
 
 Teal uses a customizable pipeline to automate as much of this as possible to minimize the number of transactions a user has to manually categorize. If no categorization step matches a transaction, the transaction will be categorized into either the **Uncategorized Cash Inflow** or **Uncategorized Cash Outflow** ledger.
 
-All auto-categorization steps are disabled by default, and will not run until manually enabled in the [developer portal]().
+All auto-categorization steps are disabled by default, and will not run until manually enabled in the [developer portal](https://developer.teal.dev).
 
 ---
 
@@ -18,7 +18,7 @@ All auto-categorization steps are disabled by default, and will not run until ma
 
 ![Auto-categorizer pipeline](/images/auto-categorizer-pipeline.png)
 
-When a transaction is created, it is sent to the categorization pipeline where categorizers apply different rules to a transaction and try to match the it to a user’s ledgers.
+When a transaction is created, it is sent to the categorization pipeline where categorizers apply different rules to a transaction and try to match it to an instance’s ledgers.
 
 We have four categorizers that run in sequence:
 
@@ -35,28 +35,28 @@ If a categorizer selects a ledger, the subsequent categorizers won’t be run. F
     <Step title="Transfers between accounts">
         This categorizer detects transfers between accounts by looking for unmatched line entries in other ledgers with a `financial_account_type` within a 7 day window of the transaction. It only identifies these transactions after both the inflow and outflow exist in the system.
 
-        If you or your user know that a cash outflow is a transfer between accounts before the corresponding inflow has been received, you can [manually categorize](/interfaces/reviewing_transactions) the line entry to the **Transfers Between Accounts** ledger. This is a special ledger that exists in all [chart of accounts](/accounting_package/platform_gl/configuration/chart_of_accounts_config)
+        If you or your user know that a cash outflow is a transfer between accounts before the corresponding inflow has been received, you can [manually categorize](/interfaces/reviewing_transactions) the line entry to the **Transfers Between Accounts** ledger. This is a special ledger that exists in all [chart of accounts templates](/accounting_package/platform_gl/configuration/chart_of_accounts_config)
         
         The system will then automatically categorize the corresponding inflow when it arrives.
     </Step>
     <Step title="Platform categorization rules">
         Platforms have the ability to set their own categorization rules. This feature enables you to write expressions, which, when matched, will automatically categorize a transaction into a specific ledger. 
         
-        This is useful if you are familiar with your customers' spending and can help reduce the amount of time your customers spend manually categorizing transactions. For example, you might create a platform rule that puts every Transaction with the description "UNITED AIRLINES" into a travel expenses ledger.
+        This is useful if you are familiar with your customers' spending and can help reduce the amount of time your customers spend manually categorizing transactions. For example, you might create a platform rule that puts every transaction with the description "UNITED AIRLINES" into a travel expenses ledger.
 
         Categorization rules check transactions using an expression and priority. If a transaction matches multiple rules, the one with higher priority is selected.
 
-        Because Categorization rules are set at the **Platform level** these rules will apply to every transaction, regardless of instance, on your platform. 
+        Because categorization rules are set at the **Platform level** these rules will apply to every transaction, regardless of instance, on your platform. 
         
         We don’t currently offer Instance level categorization rules. Please reach out to your Teal contact if this is an important feature to you.
 
-        See [Crafting platform rules](#crafting-platform-rules) below to learn how to write categorization rules in the [developer portal](developer.teal.dev).
+        See [Crafting platform rules](#crafting-platform-rules) below to learn how to write categorization rules in the [developer portal](https://developer.teal.dev).
     </Step>
     <Step title="Similar transactions">
-        This categorizer selects a category based on similar transactions that have previously been categorized by either rules, ChatGPT, or the user. For this categorizer to work, each transaction's `description` must be 80% similar and the `amount` must be within 10%.
+        This categorizer selects a category based on similar transactions that have previously been categorized by either rules, ChatGPT, or the user. For this categorizer to work, each Transaction's `description` must be 80% similar and the `amount` must be within 10%.
     </Step>
     <Step title="AI Categorization">
-        This categorizer sends the transaction object along with a list ledgers and asks ChatGPT to select one. It can sometimes take up to 5 minutes for for this categorizer to run. 
+        This categorizer sends the Transaction object along with a list ledgers and asks ChatGPT to select one. It can sometimes take up to 5 minutes for for this categorizer to run. 
         
         To prioritize the end-user's experience, the transaction is posted to either the **Uncategorized Cash Inflow** or **Uncategorized Cash Outflow** ledger while this is running and can be [manually categorized](/interfaces/reviewing_transactions). Manually categorizing the transaction stops the categorizer.
 
@@ -72,7 +72,7 @@ Transactions can often lack sufficient context and data and cannot be auto-categ
 
 When a transactions goes through all of the categorizers but does not find a match, it is categorized as either **Uncategorized Cash Inflow** or **Uncategorized Cash Outflow**. These special ledgers are hardcoded into each [chart of accounts template](/accounting_package/platform_gl/configuration/chart_of_accounts_config.mdx).
 
-In order for books to be balanced, creating a user experience to allow users to manually categorize transactions is necessary. For steps on how to build an interface like this, see [reviewing transactions](/interfaces/reviewing_transactions).
+In order for books to be balanced, it is necessary to create a user experience to allow users to manually categorize transactions. For steps on how to build an interface like this, see [reviewing transactions](/interfaces/reviewing_transactions).
 
 ---
 

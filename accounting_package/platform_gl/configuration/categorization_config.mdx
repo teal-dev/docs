@@ -1,12 +1,12 @@
 ---
-title: "Auto-categorization"
+title: "Categorization pipeline"
 description: #"How to configure auto-categorization on submitted and fetched transactions."
 icon: #"folder-gear"
 ---
 
 ## Overview
 
-Categorizing transactions is the process of assigning a ledger to a transaction and is the core of the accounting and bookkeeping.
+Categorizing transactions is the process of assigning a ledger to a transaction and is the core of accounting and bookkeeping.
 
 Teal uses a customizable pipeline to automate as much of this as possible to minimize the number of transactions a user has to manually categorize. If a transaction is categorized by one of the steps, it will skip the rest of the pipeline and not be categorized by any subsequent step.
 
@@ -18,55 +18,44 @@ All auto-categorization steps are disabled by default, and will not run until ma
 
 ![Auto-categorizer pipeline](/images/auto-categorizer-pipeline.png)
 
-When Teal receives a transaction it gets sent through our Categorizer pipeline. Categorizers take a list of transactions and tries to match it to a user’s available ledgers. If at any point, a categorizer selects a ledger, the subsequent ledgers won’t be run. For example, if a transaction is a transfer between accounts, the transaction will not be tested against the Transaction Rules or Similar Transactions categorizers.
+When Teal receives a transaction it is sent to the categorization pipeline where categorizers apply different rules to a transaction and try to match the it to a user’s available ledgers. If at any point, a categorizer selects a ledger, the subsequent categorizers won’t be run. For example, if a transaction is a transfer between accounts, the transaction will not be tested against the **platform categorization tules** or **similar transactions** categorizers.
 
-The auto-categorizer prioritizes the end-user experience and tries to deliver a result as fast as possible. In order to do this, categorizers are run in two phases:
-
-Primary
+We have four categorizers that run in sequence:
 
 - Transfers between accounts
-- Transaction rules
+- Platform categorization rules
 - Similar transactions
-
-Secondary
-
 - AI Categorization
 
-The secondary phase is only run if the transaction goes through each of the primary categorizers without finding a match.
 
-### Categorization triggers
+## Categorizer types
 
-The categorization pipeline is triggered when:
+<Steps>
+    <Step title="Transfers between accounts">
+        This categorizer detects transfer between accounts by looking for unmatched line entries in other ledgers with a `financial_account_type` within a 7 day window of the transaction. It only identifies these transactions after both the inflow and outflow exist in the system.
 
-- Transactions are sent to the `transactions` endpoint.
-- A ledger is linked to a Plaid account
-- Transaction categorization is triggered from the developer portal
+        If you or your user know that a cash outflow is a transfer between accounts before the corresponding inflow has been received, you can [manually categorize](/interfaces/reviewing_transactions) the line entry to transfer between accounts. The system will then automatically categorize the corresponding inflow when it arrives.
+    </Step>
+    <Step title="Transaction rules">
+        Platforms have the ability to set their own categorization rules. This feature enables you to define specific rules, which, when matched, will automatically categorize a transaction into a particular ledger. This is useful if you are familiar with your customers' spending and can help categorize transactions automatically. For example, you might create a platform rule that puts every Transaction with the description "UNITED AIRLINES" into a travel expenses ledger.
 
-### Transfers between accounts
+        Categorization rules consist of an expression language and priority to match against transactions. If a transaction matches multiple rules, the one with higher priority is selected.
 
-This categorizer detects transfer between accounts by looking for unmatched line entries in other ledgers with a `financial_account_type` within a 7 day window of the transaction. It only identifies these transactions after both the inflow and outflow exist in the system.
+        Because Categorization rules are set at the **Platform level** these rules will apply to every transaction, regardless of instance on your platform. We don’t currently offer Instance level categorization rules. Please reach out to your Teal contact if this is an important feature to you.
 
-If you or your user know that a cash outflow is a transfer between accounts before the corresponding inflow has been received, you can [manually categorize](/interfaces/reviewing_transactions) the line entry to transfer between accounts. The system will then automatically categorize the corresponding inflow when it arrives.
+        See [Crafting transaction rules]() below to learn how to write categorization rules in the [developer portal]().
+    </Step>
+    <Step title="Similar transactions">
+        The Similar Transactions categorizer selects a category based on similar transactions that have previously been categorized by either rules, ChatGPT, or the user. For this categorizer to work, the `transaction.description` of each must be 80% similar and the `transaction.amount` must be within 10%.
+    </Step>
+    <Step title="AI Categorization">
+        This categorizer sends the entire raw transaction along with a list of expense or revenue ledgers (depending on the amount of the transaction) and asks ChatGPT to select one. It can sometimes take up to 5 minutes for for this categorizer to run. 
+        
+        To prioritize the end user's experience, the transaction is posted to either the **Uncategorized Cash Inflow** or **Uncategorized Cash Outflow** ledger and can be [manually categorized](/interfaces/reviewing_transactions). Manually categorizing the transaction in this way stops the categorizer.
 
-### Transaction rules
-
-Platforms have the ability to set their own categorization rules. This feature enables you to define specific rules, which, when matched, will automatically categorize a transaction into a particular ledger.
-
-Rules consist of an expression language and priority to match against transactions. If a transaction matches multiple rules, the one with higher priority is selected.
-
-Categorization rules are set at the **Platform level**. We don’t currently offer Instance level categorization rules. Please reach out to your Teal contact if this is an important feature to you.
-
-See [Crafting transaction rules]() below to learn how to write categorization rules in the [developer portal]().
-
-### Similar transactions
-
-The Similar Transactions categorizer selects a category based on similar transactions that have previously been categorized by either rules, ChatGPT, or the user. For this categorizer to work, the `transaction.description` of each must be 80% similar and the `transaction.amount` must be within 10%.
-
-### AI Categorization
-
-This categorizer sends the entire raw transaction along with a list of expense or revenue ledgers (depending on the amount of the transaction) and asks ChatGPT to select one. It can sometimes take up to 5 minutes for for this categorizer to run.
-
-To enable AI categorization, please reach out to your Teal contact. You’ll first need to submit example transactions from your users, and then Teal will train a custom AI auto-categorization model for your platform.
+        To enable AI categorization, please reach out to your Teal contact. You’ll first need to submit example transactions from your users, and then Teal will train a custom AI auto-categorization model for your platform.
+    </Step>
+</Steps>
 
 ### Uncategorized transactions
 
@@ -75,3 +64,44 @@ Transactions can often lack sufficient context and data and cannot be auto-categ
 When a transactions goes through all of the categorizers but does not find a match, it is categorized as either **Uncategorized Cash Inflow** or **Uncategorized Cash Outflow**. These special ledgers are hardcoded into each [chart of accounts template](/accounting_package/platform_gl/configuration/chart_of_accounts_config.mdx).
 
 In order for books to be balanced, creating a user experience to allow users to manually categorize transactions is necessary. For steps on how to build an interface like this, see [reviewing transactions](/interfaces/reviewing_transactions).
+
+## Crafting platform rules
+
+A rule consists of three components:
+
+- **Expression**: A conditional statement that is evaluated against each transaction to determine whether it satisfies the criteria of the rule.
+- **Priority**: If multiple rules match a transaction, the rule with the highest priority will be implemented first.
+- **Destination Ledger**: This is the name of the ledger into which the transaction will be categorized if the rule conditions are met. If the specified ledger name doesn’t exist in a instance’s chart of accounts, the system will disregard the rule.
+
+### Crafting expressions
+Expressions are written by comparing a part of the Transaction object with text, numbers, booleans, or dates. 
+
+**The Transaction object**
+
+The entire `Transaction` object is accessed via the symbol `t` and reference specific fields using `.`, for example, `t.description` or `t.amount`.
+
+```json
+{
+    {
+      "amount": 100,
+      "datetime": "2022-01-01T00:00:00Z",
+      "description": "Shell Gas Bar 4124",
+      "id": "t_9237232",
+      "metadata": {
+        // ...
+      },
+      "posted_status": "posted",
+      "review_status": "reviewed"
+    }
+}
+```
+
+If `metadata` was added to the `Transaction`, you can reference it through `t.metadata`. See [submitting transactions](/accounting_package/platform_gl/transactions/submitting_transactions) for more information on adding metadata to your transactions.
+
+**Operators and literals**
+
+
+
+
+
+

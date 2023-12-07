@@ -43,10 +43,7 @@ By following the steps above, you will have implemented a server-side handler to
 up financial account ledgers and begin to securely retrieve transaction data.
 
 You can create Teal processor tokens in all three of the Plaid API environments: [Sandbox](https://sandbox.plaid.com), [Development](https://development.plaid.com), 
-and [Production](https://production.plaid.com).
-
-There are no hard restrictions for which Plaid environment to use with which Teal environment. We recommend testing using the Plaid Sandbox and Development 
-environments with your Teal Sandbox implementation, and using Plaid Production with Teal Production APIs. 
+and [Production](https://production.plaid.com), however we require that you use your Plaid Production token in order to work with real transaction data.
 
 ### Manage connections using webhooks
 Once your user has connected a financial account via Plaid, Teal does the work of syncing transactions. However, Plaid can sometimes 

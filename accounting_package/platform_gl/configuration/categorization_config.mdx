@@ -1,105 +1,150 @@
 ---
 title: "Auto-categorization"
-description: #"How to configure auto-categorization on submitted and fetched transactions."
+description: "How Teal's auto-categorization pipeline works"
 icon: #"folder-gear"
 ---
 
-When you [submit a new transaction](/accounting_package/platform_gl/transactions/submitting) to Teal, the transactions will run through the 
-auto-categorization pipeline that you have configured on the categorization tab in the [developer portal](https://developer.teal.dev/auto_categorization).
+## Overview
 
-The categorization pipeline is intended to be a first cut at categorizing transactions into the appropriate accounting ledgers. 
-This minimizes the number of transactions a user will need to manually categorize.
+Categorizing transactions is the process of assigning accounting ledgers to real-world transactions. It is a core accounting process, and ensures that a user's accounting entries accurately reflect their business.  
 
-This pipeline consists of three categorization steps, each of which can be indepedently enabled and configured.
+Teal uses a customizable pipeline to automate categorization, aiming to reduce the need for manual categorization on the part of your users. 
 
-- **Step 1:** Transfers between accounts
-- **Step 2:** Categorizing via rules
-- **Step 3:** AI Categorization
+Sometimes our pipeline does not have enough information to categorize a transaction. In these cases, the transaction will be categorized into either the **Uncategorized Cash Inflow** or **Uncategorized Cash Outflow** ledger. 
 
-If a transaction is categorized by one of the steps, it will skip the rest of the pipeline and not be categorized by any subsequent step.
+All auto-categorization steps are disabled by default, and will not run until manually enabled in the [developer portal](https://developer.teal.dev).
 
-If no categorization step matches a transaction, the transaction will be categorized into the "Uncategorized cash inflow" or "Uncategorized cash outflow" ledger.
+---
 
-All auto-categorization steps are disabled by default, and will not run until manually enabled in the developer portal.
+## Auto-categorization pipeline
 
-## Transfers between accounts
+![Auto-categorizer pipeline](/images/auto-categorizer-pipeline.png)
 
-The first step in auto-categorization is to recognize when a transaction is a transfer of funds between two financial accounts.
+When a transaction is created, it is sent to the categorization pipeline where categorizers apply different rules to a transaction and try to match it to an instance’s ledgers.
 
-This is the only auto-categorization step that will generate multiple journal entries, because the date that the funds leave one account may not be the same as the date that they arrive in the other account.
+We have four categorizers that run in sequence:
 
-The journal entry that records the funds leaving an account will credit the financial account, and debit the special ledger titled "Transfers Between Accounts." This special ledger will hold the balance of funds until they arrive in the receiving account, on which date, a corresponding journal entry will be created that credits "Transfers Between Accounts" and debits the receiving account.
+1. Transfers between accounts
+2. Platform categorization rules
+3. Similar transactions
+4. AI Categorization
 
-The transfers between accounts step identifies transfers by finding cash inflows and outflows of exactly the same amount within 7 calendar days of one another. It only identifies these transactions after both the inflow and outflow exist in the system.
+If a categorizer selects a ledger, the subsequent categorizers won’t be run. For example, if a transaction is identified as a **transfer between accounts**, the transaction will not be tested against the **platform categorization rules** or **similar transactions** categorizers.
 
-If you (or your user) knows that a cash outflow is a transfer between accounts before the corresponding inflow has been received, you can manually categorize the line entry to transfer between accounts. The system will then automatically categorize the corresponding inflow when it arrives.
+### Categorizers
 
-## Categorizing via rules
+<Steps>
+    <Step title="Transfers between accounts">
+        This categorizer recognizes when a transaction is a transfer of funds between two financial accounts. 
 
-Platforms have the ability to set their own categorization rules. This feature enables you to define specific rules, which, when matched, will automatically categorize a transaction into a particular ledger.
+        It looks for a transaction in another ledger that is of an equal and opposite amount, within a 7 day window. If such a transaction exists, it assumes that these are matching transfers and creates two journal entries, one for the inflow and one for the outflow. 
 
-Categorization rules are set at the **Platform level**. We don't currently offer Instance level categorization rules (please reach out to your Teal contact if this is an important feature to you). We plan to implement instance-level categorization rules in a future release.
+        This categorizer can only identify matching transactions after both the inflow and outflow exist in the system.
+
+        If you or your user know that a cash outflow is a transfer between accounts before the corresponding inflow has been received, you can [manually categorize](/interfaces/reviewing_transactions) the line entry to the **Transfers Between Accounts** ledger. This is a special ledger that exists in all [chart of accounts templates](/accounting_package/platform_gl/configuration/chart_of_accounts_config)
+        
+        The system will then automatically categorize the corresponding inflow when it arrives.
+    </Step>
+    <Step title="Platform categorization rules">
+        Platforms have the ability to set their own categorization rules. This feature enables you to write expressions, which, when matched, will automatically categorize a transaction into a specific ledger. 
+        
+        This is useful if you are familiar with your customers' spending and can help reduce the amount of time your customers spend manually categorizing transactions. For example, you might create a platform rule that puts every transaction with the description "UNITED AIRLINES" into a travel expenses ledger.
+
+        Categorization rules check transactions using an expression and priority. If a transaction matches multiple rules, the one with higher priority is selected.
+
+        Because categorization rules are set at the **Platform level** these rules will apply to every transaction, regardless of instance, on your platform. 
+        
+        We don’t currently offer Instance level categorization rules. Please reach out to your Teal contact if this is an important feature to you.
+
+        See [Crafting platform rules](#crafting-platform-rules) below to learn how to write categorization rules in the [developer portal](https://developer.teal.dev).
+    </Step>
+    <Step title="Similar transactions">
+        This categorizer selects a category based on similar transactions that have previously been categorized by either rules, AI, or the user. For this categorizer to work, each Transaction's `description` must be 80% similar and the `amount` must be within 10%.
+
+        Over time, as more transactions are categorized within an instance, this categorizer becomes more effective. 
+    </Step>
+    <Step title="AI Categorization">
+        This categorizer uses an LLM model to select a legder based on the information contained in the Transaction object. It can sometimes take up to 5 minutes for for this categorizer to run. 
+        
+        To prioritize the end-user's experience, a transaction can be [manually categorized](/interfaces/reviewing_transactions) before this categorizer finishes running. Manually categorizing the transaction stops the categorizer as posts the transaction.
+    </Step>
+</Steps>
+
+---
+
+## Uncategorized transactions
+
+Transactions can lack sufficient context and data and cannot be auto-categorized — for example, a bank transaction which is labelled “Payment”.
+
+When a transactions goes through all the categorizers but does not find a match, it is categorized as either **Uncategorized Cash Inflow** or **Uncategorized Cash Outflow**. These special ledgers are hardcoded into each [chart of accounts template](/accounting_package/platform_gl/configuration/chart_of_accounts_config.mdx).
+
+In order for books to be balanced, it is necessary to create a user experience to allow users to manually categorize transactions. For steps on how to build an interface like this, see [reviewing transactions](/interfaces/reviewing_transactions).
+
+---
+
+## Notes
+### Crafting platform rules
 
 A rule consists of three components:
 
-- **Priority**: If multiple rules match a transaction, the rule with the highest priority will be implemented first.
 - **Expression**: A conditional statement that is evaluated against each transaction to determine whether it satisfies the criteria of the rule.
-- **Target Ledger Name**: This is the name of the ledger into which the transaction will be categorized if the rule conditions are met. If the specified ledger name doesn't exist in a instance's chart of accounts, the system will disregard the rule.
+- **Priority**: If multiple rules match a transaction, the rule with the highest priority will be implemented first.
+- **Destination Ledger**: This is the name of the ledger into which the transaction will be categorized if the rule conditions are met. If the specified ledger name doesn’t exist in a instance’s chart of accounts, the system will disregard the rule.
 
-### Crafting an Expression
+#### Expressions
+Expressions are written by comparing a part of the Transaction object with text, numbers, booleans, or dates. 
 
-The expression is a crucial part of the rule, as it determines the conditions under which a rule matches a transaction. For a rule to be applicable, the expression should evaluate to `True` for a transaction. Any other value will result in a non-match.
+#### The Transaction object
 
-### Referencing the Transaction Object
+The entire `Transaction` object is accessed via the symbol `t` and reference specific fields using `.`, for example, `t.description` or `t.amount`.
 
-Within the expression, you can reference the transaction object using the symbol `t`. You can access the properties of a transaction using the `.` character. For example, `t.description` will return the description of the transaction.
-
-#### Metadata
-
-Some transactions come with additional information in the form of metadata, an arbitrary key-value map. The specific contents of this map depend on the source of the transaction.
-
-You can access the values in the metadata map within an expression, using the `.` character. For example, `t.metadata.transaction_type` would yield the value mapped to the `transaction_type` key in the metadata.
-
-Here is a generic representation of a Transaction object:
-
-```
-Transaction {
-  description: String
-  datetime: DateTime
-  amount: Decimal
-  metadata: Map[String, String]
+```json
+{
+    {
+      "amount": 100,
+      "datetime": "2022-01-01T00:00:00Z",
+      "description": "Shell Gas Bar 4124",
+      "id": "t_9237232",
+      "metadata": {
+        // ...
+      },
+      "posted_status": "posted",
+      "review_status": "reviewed"
+    }
 }
 ```
 
-### Operators and Literals
+If `metadata` was added to the `Transaction`, you can reference it through `t.metadata`. See [submitting transactions](/accounting_package/platform_gl/transactions/submitting_transactions) for more information on adding metadata to your transactions.
+
+#### Operators and literals
 
 Expressions may include the following operators and literals:
 
-<AccordionGroup>
-<Accordion title="Operators">
-  - `and`, `or` for logical AND and OR operations
-  - `()` for defining the order of operations
-  - `==`, `>`, `>=`, `<`, `<=` for equality and comparison
-  - `+`, `-`, `*`, `/`, `%` for mathematical operations
-</Accordion>
-<Accordion title="If/else Expression">
-  - `true_expr if boolean_expr else false_expr`
-</Accordion>
-<Accordion title="Literals">
-    - Strings: `"string"`
-  - Numbers: `1.23`
-  - Booleans: `True`, `False`
-  - Datetime: `datetime("2023-01-10T00:00:00.000Z")`
-</Accordion>
-</AccordionGroup>
+        <AccordionGroup>
+            <Accordion title="Operators">
+                - `and`, `or` for logical AND and OR operations
+                - `()` for defining the order of operations
+                - `==`, `>`, `>=`, `<`, `<=` for equality and comparison
+                - `+`, `-`, `*`, `/`, `%` for mathematical operations
+            </Accordion>
+            <Accordion title="If/else Expression">
+                - `true_expr if boolean_expr else false_expr`
+            </Accordion>
+            <Accordion title="Literals">
+                - Strings: `"string"`
+                - Numbers: `1.23`
+                - Booleans: `True`, `False`
+                - Datetime: `datetime("2023-01-10T00:00:00.000Z")`
+            </Accordion>
+        </AccordionGroup>
 
-### Regular Expressions
+##### Regular Expressions
 
-You can also use regular expressions in your rule's expression using the `match(pattern, text)` function. You can learn more about regular expressions and their syntax [here](https://developers.google.com/edu/python/regular-expressions).
+You can use regular expressions in your rule's expression using the `match(pattern, text)` function. You can learn more about regular expressions and their syntax [here](https://developers.google.com/edu/python/regular-expressions).
 
-### Examples
+#### Examples
 
-#### Payments to a Specific Vendor
+##### Payments to a Specific Vendor
 
 A rule that checks if the transaction description contains "Slack":
 
@@ -107,7 +152,7 @@ A rule that checks if the transaction description contains "Slack":
 match("Slack", t.description)
 ```
 
-#### Payments to a specific merchant over a given threshold amount
+##### Payments to a specific merchant over a given threshold amount
 
 A rule that applies to any transaction where the vendor is "Chevron" and the amount is more than \$50:
 
@@ -115,7 +160,7 @@ A rule that applies to any transaction where the vendor is "Chevron" and the amo
 match("Chevron", t.description) and t.amount > 50
 ```
 
-#### Transactions with Certain Metadata
+##### Transactions with Certain Metadata
 
 A rule that looks for transactions with a `counterparty` attribute in the metadata set to "Sophie's Contracting LLC":
 
@@ -123,19 +168,9 @@ A rule that looks for transactions with a `counterparty` attribute in the metada
 t.metadata.counterparty == "Sophie's Contracting LLC"
 ```
 
-## AI Categorization
+### Further reading & guides
+- [Submitting transactions](/accounting_package/platform_gl/transactions/submitting_transactions)
+- [Reviewing transactions](/interfaces/reviewing_transactions)
+- [Chart of accounts template](/accounting_package/platform_gl/configuration/chart_of_accounts_config.mdx)
 
-The final step in the categorization pipeline is AI categorization. This step uses a combination of machine learning (ML) and 
-large language models (LLMs) to categorize transactions into the appropriate ledger. We use a combination of ML and LLMs to 
-leverage the unique advantages of each.
 
-To enable AI categorization, please reach out to your Teal contact. You'll first need to submit example transactions 
-from your users, and then Teal will train a custom AI auto-categorization model for your platform.
-
-## Uncategorized transactions
-
-Auto-categorization provides a better user experience for the user, as they will not need to manually categorize the majority of transactions. However, many transactions often lack sufficient data to be auto-categorized, for example, a bank transaction which simply says "Payment." Therefore, it is inevitable that any auto-categorization pipeline will have a certain percentage of transactions that are not categorized.
-
-When a transaction is not categorized by any of the auto-categorization steps, it will be categorized into the "Uncategorized cash inflow" or "Uncategorized cash outflow" ledger. These two ledgers are special ledgers hardcoded into each chart of accounts template.
-
-We recommend that you think through the user experience flow that a user will follow to categorize any uncategorized transactions.

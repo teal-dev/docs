@@ -14,7 +14,7 @@ Use our data integrations so that Teal can do the work of fetching and reconcili
 
     ### Overview
 
-    Through Teal's [official processor](https://plaid.com/docs/auth/partnerships/teal/) partnership with [Plaid](https://plaid.com), your users can connect their external financial accounts with Teal using your business' Plaid account and custom UX. Syncing accounts imports two years of data and keeps the account up to date daily.
+    Through Teal's [official processor](https://plaid.com/docs/auth/partnerships/teal/) partnership with [Plaid](https://plaid.com), your users can connect their external financial accounts with Teal using your business' Plaid account and custom user experience. Syncing accounts imports two years of data and keeps the account up to date daily.
 
     <Note>
       This integration is useful if you are building full-service accounting using PlatformGL and require users to connect their financial institutions. If an instance uses Quickbooks as their accounting package, users will need to connect their accounts via Quickbooks' connections interface.
@@ -22,37 +22,38 @@ Use our data integrations so that Teal can do the work of fetching and reconcili
 
     ### Steps
 
-    This guide walks you through the steps necessary to set up Plaid and how to pass that information back to Teal as well as how to connect to our webhooks so your customers can diagnose and respond to events from Plaid.
+    This guide walks you through the steps necessary to set up Plaid, how to pass that information back to Teal, and how to connect to our webhooks so you can diagnose and respond to events from Plaid.
 
     #### Prerequisites
 
-    This guide assumes you have both Teal and Plaid accounts set up.
+    This guide assumes you have a Plaid account set up and a Teal Platform with an instance that is using PlatformGL as their accounting platform.
 
     <Steps>
       <Step title="Enable the Plaid-Teal integration">
-        The Plaid-Teal integration can be found [here]() in your Plaid dashboard. Ensure that it is set to Enabled.
+        The Plaid-Teal integration can be found in the [integrations section](https://dashboard.plaid.com/developers/integrations) of your Plaid dashboard. Ensure that it is set to Enabled.
       </Step>
       <Step title="Build your Plaid-Teal integration">
-        You will need to use Plaid Link to give authorization for Plaid to access their accounts. Follow the  [Plaid-Teal integration guide](https://plaid.com/docs/auth/partnerships/teal/#create-a-link_token) which walks you through the steps necessary. To summarize, there are 4 steps involved:
+        You will need to use Plaid Link to give authorization for Plaid to access a user's accounts. Follow the [Plaid-Teal integration guide](https://plaid.com/docs/auth/partnerships/teal/) which walks you through the necessary steps. To summarize, there are four steps involved:
 
-
-        1. Request a `link_token`to allow the user to use Plaid Link.
+        1. Request a `link_token` to allow your app to use Plaid Link.
         2. After the user completes the Plaid Link flow, exchange the resulting `public_token` for an `access_token`.
-        3. Store your `access_token` and use it to request a `processor_token`.
+        3. Store your `access_token` for later use and use it to request a `processor_token`.
         4. Send the `processor_token` to Teal.
 
-        After Teal has saved the `processor_token`, Teal will automatically create a new ledger for the financial account and sync 2 years of transactions, if they're available. It sometimes takes a few minutes for all of the transactions to be processed. 
+        After Teal has saved the `processor_token`, Teal will automatically create a new ledger for the financial account and sync up to two years of transactions, if possible. It can take a few minutes for all of the transactions to be processed. 
         
-        Once Teal has received the transactions, they will be run through Teal's [auto-categorization system](/accounting_package/platform_gl/configuration/categorization_config). These will be synced once per day and when Plaid sends us a webhook event saying there are new transactions available.
+        Once Teal has received the transactions, they will be run through Teal's [auto-categorization system](/accounting_package/platform_gl/configuration/categorization_config). These will be synced once per day and when Plaid sends us a webhook event saying there are new transactions available. 
 
         <Note> 
-          Plaid supports three environments: sandbox, development, and production. All three can generate `processor_tokens`; to work with real transactions, we require you generate your production `processor_token`.
+          Plaid supports three environments: sandbox, development, and production. All three can generate `processor_tokens`. To work with real transactions, we require you generate your `processor_token` using Plaid production environment.
         </Note>
 
         For the end-user, this flow is commonly done as part of an "account connections" workflow, either as part of onboarding or as part of an account page. Your users will need to possibly go through this flow multiple times to connect all of their business accounts. 
       </Step>
       <Step title="Maintain the connection via webhooks">
-        Plaid can sometimes run into issues connecting to your users' financial accounts. For example, banks may require users to re-authenticate their Plaid connection every 90 days or if a user changes their banking password. Using SVIX, a popular webhooks service, we aggregate these webhook responses from Plaid into two endpoints:  `transactions.source.processing.completed` and `transactions.source.processing.error`. Receiving messages from these endpoints for two main use cases:
+        Plaid can sometimes run into issues connecting to your users' financial accounts. For example, banks may require users to re-authenticate their Plaid connection every 90 days or if a user changes their banking password. Using SVIX, a popular webhooks service, we aggregate these webhook responses from Plaid into two endpoints:  `transactions.source.processing.completed` and `transactions.source.processing.error`. 
+        
+        Receiving messages from these endpoints for two main use cases:
 
         * Using `transactions.source.processing.error` you can alert users when their connections have expired and they need to reconnect their bank account via Plaid. See [Plaid's Error documentation](https://plaid.com/docs/errors/) for a comprehensive list. 
         * `transactions.source.processing.completed` tells sends a message when we have successfully imported transactions from Plaid. You can use this to inform users when their last sync date was with Plaid. 

@@ -9,7 +9,7 @@ for (const [uri, subPaths] of Object.entries(openapi_schema.paths)) {
     for (const [method, pathObj] of Object.entries(subPaths)) {
         const title = pathObj.summary;
         const openapi = `${method.toUpperCase()} ${uri}`;
-        const description = pathObj.description.replaceAll("\n", " ");
+        const description = pathObj.description? pathObj.description.replaceAll("\n", " ") : pathObj.summary;
         const fileName = title.toLowerCase().replaceAll(" ", "-");
         const folder = pathObj.tags[0].toLowerCase().replaceAll(" ", "-");
         const text = `---\ntitle: "${title}"\nopenapi: "${openapi}"\ndescription: "${description}"\n---`;

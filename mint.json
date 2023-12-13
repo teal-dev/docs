@@ -33,115 +33,222 @@
   "name": "Teal",
   "navigation": [
     {
-      "group": "Instances",
+      "group": "Getting started",
       "pages": [
-        "api-reference/instances/get-instance-details",
-        "api-reference/instances/delete-instance",
-        "api-reference/instances/update-subscription",
-        "api-reference/instances/create-instance",
-        "api-reference/instances/get-instances"
+        "getting_started/what_is_teal",
+        "getting_started/setup",
+        "getting_started/quickstart",
+        {
+          "group": "API overview",
+          "icon": "gear-code",
+          "pages": [
+            "api_design/authentication",
+            "api_design/pagination",
+            "api_design/instances"
+          ]
+        }
       ]
     },
     {
-      "group": "Journal Entries",
+      "group": "Accounting packages",
       "pages": [
-        "api-reference/journal-entries/get-journal-entry",
-        "api-reference/journal-entries/update-journal-entry",
-        "api-reference/journal-entries/delete-journal-entry",
-        "api-reference/journal-entries/get-journal-entries",
-        "api-reference/journal-entries/create-journal-entry"
+        "accounting_package/overview",
+        "accounting_package/add_instance",
+        {
+          "group": "PlatformGL",
+          "pages": [
+            "accounting_package/platform_gl/what_is_pgl",
+            "accounting_package/platform_gl/core_accounting_concepts",
+            "accounting_package/platform_gl/configuration/chart_of_accounts_config",
+            {
+              "group": "Quick start guides",
+              "pages": [
+                "accounting_package/platform_gl/quickstart_pgl",
+                "accounting_package/platform_gl/quickstart_pgl_2"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "QuickBooks",
+          "pages": [
+            "accounting_package/quickbooks/overview",
+            "accounting_package/quickbooks/app_config"
+          ]
+        },
+        {
+          "group": "Xero",
+          "pages": [
+            "accounting_package/xero/coming_soon"
+          ]
+        }
       ]
     },
     {
-      "group": "Platform",
+      "group": "Working with transactions",
       "pages": [
-        "api-reference/platform/get-platform"
+        "accounting_package/platform_gl/transactions/overview",
+        {
+          "group": "Submitting transactions",
+          "pages": [
+            "accounting_package/platform_gl/transactions/submitting_transactions/create_ledger",
+            "accounting_package/platform_gl/transactions/submitting_transactions/submitting",
+            "accounting_package/platform_gl/transactions/submitting_transactions/tagging",
+            "accounting_package/platform_gl/transactions/opening_balances"
+          ]
+        },
+        "accounting_package/platform_gl/transactions/data_integrations",
+        "accounting_package/platform_gl/configuration/categorization_config"
       ]
     },
     {
-      "group": "Line Entries",
+      "group": "Generating charts & reports",
       "pages": [
-        "api-reference/line-entries/update-line-entry",
-        "api-reference/line-entries/get-line-entry-categories",
-        "api-reference/line-entries/get-journal-entry-line-entries",
-        "api-reference/line-entries/get-ledger-line-entries"
+        "reports/overview",
+        {
+          "group": "Reports",
+          "pages": [
+            "reports/cash_flow",
+            "reports/income_statement",
+            "reports/balance_sheet",
+            "reports/ledger_statement",
+            "reports/general_ledger",
+            "reports/enriching"
+          ]
+        },
+        {
+          "group": "Charts",
+          "pages": [
+            "reports/coming_soon"
+          ]
+        }
       ]
     },
     {
-      "group": "Transaction Sources",
+      "group": "Building complex interfaces",
       "pages": [
-        "api-reference/transaction-sources/link-unit-account",
-        "api-reference/transaction-sources/link-plaid-account",
-        "api-reference/transaction-sources/get-plaid-link-statuses"
+        "interfaces/reports",
+        "interfaces/reviewing_transactions",
+        "interfaces/journal_entry",
+        "interfaces/excel_export"
       ]
     },
     {
-      "group": "Chart of Accounts Templates",
+      "group": "Teal API Endpoints",
       "pages": [
-        "api-reference/chart-of-accounts-templates/create-coa-template",
-        "api-reference/chart-of-accounts-templates/get-coa-templates",
-        "api-reference/chart-of-accounts-templates/get-coa-template",
-        "api-reference/chart-of-accounts-templates/delete-coa-template",
-        "api-reference/chart-of-accounts-templates/clone-coa-template",
-        "api-reference/chart-of-accounts-templates/create-ledger-template",
-        "api-reference/chart-of-accounts-templates/update-coa-ledger-template",
-        "api-reference/chart-of-accounts-templates/delete-ledger-template"
-      ]
-    },
-    {
-      "group": "Categorization",
-      "pages": [
-        "api-reference/categorization/get-rules",
-        "api-reference/categorization/create-rule",
-        "api-reference/categorization/delete-rule"
-      ]
-    },
-    {
-      "group": "Ledgers",
-      "pages": [
-        "api-reference/ledgers/get-ledgers",
-        "api-reference/ledgers/create-ledger",
-        "api-reference/ledgers/update-ledger",
-        "api-reference/ledgers/delete-ledger",
-        "api-reference/ledgers/set-ledger-opening-balance",
-        "api-reference/ledgers/refresh-ledger-transactions",
-        "api-reference/ledgers/check-if-a-ledger-is-balanced"
-      ]
-    },
-    {
-      "group": "Reports",
-      "pages": [
-        "api-reference/reports/get-income-statement",
-        "api-reference/reports/get-balance-sheet",
-        "api-reference/reports/get-ledger-statement",
-        "api-reference/reports/get-cash-flow-report",
-        "api-reference/reports/get-cash-flow-totals-by-period",
-        "api-reference/reports/get-cash-flow-totals-by-ledger",
-        "api-reference/reports/get-top-expenses",
-        "api-reference/reports/get-net-profit-by-period",
-        "api-reference/reports/get-gross-profit-by-period",
-        "api-reference/reports/get-financial-summaries-by-period"
-      ]
-    },
-    {
-      "group": "Transactions",
-      "pages": [
-        "api-reference/transactions/create-transactions",
-        "api-reference/transactions/get-transactions",
-        "api-reference/transactions/get-transaction-processing-status",
-        "api-reference/transactions/delete-transaction",
-        "api-reference/transactions/update-transaction-status",
-        "api-reference/transactions/get-categorized-transactions",
-        "api-reference/transactions/get-transaction-categories",
-        "api-reference/transactions/recategorize-transaction"
-      ]
-    },
-    {
-      "group": "Quickbooks",
-      "pages": [
-        "api-reference/quickbooks/generate-quickbooks-auth-link",
-        "api-reference/quickbooks/link-account",
-        "api-reference/quickbooks/force-transaction-sync"
+        "api-reference/authentication",
+        {
+          "group": "Instances",
+          "pages": [
+            "api-reference/instances/get-instance-details",
+            "api-reference/instances/delete-instance",
+            "api-reference/instances/update-subscription",
+            "api-reference/instances/create-instance",
+            "api-reference/instances/get-instances"
+          ]
+        },
+        {
+          "group": "Journal Entries",
+          "pages": [
+            "api-reference/journal-entries/get-journal-entry",
+            "api-reference/journal-entries/update-journal-entry",
+            "api-reference/journal-entries/delete-journal-entry",
+            "api-reference/journal-entries/get-journal-entries",
+            "api-reference/journal-entries/create-journal-entry"
+          ]
+        },
+        {
+          "group": "Platform",
+          "pages": [
+            "api-reference/platform/get-platform"
+          ]
+        },
+        {
+          "group": "Line Entries",
+          "pages": [
+            "api-reference/line-entries/update-line-entry",
+            "api-reference/line-entries/get-line-entry-categories",
+            "api-reference/line-entries/get-journal-entry-line-entries",
+            "api-reference/line-entries/get-ledger-line-entries"
+          ]
+        },
+        {
+          "group": "Transaction Sources",
+          "pages": [
+            "api-reference/transaction-sources/link-unit-account",
+            "api-reference/transaction-sources/link-plaid-account",
+            "api-reference/transaction-sources/get-plaid-link-statuses"
+          ]
+        },
+        {
+          "group": "Chart of Accounts Templates",
+          "pages": [
+            "api-reference/chart-of-accounts-templates/create-coa-template",
+            "api-reference/chart-of-accounts-templates/get-coa-templates",
+            "api-reference/chart-of-accounts-templates/get-coa-template",
+            "api-reference/chart-of-accounts-templates/delete-coa-template",
+            "api-reference/chart-of-accounts-templates/clone-coa-template",
+            "api-reference/chart-of-accounts-templates/create-ledger-template",
+            "api-reference/chart-of-accounts-templates/update-coa-ledger-template",
+            "api-reference/chart-of-accounts-templates/delete-ledger-template"
+          ]
+        },
+        {
+          "group": "Categorization",
+          "pages": [
+            "api-reference/categorization/get-rules",
+            "api-reference/categorization/create-rule",
+            "api-reference/categorization/delete-rule"
+          ]
+        },
+        {
+          "group": "Ledgers",
+          "pages": [
+            "api-reference/ledgers/get-ledgers",
+            "api-reference/ledgers/create-ledger",
+            "api-reference/ledgers/update-ledger",
+            "api-reference/ledgers/delete-ledger",
+            "api-reference/ledgers/set-ledger-opening-balance",
+            "api-reference/ledgers/refresh-ledger-transactions",
+            "api-reference/ledgers/check-if-a-ledger-is-balanced"
+          ]
+        },
+        {
+          "group": "Reports",
+          "pages": [
+            "api-reference/reports/get-income-statement",
+            "api-reference/reports/get-balance-sheet",
+            "api-reference/reports/get-ledger-statement",
+            "api-reference/reports/get-cash-flow-report",
+            "api-reference/reports/get-cash-flow-totals-by-period",
+            "api-reference/reports/get-cash-flow-totals-by-ledger",
+            "api-reference/reports/get-top-expenses",
+            "api-reference/reports/get-net-profit-by-period",
+            "api-reference/reports/get-gross-profit-by-period",
+            "api-reference/reports/get-financial-summaries-by-period"
+          ]
+        },
+        {
+          "group": "Transactions",
+          "pages": [
+            "api-reference/transactions/create-transactions",
+            "api-reference/transactions/get-transactions",
+            "api-reference/transactions/get-transaction-processing-status",
+            "api-reference/transactions/delete-transaction",
+            "api-reference/transactions/update-transaction-status",
+            "api-reference/transactions/get-categorized-transactions",
+            "api-reference/transactions/get-transaction-categories",
+            "api-reference/transactions/recategorize-transaction"
+          ]
+        },
+        {
+          "group": "Quickbooks",
+          "pages": [
+            "api-reference/quickbooks/generate-quickbooks-auth-link",
+            "api-reference/quickbooks/link-account",
+            "api-reference/quickbooks/force-transaction-sync"
+          ]
+        }
       ]
     }
   ],

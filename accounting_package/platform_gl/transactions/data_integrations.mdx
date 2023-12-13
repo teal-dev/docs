@@ -53,7 +53,7 @@ Use our data integrations so that Teal can do the work of fetching and reconcili
       <Step title="Maintain the connection via webhooks">
         Plaid can sometimes run into issues connecting to your users' financial accounts. For example, banks may require users to re-authenticate their Plaid connection every 90 days or if a user changes their banking password. Using SVIX, a popular webhooks service, we aggregate these webhook responses from Plaid into two endpoints:  `transactions.source.processing.completed` and `transactions.source.processing.error`. 
         
-        Receiving messages from these endpoints for two main use cases:
+        Receive messages from these endpoints for two main use cases:
 
         * Using `transactions.source.processing.error` you can alert users when their connections have expired and they need to reconnect their bank account via Plaid. See [Plaid's Error documentation](https://plaid.com/docs/errors/) for a comprehensive list. 
         * `transactions.source.processing.completed` tells sends a message when we have successfully imported transactions from Plaid. You can use this to inform users when their last sync date was with Plaid. 
@@ -72,6 +72,7 @@ Use our data integrations so that Teal can do the work of fetching and reconcili
 
     * [Plaid Error documentation](https://plaid.com/docs/errors/)
     * [Plaid Link documentation](https://plaid.com/docs/link/)
+    * [Plaid Link troubleshooting](https://plaid.com/docs/link/troubleshooting/)
     * [SVIX webhook documentation](https://docs.svix.com/receiving/introduction)
   
   </Tab>

@@ -142,34 +142,94 @@ Expressions may include the following operators and literals:
 
 #### Using `match()`
 
-Use `match(pattern, input)` to see if an attribute of the `Transaction` object, `input`, matches an arbitrary rule, `pattern`. The `pattern` must be a `string` and can contain regular expression syntax.
+Use `match(pattern, input)` to check if an attribute of the `Transaction` object, `input`, matches an arbitrary rule, `pattern`. The `pattern` must be a `string` and can contain regular expression syntax.
 
 To write more complex expressions, we recommend using regular expressions. You can learn more about regular expressions and their syntax [here](https://developers.google.com/edu/python/regular-expressions).
 
 #### Examples
 
-##### Payments to a specific vendor
+##### **Payments to a specific vendor**
 
-A rule that checks if the transaction description contains "Slack", proceeded by any character:
+A rule that checks if the Transaction's description contains "Slack", preceeded by any number of any character:
 
 ```python
 match(".*Slack", t.description)
 ```
 
-##### Payments to a specific merchant over a given threshold amount
+will match
 
-A rule that applies to any transaction where the transaction description is exactly "Chevron" and the amount is more than \$50:
+```json
+{
+    "t": {
+        "description": "Abc 7890Slack xYz"
+        // ...
+    }
+}
+```
+
+##### **Payments to a specific merchant over a given threshold amount**
+
+A rule that applies to any transaction where the Transaction description is exactly "Chevron" and the amount is more than \$50:
 
 ```python
 match("Chevron", t.description) and t.amount > 50
 ```
 
-##### Transactions with certain metadata
+will match
+
+```json
+{
+    "t": {
+        "description": "Chevron",
+        "amount": 60
+        // ...
+    }
+}
+```
+
+but will _not_ match
+
+```json
+{
+    "t": {
+        "description": "abc Chevron", // false
+        "amount": 60 // true
+        // ...
+    }
+}
+```
+
+or 
+
+```json
+{
+    "t": {
+        "description": "Chevron", // true
+        "amount": 40 // false
+        // ...
+    }
+}
+```
+
+##### **Transactions with certain metadata**
 
 A rule that looks for transactions with a `counterparty` attribute in the metadata set to "Sophie's Contracting LLC":
 
 ```python
 t.metadata.counterparty == "Sophie's Contracting LLC"
+```
+
+will match
+
+```json
+{
+    "t": {
+        "metadata": {
+            "counterparty": "Sophie's Contracting LLC"
+        }
+        // ...
+    }
+}
 ```
 
 ### Further reading & guides

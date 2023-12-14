@@ -89,10 +89,12 @@ A rule consists of three components:
 
 - **Expression**: A conditional statement that is evaluated against each transaction to determine whether it satisfies the criteria of the rule.
 - **Priority**: If multiple rules match a transaction, the rule with the highest priority will be implemented first.
-- **Destination Ledger**: This is the name of the ledger into which the transaction will be categorized if the rule conditions are met. If the specified ledger name doesn’t exist in a instance’s chart of accounts, the system will disregard the rule.
+- **Destination Ledger**: This is the name of the ledger into which the transaction will be categorized if the rule conditions are met. If the specified ledger name doesn’t exist in an Instance’s chart of accounts, the system will disregard the rule.
 
 #### Expressions
-Expressions are written by comparing a part of the Transaction object with text, numbers, booleans, or dates. 
+Expressions are written by using one or a combination of possible patterns:
+- The `match(pattern, input)` function, which compares a `pattern`, which can be text, numbers, booleans, or dates, with an attribute of the Transaction object as the `input`.
+- Direct comparison of the `Transaction` object using operators and literals.
 
 #### The Transaction object
 
@@ -138,29 +140,31 @@ Expressions may include the following operators and literals:
             </Accordion>
         </AccordionGroup>
 
-##### Regular Expressions
+#### Using `match()`
 
-You can use regular expressions in your rule's expression using the `match(pattern, text)` function. You can learn more about regular expressions and their syntax [here](https://developers.google.com/edu/python/regular-expressions).
+Use `match(pattern, input)` to see if an attribute of the `Transaction` object, `input`, matches an arbitrary rule, `pattern`. The `pattern` must be a `string` and can contain regular expression syntax.
+
+To write more complex expressions, we recommend using regular expressions. You can learn more about regular expressions and their syntax [here](https://developers.google.com/edu/python/regular-expressions).
 
 #### Examples
 
-##### Payments to a Specific Vendor
+##### Payments to a specific vendor
 
-A rule that checks if the transaction description contains "Slack":
+A rule that checks if the transaction description contains "Slack", proceeded by any character:
 
 ```python
-match("Slack", t.description)
+match(".*Slack", t.description)
 ```
 
 ##### Payments to a specific merchant over a given threshold amount
 
-A rule that applies to any transaction where the vendor is "Chevron" and the amount is more than \$50:
+A rule that applies to any transaction where the transaction description is exactly "Chevron" and the amount is more than \$50:
 
 ```python
 match("Chevron", t.description) and t.amount > 50
 ```
 
-##### Transactions with Certain Metadata
+##### Transactions with certain metadata
 
 A rule that looks for transactions with a `counterparty` attribute in the metadata set to "Sophie's Contracting LLC":
 

@@ -202,7 +202,9 @@
             "api-reference/ledgers/create-ledger",
             "api-reference/ledgers/update-ledger",
             "api-reference/ledgers/delete-ledger",
-            "api-reference/ledgers/set-ledger-opening-balance"
+            "api-reference/ledgers/set-ledger-opening-balance",
+            "api-reference/ledgers/refresh-ledger-transactions",
+            "api-reference/ledgers/check-if-a-ledger-is-balanced"
           ]
         },
         {

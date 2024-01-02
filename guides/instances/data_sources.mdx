@@ -1,0 +1,103 @@
+---
+title: "Data sources"
+description: #"How to link your external data sources to Teal to automate transaction input."
+---
+
+Use our data integrations so that Teal can do the work of fetching and reconciling transactions from a 3rd party data source.
+
+## Provider Specific Instructions
+
+<Tabs>
+  <Tab title="Plaid">
+    ## Plaid integration
+
+    ### Overview
+
+    Through Teal's [official processor](https://plaid.com/docs/auth/partnerships/teal/) partnership with [Plaid](https://plaid.com), your users can connect their external financial accounts with Teal using your business' Plaid account and custom user experience. Syncing accounts imports two years of data and keeps the account up to date daily.
+
+    <Note>
+      This integration is useful if you are building full-service accounting using PlatformGL and require users to connect their financial institutions. If an instance uses Quickbooks as their accounting package, users will need to connect their accounts via Quickbooks' connections interface.
+    </Note>
+
+    ### Steps
+
+    This guide walks you through the steps necessary to set up Plaid, how to pass that information back to Teal, and how to connect to our webhooks so you can diagnose and respond to events from Plaid.
+
+    #### Prerequisites
+
+    This guide assumes you have a Plaid account set up and a Teal Platform with an instance that is using PlatformGL as their accounting platform.
+
+    <Steps>
+      <Step title="Enable the Plaid-Teal integration">
+        The Plaid-Teal integration can be found in the [integrations section](https://dashboard.plaid.com/developers/integrations) of your Plaid dashboard. Ensure that it is set to Enabled.
+      </Step>
+      <Step title="Build your Plaid-Teal integration">
+        You will need to use Plaid Link to give authorization for Plaid to access a user's accounts. Follow the [Plaid-Teal integration guide](https://plaid.com/docs/auth/partnerships/teal/) which walks you through the necessary steps. To summarize, there are four steps involved:
+
+        1. Request a `link_token` to allow your app to use Plaid Link.
+        2. After the user completes the Plaid Link flow, exchange the resulting `public_token` for an `access_token`.
+        3. Store your `access_token` for later use and use it to request a `processor_token`.
+        4. Send the `processor_token` to Teal.
+
+        After Teal has saved the `processor_token`, Teal will automatically create a new ledger for the financial account and sync up to two years of transactions, if possible. It can take a few minutes for all of the transactions to be processed. 
+        
+        Once Teal has received the transactions, they will be run through Teal's [auto-categorization system](/accounting_package/platform_gl/configuration/categorization_config). These will be synced once per day and when Plaid sends us a webhook event saying there are new transactions available. 
+
+        <Note> 
+          Plaid supports three environments: sandbox, development, and production. All three can generate `processor_tokens`. To work with real transactions, we require you generate your `processor_token` using Plaid production environment.
+        </Note>
+
+        For the end-user, this flow is commonly done as part of an "account connections" workflow, either as part of onboarding or as part of an account page. Your users will need to possibly go through this flow multiple times to connect all of their business accounts. 
+      </Step>
+      <Step title="Maintain the connection via webhooks">
+        Plaid can sometimes run into issues connecting to your users' financial accounts. For example, banks may require users to re-authenticate their Plaid connection every 90 days or if a user changes their banking password. Using SVIX, a popular webhooks service, we aggregate these webhook responses from Plaid into two endpoints:  `transactions.source.processing.completed` and `transactions.source.processing.error`. 
+        
+        Receive messages from these endpoints for two main use cases:
+
+        * Using `transactions.source.processing.error` you can alert users when their connections have expired and they need to reconnect their bank account via Plaid. See [Plaid's Error documentation](https://plaid.com/docs/errors/) for a comprehensive list. 
+        * `transactions.source.processing.completed` sends a message when we have successfully imported transactions from Plaid. You can use this to inform users when their last sync date was with Plaid. 
+
+        Go to your [Webhook Dashboard](https://developer.teal.dev/webhooks) and click the "Setup webhooks" button, if you haven't yet, to get started. Through this dashboard, you can add endpoints, test events, and see your webhook logs. 
+
+        <Note>
+          When configuring your receiving endpoint on your server, please send back 2xx codes, so we know the webhook messages were well received.
+        </Note>
+
+        We highly recommend reading [SVIX's webhook documentation](https://docs.svix.com/receiving/introduction), which describes how to use the Webhooks Dashboard, specifically how to verify and test webhooks.
+      </Step>
+    </Steps>
+
+    ### Further reading
+
+    * [Plaid Error documentation](https://plaid.com/docs/errors/)
+    * [Plaid Link documentation](https://plaid.com/docs/link/)
+    * [Plaid Link troubleshooting](https://plaid.com/docs/link/troubleshooting/)
+    * [SVIX webhook documentation](https://docs.svix.com/receiving/introduction)
+  
+  </Tab>
+  <Tab title="Unit">
+
+    We have an integration with Unit so that we can do the work of automatically fetching the transaction data from your Unit built banking 
+    products.
+
+    You will need to generate a token from Unit by logging in to the <a href="https://app.s.unit.sh/api-tokens">API tokens page</a> in 
+    the Unit dashboard. We requires a token with read permission for transactions.
+
+    Once you have this token you can paste it into our [Developer Portal integrations page](https://developer.teal.dev/integrations). 
+    and immediately be able to work with Sandbox data from Unit in Teal. 
+
+    Please note that in order to work with production data from Unit in Teal, you will need to contact Unit to enable production data 
+    access. Generally speaking, Unit will need to contact your sponsoring bank to get their explicit permission before granting access 
+    to production data to any 3rd parties such as Teal.
+
+  </Tab>
+  <Tab title="Stripe Treasury">
+    Stripe Treasury currently does not support data access for 3rd parties such as Teal, however, they currently have partner tokens in 
+    active development. For an update on timelines, please reach out to your Stripe Treasury support contact.
+
+    In the mean time, you can still submit transactions to Teal directly by using the 
+    [Create Transactions endpoint](/api-reference/transactions/create-transactions). See the [submitting transactions guide](/accounting_package/platform_gl/transactions/submitting) 
+    for details on how to proceed.
+
+  </Tab>
+</Tabs>

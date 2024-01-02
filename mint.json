@@ -1,5 +1,16 @@
 {
   "$schema": "https://mintlify.com/schema.json",
+  "anchors": [
+    {
+      "color": {
+        "from": "#115e59",
+        "to": "#0d9488"
+      },
+      "icon": "code",
+      "name": "API Reference",
+      "url": "api-reference"
+    }
+  ],
   "api": {
     "auth": {
       "method": "bearer"
@@ -13,14 +24,9 @@
     },
     "dark": "#18181B",
     "light": "#5EEAD4",
-    "primary": "#5EEAD4"
+    "primary": "#115e59"
   },
   "favicon": "/favicon.png",
-  "footerSocials": {
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch",
-    "twitter": "https://twitter.com/mintlify"
-  },
   "logo": {
     "dark": "/logo/dark.svg",
     "href": "https://teal.dev",
@@ -33,106 +39,76 @@
   "name": "Teal",
   "navigation": [
     {
-      "group": "Getting started",
+      "group": "",
+      "pages": ["guides/introduction/about_teal"]
+    },
+    {
+      "group": "Accouting Basics",
       "pages": [
-        "getting_started/what_is_teal",
-        "getting_started/setup",
-        "getting_started/quickstart",
-        "getting_started/core_accounting_concepts",
+        "guides/introduction/accounting_basics/statements",
+        "guides/introduction/accounting_basics/transactions",
+        "guides/introduction/accounting_basics/accounting_cycle",
+        "guides/introduction/accounting_basics/core_concepts"
+      ]
+    },
+    {
+      "group": "Getting Started",
+      "pages": ["guides/getting_started/initial_setup"]
+    },
+    {
+      "group": "Platforms",
+      "pages": [
+        "guides/platforms/platform_settings",
+        "guides/platforms/auto_categorization"
+      ]
+    },
+    {
+      "group": "Instances",
+      "pages": [
+        "guides/instances/creating_instances",
+        "guides/instances/data_sources",
         {
-          "group": "API overview",
-          "icon": "gear-code",
+          "group": "Accounting packages",
           "pages": [
-            "getting_started/api_design/authentication",
-            "getting_started/api_design/pagination",
-            "getting_started/api_design/instances"
+            "guides/instances/accounting_packages/platform_gl",
+            "guides/instances/accounting_packages/quickbooks"
           ]
         }
       ]
     },
     {
-      "group": "Accounting packages",
+      "group": "Core flows",
       "pages": [
-        "accounting_package/overview",
-        "accounting_package/add_instance",
-        {
-          "group": "PlatformGL",
-          "pages": [
-            "accounting_package/platform_gl/what_is_pgl",
-            "accounting_package/platform_gl/configuration/chart_of_accounts_config",
-            {
-              "group": "Quick start guides",
-              "pages": [
-                "accounting_package/platform_gl/quick_start/quickstart_pgl",
-                "accounting_package/platform_gl/quick_start/quickstart_pgl_2"
-              ]
-            }
-          ]
-        },
-        {
-          "group": "QuickBooks",
-          "pages": [
-            "accounting_package/quickbooks/overview",
-            "accounting_package/quickbooks/app_config"
-          ]
-        },
-        {
-          "group": "Xero",
-          "pages": ["accounting_package/xero/coming_soon"]
-        }
+        "guides/core_flows/overview",
+        "guides/core_flows/integrating_data_sources",
+        "guides/core_flows/reviewing_transactions",
+        "guides/core_flows/displaying_ledgers",
+        "guides/core_flows/basic_income_statement",
+        "guides/core_flows/basic_balance_sheet",
+        "guides/core_flows/basic_cashflow_statement"
       ]
     },
     {
-      "group": "Working with transactions",
+      "group": "Advanced flows",
       "pages": [
-        "accounting_package/platform_gl/transactions/overview",
-        {
-          "group": "Submitting transactions",
-          "pages": [
-            "accounting_package/platform_gl/transactions/submitting_transactions/create_ledger",
-            "accounting_package/platform_gl/transactions/submitting_transactions/submitting",
-            "accounting_package/platform_gl/transactions/submitting_transactions/tagging",
-            "accounting_package/platform_gl/transactions/opening_balances"
-          ]
-        },
-        "accounting_package/platform_gl/transactions/data_integrations",
-        "accounting_package/platform_gl/configuration/categorization_config"
+        "guides/advanced_flows/editing_transactions",
+        "guides/advanced_flows/displaying_journal_entries",
+        "guides/advanced_flows/editing_journal_entries",
+        "guides/advanced_flows/reporting_with_tags",
+        "guides/advanced_flows/charts"
       ]
     },
     {
-      "group": "Generating charts & reports",
+      "group": "API overview",
       "pages": [
-        "reports/overview",
-        {
-          "group": "Reports",
-          "pages": [
-            "reports/cash_flow",
-            "reports/income_statement",
-            "reports/balance_sheet",
-            "reports/ledger_statement",
-            "reports/general_ledger",
-            "reports/enriching"
-          ]
-        },
-        {
-          "group": "Charts",
-          "pages": ["reports/coming_soon"]
-        }
+        "api-reference/api_design/authentication",
+        "api-reference/api_design/pagination",
+        "api-reference/api_design/instances"
       ]
     },
     {
-      "group": "Building complex interfaces",
+      "group": "Core Resources",
       "pages": [
-        "interfaces/reports",
-        "interfaces/reviewing_transactions",
-        "interfaces/journal_entry",
-        "interfaces/excel_export"
-      ]
-    },
-    {
-      "group": "Teal API Endpoints",
-      "pages": [
-        "api-reference/authentication",
         {
           "group": "Instances",
           "pages": [
@@ -154,8 +130,16 @@
           ]
         },
         {
-          "group": "Platform",
-          "pages": ["api-reference/platform/get-platform"]
+          "group": "Ledgers",
+          "pages": [
+            "api-reference/ledgers/get-ledgers",
+            "api-reference/ledgers/create-ledger",
+            "api-reference/ledgers/update-ledger",
+            "api-reference/ledgers/delete-ledger",
+            "api-reference/ledgers/set-ledger-opening-balance",
+            "api-reference/ledgers/refresh-ledger-transactions",
+            "api-reference/ledgers/check-if-a-ledger-is-balanced"
+          ]
         },
         {
           "group": "Line Entries",
@@ -167,45 +151,8 @@
           ]
         },
         {
-          "group": "Transaction Sources",
-          "pages": [
-            "api-reference/transaction-sources/link-unit-account",
-            "api-reference/transaction-sources/link-plaid-account",
-            "api-reference/transaction-sources/get-plaid-link-statuses"
-          ]
-        },
-        {
-          "group": "Chart of Accounts Templates",
-          "pages": [
-            "api-reference/chart-of-accounts-templates/create-coa-template",
-            "api-reference/chart-of-accounts-templates/get-coa-templates",
-            "api-reference/chart-of-accounts-templates/get-coa-template",
-            "api-reference/chart-of-accounts-templates/delete-coa-template",
-            "api-reference/chart-of-accounts-templates/clone-coa-template",
-            "api-reference/chart-of-accounts-templates/create-ledger-template",
-            "api-reference/chart-of-accounts-templates/update-coa-ledger-template",
-            "api-reference/chart-of-accounts-templates/delete-ledger-template"
-          ]
-        },
-        {
-          "group": "Categorization",
-          "pages": [
-            "api-reference/categorization/get-rules",
-            "api-reference/categorization/create-rule",
-            "api-reference/categorization/delete-rule"
-          ]
-        },
-        {
-          "group": "Ledgers",
-          "pages": [
-            "api-reference/ledgers/get-ledgers",
-            "api-reference/ledgers/create-ledger",
-            "api-reference/ledgers/update-ledger",
-            "api-reference/ledgers/delete-ledger",
-            "api-reference/ledgers/set-ledger-opening-balance",
-            "api-reference/ledgers/refresh-ledger-transactions",
-            "api-reference/ledgers/check-if-a-ledger-is-balanced"
-          ]
+          "group": "Platform",
+          "pages": ["api-reference/platform/get-platform"]
         },
         {
           "group": "Reports",
@@ -236,6 +183,45 @@
           ]
         },
         {
+          "group": "Transaction Sources",
+          "pages": [
+            "api-reference/transaction-sources/link-unit-account",
+            "api-reference/transaction-sources/link-plaid-account",
+            "api-reference/transaction-sources/get-plaid-link-statuses"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "PlatformGL",
+      "pages": [
+        {
+          "group": "Chart of Accounts Templates",
+          "pages": [
+            "api-reference/chart-of-accounts-templates/create-coa-template",
+            "api-reference/chart-of-accounts-templates/get-coa-templates",
+            "api-reference/chart-of-accounts-templates/get-coa-template",
+            "api-reference/chart-of-accounts-templates/delete-coa-template",
+            "api-reference/chart-of-accounts-templates/clone-coa-template",
+            "api-reference/chart-of-accounts-templates/create-ledger-template",
+            "api-reference/chart-of-accounts-templates/update-coa-ledger-template",
+            "api-reference/chart-of-accounts-templates/delete-ledger-template"
+          ]
+        },
+        {
+          "group": "Categorization",
+          "pages": [
+            "api-reference/categorization/get-rules",
+            "api-reference/categorization/create-rule",
+            "api-reference/categorization/delete-rule"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Third party connections",
+      "pages": [
+        {
           "group": "Quickbooks",
           "pages": [
             "api-reference/quickbooks/generate-quickbooks-auth-link",
@@ -246,12 +232,10 @@
       ]
     }
   ],
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
+  "topAnchor": {
+    "icon": "compass",
+    "name": "Guides"
+  },
   "topbarCtaButton": {
     "name": "Developer Portal",
     "url": "https://developer.teal.dev"

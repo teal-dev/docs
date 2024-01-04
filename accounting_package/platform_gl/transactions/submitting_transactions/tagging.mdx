@@ -1,9 +1,93 @@
 ---
-title: Attaching metatags
-description: "Setting up metatags for advanced reporting."
-icon: #"tags"
+title: Tagging
+description: Use tags to give users advanced reporting
 ---
 
-Teal allows you to attach metatags to transactions and line entries to allow advanced reporting. For example, transactions can be tagged to a location, employee, or project. This allows you to generate reports on specific tags, for example, generating an income statement for a specific location or project.
+## Overview 
 
-This feature is currently in development. Please contact us if you would like to use this feature before Q4 2023.
+Tags give your users to the ability filter their accounting reports by customizable groups, offering a more detailed and granular view of their business. Whether it's tracking profitability by job, assessing overall performance by location, or managing fund tracking, Tags provide a flexible solution for various segment tracking use cases.
+
+You can create Platform-level Tag Groups, such as "customer", and allow your users to manage their own specific values, such as the names of their various customers. Once set up, users can assign these tags to their transactions, similar to assigning categories. Users can then filter their accounting reports by specific tags. 
+
+<Note>
+    This feature is currently in beta. For more information on how to leverage Tags in your accounting product or to share your feedback, please reach out to your Teal contact.
+</Note>
+
+### Use cases
+
+Tags are highly customizable and are built to be tailored to the important use case(s) of your users. Visit your demo to see tags in action. If you don't have access to a demo instance, please [contact us](https://teal.dev/contact). 
+
+### Disambiguation
+
+Though similar in nomenclature, Tags are not to be confused with categories. A category refers to the specific Ledger that a Transaction belongs to, while a Tag is a piece of optional metadata that provides enhanced filtering and search capabilities and helps provide enhanced financial insights. 
+
+---
+
+## Prerequisites
+
+Tags are only available for Tier 3 Instances using PlatformGL. Please [contact us](https://teal.dev/contact) for more information about Instance pricing tiers.
+
+---
+
+## Steps
+
+This guide walks you through the necessary steps to set up Tags for your Platform, creating tags for Instances to use, applying Tags to resources, and filtering reports with Tags.
+
+### 1. Define Tag Groups
+
+The organization of tags is controlled at the Platform level through Tag Groups, a set of pre-defined buckets whose Tags are mutually exclusive. 
+
+Create Tag Groups using the [Create Tag Group](/api-reference/tags/create-tag-group) endpoint. Because Tag Groups are shared by all Instances, we encourage you to use only a few generalized groups that describe how businesses using your platform need to filter their data.
+
+For example, a chain of hardware stores might want to filter their data by location or a contractor might want to filter based on a specific job. Job and location are both good Tag Groups because these both help business get deeper insights into their financial reports while not being so specific that some businesses may not find it helpful.
+
+### 2. Create Tags for Instances
+
+With the Tag Groups created, an Instance needs tags to assign to resources. You can either pre-define an Instance's Tags or allow them to create their their own. In either case, use the [Add Instance Tag](/api-reference/tags/add-an-instance-tag) endpoint and passing along the `name` and `tag_group_id`. 
+
+If you allow Instances to create their own tags, we recommend that you place this flow on a settings page or as a part of their account set up.
+
+### 3. Tagging resources
+
+After an Instance has defined their Tags, they can be used for tagging Transactions, Journal Entry and Line Entry resources. 
+
+#### Tagging Transactions
+
+Both the [Create Transactions](/api-reference/transactions/create-transactions) and the [Update Transaction](/api-reference/transactions/update-transaction) endpoints accept a parameter `tag_ids`. When a Transaction is processed through either method, all of the corresponding Line Entries will recursively be tagged with these values.
+
+#### Tagging Journal Entries
+
+Both the [Create Journal Entry](/api-reference/journal-entries/create-journal-entry) and [Update Journal Entry](/api-reference/journal-entries/update-journal-entry) endpoints accept a parameter `tag_ids`. When a Journal Entry is processed through either method, these Tags will be applied to *all* Line Entries included in the Journal Entry.
+
+#### Tagging Line Entries
+
+To update the Tags on a specific Line Entry, use the [Update Line Entry](/api-reference/line-entries/update-line-entry) endpoint. Unlike Journal Entries or Transactions, Line Entries may only have 1 tag per Tag Group.
+
+<Warning>
+    Warning! If you update the Tags for one side of the line-entry, but not the other, you can end up with unbalanced results when filtering reports. 
+</Warning>
+
+### 4. Filtering reports with tags
+
+After tags are applied to transactions, then can be used to filter reports. Currently, the following reports support filtering using Tags:
+
+* [Income Statement](/api-reference/reports/get-income-statement)
+* [Balance Sheet](/api-reference/reports/get-balance-sheet)
+* [Ledger Statement](/api-reference/reports/get-ledger-statement)
+* [Cash Flow Report](/api-reference/reports/get-cash-flow-report)
+* [Cash Flow Totals](/api-reference/reports/get-cash-flow-totals-by-period)
+* [Top Expenses](/api-reference/reports/get-top-expenses)
+* [Net Profit by Period](/api-reference/reports/get-net-profit-by-period)
+* [Gross Profit by Period](/api-reference/reports/get-gross-profit-by-period)
+* [Financial Summariesby Period](/api-reference/reports/get-financial-summaries-by-period)
+
+Each of these reports accepts a parameter `tag_ids`, which correspond to the selected tags. When one or more `tag_id`s are specified, the report is calculated only using Line Entries that have *all* of the given tags.
+
+---
+
+## Resources
+
+* [Create Tag Group endpoint](/api-reference/tags/create-tag-group)
+* [Add Instance Tag endpoint](/api-reference/tags/add-an-instance-tag)
+* [Create Transactions](/api-reference/transactions/create-transactions) and [Update Transactions](/api-reference/transactions/update-transaction) endpoints
+

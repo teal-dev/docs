@@ -93,10 +93,10 @@
           "pages": [
             "accounting_package/platform_gl/transactions/submitting_transactions/create_ledger",
             "accounting_package/platform_gl/transactions/submitting_transactions/submitting",
-            "accounting_package/platform_gl/transactions/submitting_transactions/tagging",
             "accounting_package/platform_gl/transactions/opening_balances"
           ]
         },
+        "accounting_package/platform_gl/transactions/tagging",
         "accounting_package/platform_gl/transactions/data_integrations",
         "accounting_package/platform_gl/configuration/categorization_config"
       ]
@@ -233,7 +233,7 @@
             "api-reference/transactions/get-transactions",
             "api-reference/transactions/get-transaction-processing-status",
             "api-reference/transactions/delete-transaction",
-            "api-reference/transactions/update-transaction-status",
+            "api-reference/transactions/update-transaction",
             "api-reference/transactions/get-categorized-transactions",
             "api-reference/transactions/get-transaction-categories",
             "api-reference/transactions/recategorize-transaction"
@@ -245,6 +245,19 @@
             "api-reference/quickbooks/generate-quickbooks-auth-link",
             "api-reference/quickbooks/link-account",
             "api-reference/quickbooks/force-transaction-sync"
+          ]
+        },
+        {
+          "group": "Tags",
+          "pages": [
+            "api-reference/tags/get-tag-groups",
+            "api-reference/tags/create-tag-group",
+            "api-reference/tags/delete-tag-group",
+            "api-reference/tags/update-tag-group",
+            "api-reference/tags/get-instance-tags",
+            "api-reference/tags/add-an-instance-tag",
+            "api-reference/tags/delete-an-instance-tag",
+            "api-reference/tags/update-an-instance-tag"
           ]
         }
       ]

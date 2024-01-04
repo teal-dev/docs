@@ -93,10 +93,10 @@
           "pages": [
             "accounting_package/platform_gl/transactions/submitting_transactions/create_ledger",
             "accounting_package/platform_gl/transactions/submitting_transactions/submitting",
-            "accounting_package/platform_gl/transactions/submitting_transactions/tagging",
             "accounting_package/platform_gl/transactions/opening_balances"
           ]
         },
+        "accounting_package/platform_gl/transactions/tagging",
         "accounting_package/platform_gl/transactions/data_integrations",
         "accounting_package/platform_gl/configuration/categorization_config"
       ]

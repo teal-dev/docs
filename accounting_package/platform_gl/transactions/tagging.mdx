@@ -19,7 +19,7 @@ Tags are highly customizable and are built to be tailored to the important use c
 
 ### Disambiguation
 
-Though similar in nomenclature, **Tags** are not to be confused with **categories**. A category is an accounting ledger assigned to a line entry (and, by extension, a transction), while a Tag is a piece of optional metadata that provides enhanced filtering and search capabilities and helps provide financial insights.x
+Though similar in nomenclature, **Tags** are not to be confused with **categories**. A category is an accounting ledger assigned to a line entry (and, by extension, a transction), while a Tag is a piece of optional metadata that provides enhanced filtering and search capabilities and helps provide financial insights.
 
 ---
 
@@ -48,30 +48,30 @@ With the Tag Groups created, an Instance needs Tags to assign to resources. You 
 If you allow Instances to create their own tags, we recommend that you place this flow on a settings page or as a part of their account set up.
 
 ### 3. Applying Tags
-
-Tags are fundamentally an attribute of Line Entries, but because users tend to think of line entries and transactions interchangably, we provide a few ways of accessing Tags: via Transaction, Journal Entry, and Line Entry endpoints.
-
-Tags can also be added via each of these endpoints, but each method has important and different results.
+ 
+When a user applies Tags to a Transaction, under the hood they are applying Tags to the line entries associated to the transaction. To make referencing tags easier, there are three ways to list and apply tags: via transactions, journal entries, or line entries.
 
 #### Tagging Transactions
 
-You can assign Tags via the [Create Transactions](/api-reference/transactions/create-transactions) and the [Update Transaction](/api-reference/transactions/update-transaction) endpoints by passing ids of each tag into `tag_ids`. 
+You can assign Tags via the [Create Transactions](/api-reference/transactions/create-transactions) and the [Update Transaction](/api-reference/transactions/update-transaction) endpoints by passing ids of each tag into `tag_ids`. Using either of these methods will apply the Tags to all of the Line Entries connected to the Transaction. 
 
-Using either of these methods will apply the tag to all of the Line Entries connected to the Transaction. 
+Use the [Get Transactions](/api-reference/transactions/get-transactions) endpoint to list all of the tags on all of the line entries associated with that Transaction.
 
 #### Tagging Journal Entries
 
-Both the [Create Journal Entry](/api-reference/journal-entries/create-journal-entry) and [Update Journal Entry](/api-reference/journal-entries/update-journal-entry) endpoints accept a parameter `tag_ids`. 
+Both the [Create Journal Entry](/api-reference/journal-entries/create-journal-entry) and [Update Journal Entry](/api-reference/journal-entries/update-journal-entry) endpoints accept a parameter `tag_ids`. Using either of these methods will apply the Tags to all of the line entries in the journal entry.
 
-When a Journal Entry is processed through either method, these Tags will be applied to all Line Entries included in the Journal Entry.
+Use the [Get Journal Entry](/api-reference/journal-entries/get-journal-entry) endpoint to list all of the tags on all of the line entries contained within that journal entry.
 
 #### Tagging Line Entries
 
-To update the Tags on a specific Line Entry, use the [Update Line Entry](/api-reference/line-entries/update-line-entry) endpoint. Unlike Journal Entries or Transactions, Line Entries may only have 1 tag per Tag Group.
+To update the Tags on a specific Line Entry, use the [Update Line Entry](/api-reference/line-entries/update-line-entry) endpoint.
 
 <Warning>
     Warning! If you update the Tags for one side of the line entry, but not the other, you can end up with unbalanced results when filtering reports.
 </Warning>
+
+Listing Tags using the [Get Ledger Line Entry](/api-reference/line-entries/get-ledger-line-entries) endpoint will list _only_ the tags applied to that specific line entry.
 
 ### 4. Filtering reports with tags
 

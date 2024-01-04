@@ -1,13 +1,13 @@
 ---
 title: Tagging
-description: Use tags to give users advanced reporting
+description: Provide financial insights and segmented reporting using Tags
 ---
 
 ## Overview 
 
-Tags give your users to the ability filter their accounting reports by customizable groups, offering a more detailed and granular view of their business. Whether it's tracking profitability by job, assessing overall performance by location, or managing fund tracking, Tags provide a flexible solution for various segment tracking use cases.
+Tags give your users to the ability filter their accounting reports by customizable groups, offering a more detailed and granular view of their business. Whether tracking profitability by job, assessing overall performance by location, or managing fund tracking, Tags provide a flexible solution for various segment tracking use cases.
 
-You can create Platform-level Tag Groups, such as "customer", and allow your users to manage their own specific values, such as the names of their various customers. Once set up, users can assign these tags to their transactions, similar to assigning categories. Users can then filter their accounting reports by specific tags. 
+You can create Platform-level Tag Groups, such as "customer", and allow Instances to manage their own values, such as the names of their various customers. Once set up, users can assign these tags to their transactions, similar to assigning categories. Users can then filter their accounting reports by specific tags. 
 
 <Note>
     This feature is currently in beta. For more information on how to leverage Tags in your accounting product or to share your feedback, please reach out to your Teal contact.
@@ -19,13 +19,13 @@ Tags are highly customizable and are built to be tailored to the important use c
 
 ### Disambiguation
 
-Though similar in nomenclature, Tags are not to be confused with categories. A category refers to the specific Ledger that a Transaction belongs to, while a Tag is a piece of optional metadata that provides enhanced filtering and search capabilities and helps provide enhanced financial insights. 
+Though similar in nomenclature, **Tags** are not to be confused with **categories**. A category refers to the specific Ledger that a Transaction belongs to, while a Tag is a piece of optional metadata that provides enhanced filtering and search capabilities and helps provide financial insights. 
 
 ---
 
 ## Prerequisites
 
-Tags are only available for Tier 3 Instances using PlatformGL. Please [contact us](https://teal.dev/contact) for more information about Instance pricing tiers.
+Tags are only available for Tier 3 Instances using PlatformGL. Please [contact us](https://teal.dev/contact) for more information about Instance tiers.
 
 ---
 
@@ -35,7 +35,7 @@ This guide walks you through the necessary steps to set up Tags for your Platfor
 
 ### 1. Define Tag Groups
 
-The organization of tags is controlled at the Platform level through Tag Groups, a set of pre-defined buckets whose Tags are mutually exclusive. 
+The organization of tags is controlled at the Platform level through Tag Groups, a set of pre-defined buckets that have many Tags. 
 
 Create Tag Groups using the [Create Tag Group](/api-reference/tags/create-tag-group) endpoint. Because Tag Groups are shared by all Instances, we encourage you to use only a few generalized groups that describe how businesses using your platform need to filter their data.
 
@@ -43,7 +43,7 @@ For example, a chain of hardware stores might want to filter their data by locat
 
 ### 2. Create Tags for Instances
 
-With the Tag Groups created, an Instance needs tags to assign to resources. You can either pre-define an Instance's Tags or allow them to create their their own. In either case, use the [Add Instance Tag](/api-reference/tags/add-an-instance-tag) endpoint and passing along the `name` and `tag_group_id`. 
+With the Tag Groups created, an Instance needs Tags to assign to resources. You can either pre-define an Instance's Tags or allow them to create their their own. In either case, use the [Add Instance Tag](/api-reference/tags/add-an-instance-tag) endpoint and passing along the `name` and `tag_group_id`. 
 
 If you allow Instances to create their own tags, we recommend that you place this flow on a settings page or as a part of their account set up.
 
@@ -64,12 +64,12 @@ Both the [Create Journal Entry](/api-reference/journal-entries/create-journal-en
 To update the Tags on a specific Line Entry, use the [Update Line Entry](/api-reference/line-entries/update-line-entry) endpoint. Unlike Journal Entries or Transactions, Line Entries may only have 1 tag per Tag Group.
 
 <Warning>
-    Warning! If you update the Tags for one side of the line-entry, but not the other, you can end up with unbalanced results when filtering reports. 
+    Warning! If you update the Tags for one side of the line entry, but not the other, you can end up with unbalanced results when filtering reports.
 </Warning>
 
 ### 4. Filtering reports with tags
 
-After tags are applied to transactions, then can be used to filter reports. Currently, the following reports support filtering using Tags:
+After tags are applied, they can be used to filter reports. Currently, the following reports support filtering using Tags:
 
 * [Income Statement](/api-reference/reports/get-income-statement)
 * [Balance Sheet](/api-reference/reports/get-balance-sheet)
@@ -90,4 +90,6 @@ Each of these reports accepts a parameter `tag_ids`, which correspond to the sel
 * [Create Tag Group endpoint](/api-reference/tags/create-tag-group)
 * [Add Instance Tag endpoint](/api-reference/tags/add-an-instance-tag)
 * [Create Transactions](/api-reference/transactions/create-transactions) and [Update Transactions](/api-reference/transactions/update-transaction) endpoints
+* [Create Journal Entry](/api-reference/journal-entries/create-journal-entry) and [Update Journal Entry](/api-reference/journal-entries/update-journal-entry)
+* [Update Line Entry](/api-reference/line-entries/update-line-entry)
 

@@ -19,7 +19,7 @@ Tags are highly customizable and are built to be tailored to the important use c
 
 ### Disambiguation
 
-Though similar in nomenclature, **Tags** are not to be confused with **categories**. A category refers to the specific Ledger that a Transaction belongs to, while a Tag is a piece of optional metadata that provides enhanced filtering and search capabilities and helps provide financial insights. 
+Though similar in nomenclature, **Tags** are not to be confused with **categories**. A category is an accounting ledger assigned to a line entry (and, by extension, a transction), while a Tag is a piece of optional metadata that provides enhanced filtering and search capabilities and helps provide financial insights.x
 
 ---
 
@@ -47,17 +47,23 @@ With the Tag Groups created, an Instance needs Tags to assign to resources. You 
 
 If you allow Instances to create their own tags, we recommend that you place this flow on a settings page or as a part of their account set up.
 
-### 3. Tagging resources
+### 3. Applying Tags
 
-After an Instance has defined their Tags, they can be used for tagging Transactions, Journal Entry and Line Entry resources. 
+Tags are fundamentally an attribute of Line Entries, but because users tend to think of line entries and transactions interchangably, we provide a few ways of accessing Tags: via Transaction, Journal Entry, and Line Entry endpoints.
+
+Tags can also be added via each of these endpoints, but each method has important and different results.
 
 #### Tagging Transactions
 
-Both the [Create Transactions](/api-reference/transactions/create-transactions) and the [Update Transaction](/api-reference/transactions/update-transaction) endpoints accept a parameter `tag_ids`. When a Transaction is processed through either method, all of the corresponding Line Entries will recursively be tagged with these values.
+You can assign Tags via the [Create Transactions](/api-reference/transactions/create-transactions) and the [Update Transaction](/api-reference/transactions/update-transaction) endpoints by passing ids of each tag into `tag_ids`. 
+
+Using either of these methods will apply the tag to all of the Line Entries connected to the Transaction. 
 
 #### Tagging Journal Entries
 
-Both the [Create Journal Entry](/api-reference/journal-entries/create-journal-entry) and [Update Journal Entry](/api-reference/journal-entries/update-journal-entry) endpoints accept a parameter `tag_ids`. When a Journal Entry is processed through either method, these Tags will be applied to *all* Line Entries included in the Journal Entry.
+Both the [Create Journal Entry](/api-reference/journal-entries/create-journal-entry) and [Update Journal Entry](/api-reference/journal-entries/update-journal-entry) endpoints accept a parameter `tag_ids`. 
+
+When a Journal Entry is processed through either method, these Tags will be applied to all Line Entries included in the Journal Entry.
 
 #### Tagging Line Entries
 

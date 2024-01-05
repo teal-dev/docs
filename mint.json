@@ -248,7 +248,7 @@
           ]
         },
         {
-          "group": "Tags",
+          "group": "Tags (beta)",
           "pages": [
             "api-reference/tags/get-tag-groups",
             "api-reference/tags/create-tag-group",

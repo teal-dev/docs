@@ -53,19 +53,19 @@ When a user applies Tags to a Transaction, under the hood they are applying Tags
 
 #### Tagging Transactions
 
-You can assign Tags via the [Create Transactions](/api-reference/transactions/create-transactions) and the [Update Transaction](/api-reference/transactions/update-transaction) endpoints by passing ids of each tag into `tag_ids`. Using either of these methods will apply the Tags to all Line Entries connected to the Transaction.
+You can assign Tags via the [Create Transactions](/api-reference/transactions/create-transactions) and the [Update Transaction](/api-reference/transactions/update-transaction) endpoints by passing ids of each Tag into `tag_ids`. Using either of these methods will apply the Tags to all Line Entries connected to the Transaction.
 
 Use the [Get Transactions](/api-reference/transactions/get-transactions) endpoint to list all Tags on all Line Entries associated with that Transaction.
 
 #### Tagging Journal Entries
 
-Both the [Create Journal Entry](/api-reference/journal-entries/create-journal-entry) and [Update Journal Entry](/api-reference/journal-entries/update-journal-entry) endpoints accept a parameter `tag_ids`. Using either of these methods will apply the Tags to all Line Entries in the Journal Entry.
+Both the [Create Journal Entry](/api-reference/journal-entries/create-journal-entry) and [Update Journal Entry](/api-reference/journal-entries/update-journal-entry) endpoints by passing `id`s of each Tag into `tag_ids`. Using either of these methods will apply the Tags to all Line Entries in the Journal Entry.
 
 Use the [Get Journal Entry](/api-reference/journal-entries/get-journal-entry) endpoint to list all tags on all Line Entries contained within that Journal Entry.
 
 #### Tagging Line Entries
 
-Use the [Update Line Entry](/api-reference/line-entries/update-line-entry) endpoint to update the Tags on a specific Line Entry.
+Use the [Update Line Entry](/api-reference/line-entries/update-line-entry) endpoint by passing ids of each `Tag` into `tag_ids` to update the Tags on a specific Line Entry.
 
 <Warning>
     Warning! If you update the Tags for one side of the line entry, but not the other, you can end up with unbalanced results when filtering reports.
